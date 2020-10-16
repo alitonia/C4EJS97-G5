@@ -1,0 +1,11 @@
+.heading{
+    display: flex;
+}
+
+.left-side-buttons{
+    display: flex;
+}
+
+.right-side-buttons{
+    display: flex;
+}

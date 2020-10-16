@@ -3,11 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>iNotes</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/0587982e73.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>ahihi</h1>
+    <div class="main">
+        <div class="heading">
+            <div class="left-side-buttons">
+                <div class="button list-button">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="button new-folder-button">
+                    <i class="fas fa-plus-square"></i>
+                </div>
+                <div class="button new-article-button">
+                    <i class="fas fa-file"></i>
+                </div>
+            </div>
+
+            <div class="web-name">iNotes</div>
+
+            <div class="right-side-buttons">
+                <div class="button search-button">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="button user-button">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="body">
+            <div class="folder-list-zone">
+                <ul class="folder-list"></ul>
+            </div>
+            <div class="article-zone">
+                <div class="article-list"></div>
+                <div class="article-detail"></div>
+            </div>
+        </div>
+    </div>
     <script src="aims.js"></script>
 </body>
 </html>
