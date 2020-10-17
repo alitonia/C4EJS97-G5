@@ -1,11 +1,11 @@
-.heading{
-    display: flex;
+/* .container{
+    background-image: url("imgs/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
 }
 
-.left-side-buttons{
-    display: flex;
-}
-
-.right-side-buttons{
-    display: flex;
-}
+body{
+    background-color: #87c3ce;
+} */
