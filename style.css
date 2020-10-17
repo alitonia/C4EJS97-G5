@@ -1,11 +1,20 @@
-.heading{
-    display: flex;
+.btn{
+    color: white;
+    font-size: 20px;
 }
 
-.left-side-buttons{
-    display: flex;
+.repo-zone{
+    width: 15%;
+    height: 93vh;
+    position: fixed;
 }
 
-.right-side-buttons{
-    display: flex;
+.detail-zone{
+    width: auto;
+    height: 93vh;
+    position: relative;
+}
+
+.main{
+    overflow-y: auto;
 }
