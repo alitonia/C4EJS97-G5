@@ -3,8 +3,6 @@ function displayRepository() {
     let detailZone = document.getElementsByClassName("detail-zone")[0];
     if (repoZone.style.display === "none") {
         repoZone.style.display = "block";
-        repoZone.classList.remove("slideOutLeft");
-        repoZone.classList.add("slideInLeft");
         detailZone.style.width = "80vw";
         detailZone.style.float = "right";
         return;
