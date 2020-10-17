@@ -1,0 +1,25 @@
+.btn{
+    color: white;
+    font-size: 20px;
+}
+
+.repo-zone{
+    width: 20vw;
+    height: 93vh;
+    float: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    position: fixed;
+}
+
+.detail-zone{
+    width: auto;
+    height: 93vh;
+    position: relative;
+}
+
+.main{
+    overflow-y: auto;
+    padding-left: 0;
+}
