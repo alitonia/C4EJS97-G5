@@ -1,11 +1,17 @@
-/* .container{
-    background-image: url("imgs/background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    width: 100%;
+.btn{
+    color: white;
+    font-size: 20px;
 }
 
-body{
-    background-color: #87c3ce;
-} */
+.repo-zone{
+    width: 20%;
+    height: 100vh;
+    position: fixed;
+}
+
+.detail-zone{
+    width: auto;
+    height: 100vh;
+    position: relative;
+    overflow-y: auto;
+}
