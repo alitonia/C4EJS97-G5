@@ -4,8 +4,9 @@
 }
 
 .repo-zone{
-    width: 15%;
+    width: 20vw;
     height: 93vh;
+    float: left;
     position: fixed;
 }
 
@@ -17,4 +18,5 @@
 
 .main{
     overflow-y: auto;
+    padding-left: 0;
 }
