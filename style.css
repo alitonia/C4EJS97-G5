@@ -7,6 +7,9 @@
     width: 20vw;
     height: 93vh;
     float: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
     position: fixed;
 }
 
