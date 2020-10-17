@@ -4,14 +4,17 @@
 }
 
 .repo-zone{
-    width: 20%;
-    height: 100vh;
+    width: 15%;
+    height: 93vh;
     position: fixed;
 }
 
 .detail-zone{
     width: auto;
-    height: 100vh;
+    height: 93vh;
     position: relative;
+}
+
+.main{
     overflow-y: auto;
 }
