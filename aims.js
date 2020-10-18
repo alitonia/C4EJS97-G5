@@ -131,7 +131,11 @@ class Note {
     }
 }
 
-let userAdmin = new User("admin", "123456");
+let name = "admin";
+let pw = "123456";
+let name2 = "long";
+let pw2 = "21122000"
+let userAdmin = new User(name, pw);
 let folder1 = new Folder("folder1");
 let folder2 = new Folder("folder2");
 let file1 = new File("file1");
@@ -143,16 +147,3 @@ file1.addNote(note2);
 folder1.addFile(file1);
 userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
-console.log(userAdmin.repository);
-
-function displayRepository() {
-    if (repoZone.style.display === "none") {
-        repoZone.style.display = "block";
-        detailZone.style.width = "80vw";
-        detailZone.style.float = "right";
-        return;
-    }
-    repoZone.style.display = "none";
-    detailZone.style.width = "auto";
-    detailZone.style.float = "none";
-}

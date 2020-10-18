@@ -1,9 +1,9 @@
-.btn{
+.btn {
     color: white;
     font-size: 20px;
 }
 
-.repo-zone{
+.repo-zone {
     width: 20vw;
     height: 93vh;
     float: left;
@@ -13,13 +13,13 @@
     position: fixed;
 }
 
-.detail-zone{
+.detail-zone {
     width: auto;
-    height: 93vh;
+    height: 100vh;
     position: relative;
 }
 
-.main{
+.main {
     overflow-y: auto;
     padding-left: 0;
 }

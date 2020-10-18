@@ -7,6 +7,7 @@
     <title>MyNotebook</title>
     <link rel="stylesheet" href="bootstrap-4\css\bootstrap.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="treeview.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css">
 </head>
@@ -32,28 +33,33 @@
     <div class="main">
         <div class="repo-zone border bg-light py-2 animated slideInLeft" style="display: none;">
             <ul class="repo-list">
-                <li class="folder all-notes"> All Notes
-                    <ul class="all-notes-list">
+                <li>
+                    <span class="folder all-notes"><i class="fas fa-angle-right"></i> All notes</span>
+                    <ul class="nested all-notes-list">
                         <li class="note">note</li>
                         <li class="note">note</li>
                         <li class="note">note</li>
                     </ul>
                 </li>
 
-                <li class="folder recent-notes"> Recent Notes
-                    <ul class="recent-notes-list"></ul>
+                <li>
+                    <span class="folder recent-notes"><i class="fas fa-angle-right"></i> Recent notes</span>
+                    <ul class="nested recent-notes-list"></ul>
                 </li>
 
-                <li class="folder"> Untitled Folder
-                    <ul class="folder-list">
-                        <li class="file">File1
-                            <ul class="file-list">
+                <li>
+                    <span class="folder"><i class="fas fa-angle-right"></i> Untitled folder</span>
+                    <ul class="nested folder-list">
+                        <li>
+                            <span class="file"><i class="fas fa-angle-right"></i> File1</span>
+                            <ul class="nested file-list">
                                 <li class="note">note</li>
                                 <li class="note">note</li>
                             </ul>
                         </li>
-                        <li class="file-list">File2
-                            <ul class="notes-list">
+                        <li>
+                            <span class="file"><i class="fas fa-angle-right"></i> File2</span>
+                            <ul class="nested notes-list">
                                 <li class="note">note</li>
                             </ul>
                         </li>
