@@ -36,6 +36,7 @@ class User {
     updateAllNotes() {
         // TO DO
     }
+    
     updateRecentNotes() {
         // TO DO
     }
