@@ -1,3 +1,21 @@
+function compareAlphabetically(a, b) {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+    let comparison = 0;
+    if (titleA > titleB) {
+      comparison = 1;
+    } else if (titleA < titleB) {
+      comparison = -1;
+    }
+    return comparison;
+  };
+
+  function compareTime(a,b){
+    return a.createdDate - b.createdDate;
+}
+
+
+
 class User {
     constructor(userName, password) {
         this.userName = userName;
@@ -19,24 +37,54 @@ class User {
     }
 
     sortByTitle(){
-        // TO DO
+        this.repository.sort(compareAlphabetically)
     }
 
     sortByCreatedDate(){
-        // TO DO
+        this.repository.sort(compareTime);
     }
 
     // Everytime an action of modification happens, we run these 2 methods
     updateAllNotes() {
-        // TO DO
+        this.allNoteList = [];
+        for (let i = 0; i < this.repository.length; i++) {
+            let folder = this.repository[i];
+            for (let j = 0; j < folder.fileList.length; j++) {
+                let file = folder.fileList[j];
+                for (let k = 0; k < file.noteList.length; k++) {
+                    let note = file.noteList[k];
+                    this.allNoteList.push(note)                   
+                }               
+            }        
+        }
     }
-    
     updateRecentNotes() {
-        // TO DO
+        let sortedAllNoteList = this.allNoteList;
+        sortedAllNoteList.sort(compareTime);
+        this.recentNoteList = [];
+        for (let i = 0; i < sortedAllNoteList.length; i++) {
+            if (i>10){
+                break;
+            }
+            let note = sortedAllNoteList[i];
+            this.recentNoteList.push(note);  
+        }
     }
 
     printRepository() {
         // TO DO
+    }
+
+    checkDuplicateFolder(input){
+        for (let i = 0; i < this.repository.length; i++) {
+            input = input.toLowerCase();
+            let folder = this.repository[i];
+            if (folder["title"].toLowerCase() === input){
+                console.log(`A folder named "${input}" has already exist`);
+                break;
+            } 
+            console.log(`There aren't folders that named "${input}"`);           
+        }
     }
 }
 
@@ -58,19 +106,33 @@ class Folder {
     }
 
     sortByTitle(){
-        // TO DO
+        this.fileList.sort(compareAlphabetically)
     }
 
     sortByCreatedDate(){
-        // TO DO
+        this.fileList.sort(compareTime);
     }
 
     moveFile(file, newFolder){
-        // TO DO
+        newFolder.addFile(file);
+        this.deleteFile(file);
+
     }
 
     printFolder() {
         // TO DO
+    }
+
+    checkDuplicateFile(input){
+        for (let i = 0; i < this.fileList.length; i++) {
+            input = input.toLowerCase();
+            let file = this.fileList[i];
+            if (file["title"].toLowerCase() === input){
+                console.log(`A file named "${input}" has already exist`);
+                break;
+            } 
+            console.log(`There aren't any files that named "${input}"`);           
+        }
     }
 }
 
@@ -91,8 +153,21 @@ class File {
         })
     }
 
+
     printFile() {
         // TO DO
+    }
+
+    checkDuplicateNote(input){
+        for (let i = 0; i < this.noteList.length; i++) {
+            input = input.toLowerCase();
+            let note = this.noteList[i];
+            if (note["title"].toLowerCase() === input){
+                console.log(`A note titled "${input}" has already exist`);
+                break;
+            } 
+            console.log(`There aren't any note that titled "${input}"`);           
+        }
     }
 }
 
@@ -110,15 +185,20 @@ class Note {
 }
 
 let userAdmin = new User("admin", "123456");
-let folder1 = new Folder("folder1");
+let folder1 = new Folder("Folder1");
 let folder2 = new Folder("folder2");
-let file1 = new File("file1");
+let file1 = new File("FiLe1");
+let file2 = new File("file2");
 let note1 = new Note('note1');
 let note2 = new Note('note2');
+let note3 = new Note('note3');
+
 
 file1.addNote(note1);
 file1.addNote(note2);
+file2.addNote(note3);
 folder1.addFile(file1);
+folder2.addFile(file2);
 userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
 

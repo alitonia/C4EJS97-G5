@@ -13,6 +13,7 @@ let newFilallNoteListZoneeBtn = document.getElementById("new-file-btn");
 let searchBtn = document.getElementById("search-btn");
 let userBtn = document.getElementById("user-btn");
 
+<<<<<<< HEAD
 function displayRepository(user) {
     if (repoZone.style.display === "none") {
         let allNoteList = user.allNoteList;
@@ -35,6 +36,11 @@ function displayRepository(user) {
             `
         }
 
+=======
+
+function displayRepository() {
+    if (repoZone.style.display === "none") {
+>>>>>>> fe42659bb9f75f6b9c75d0606e4d826f3985fca5
         repoZone.style.display = "block";
         detailZone.style.width = "80vw";
         detailZone.style.float = "right";
@@ -45,6 +51,7 @@ function displayRepository(user) {
     detailZone.style.float = "none";
 }
 
+<<<<<<< HEAD
 let nestedTogglers = document.getElementsByClassName("fa-angle-right");
 for (let i = 0; i < nestedTogglers.length; i++) {
     nestedTogglers[i].addEventListener("click", function () {
@@ -53,3 +60,6 @@ for (let i = 0; i < nestedTogglers.length; i++) {
     });
 }
 
+=======
+folderListBtn.addEventListener('click', displayRepository());
+>>>>>>> fe42659bb9f75f6b9c75d0606e4d826f3985fca5
