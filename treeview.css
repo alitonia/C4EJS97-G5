@@ -1,6 +1,7 @@
 ul {
     list-style-type: none;
-    padding-left: 16px;
+    padding: 0;
+    margin: 0;
     user-select: none;
 }
 
@@ -21,4 +22,20 @@ ul {
 
 .active {
     display: block;
+}
+
+.folder{
+    padding-left: 16px;
+}
+
+.file{
+    padding-left: 32px;
+}
+
+.note{
+    padding-left: 48px;
+}
+
+.folder:hover,.file:hover,.note:hover{
+    background-color: gainsboro;
 }
