@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="bootstrap-4\css\bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="treeview.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css">
 </head>
 
 <body>
     <nav class="navbar navbar-dark bg-secondary text-white sticky-top">
         <div class="left-btns btn-group">
-            <div class="btn fas fa-bars" id="folder-list-btn"></div>
+            <div class="btn fas fa-bars" id="folder-list-btn" onclick="displayRepository(currentUser)"></div>
             <div class="btn fas fa-plus" id="new-folder-btn"></div>
             <div class="btn fas fa-file" id="new-file-btn"></div>
         </div>
@@ -31,35 +31,35 @@
     </nav>
 
     <div class="main">
-        <div class="repo-zone border bg-light py-2 animated slideInLeft" style="display: none;">
+        <div class="repo-zone border bg-light py-2 animate__animated animate__slideInLeft" style="display: none;">
             <ul class="repo-list">
                 <li>
                     <div class="folder all-notes"><i class="fas fa-angle-right"></i> All notes</div>
-                    <ul class="nested all-notes-list animated slideInLeft">
+                    <ul class="hidden all-note-list animate__animated animate__slideInLeft">
+                        <!-- <li><div class="note">note</div></li>
                         <li><div class="note">note</div></li>
-                        <li><div class="note">note</div></li>
-                        <li><div class="note">note</div></li>
+                        <li><div class="note">note</div></li> -->
                     </ul>
                 </li>
 
                 <li>
                     <div class="folder recent-notes"><i class="fas fa-angle-right"></i> Recent notes</div>
-                    <ul class="nested recent-notes-list animated slideInLeft"></ul>
+                    <ul class="hidden recent-note-list animate__animated animate__slideInLeft"></ul>
                 </li>
 
                 <li>
                     <div class="folder"><i class="fas fa-angle-right"></i> Untitled folder</div>
-                    <ul class="nested folder-list animated slideInLeft">
+                    <ul class="hidden file-list animate__animated animate__slideInLeft">
                         <li>
                             <div class="file"><i class="fas fa-angle-right"></i> File1</div>
-                            <ul class="nested file-list animated slideInLeft">
+                            <ul class="hidden note-list animate__animated animate__slideInLeft">
                                 <li><div class="note">note</div></li>
                                 <li><div class="note">note</div></li>
                             </ul>
                         </li>
                         <li>
                             <div class="file"><i class="fas fa-angle-right"></i> File2</div>
-                            <ul class="nested notes-list animated slideInLeft">
+                            <ul class="hidden note-list animate__animated animate__slideInLeft">
                                 <li><div class="note">note</div></li>
                             </ul>
                         </li>
@@ -69,6 +69,25 @@
         </div>
 
         <div class="detail-zone p-2 text-center">
+            <!-- <div class="folder-detail-zone">
+
+            </div>
+            <div class="file-detail-zone">
+
+            </div> -->
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
+            <h1>ahihi</h1>
             <h1>ahihi</h1>
             <h1>ahihi</h1>
             <h1>ahihi</h1>
@@ -78,7 +97,7 @@
     </div>
 
     <script src="aims.js"></script>
-    <script src="control.js"></script>
+    <script defer src="control.js"></script>
 </body>
 
 </html>

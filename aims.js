@@ -109,11 +109,7 @@ class Note {
     }
 }
 
-let name = "admin";
-let pw = "123456";
-let name2 = "long";
-let pw2 = "21122000"
-let userAdmin = new User(name, pw);
+let userAdmin = new User("admin", "123456");
 let folder1 = new Folder("folder1");
 let folder2 = new Folder("folder2");
 let file1 = new File("file1");
@@ -125,3 +121,5 @@ file1.addNote(note2);
 folder1.addFile(file1);
 userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
+
+let currentUser = userAdmin;

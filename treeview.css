@@ -16,7 +16,7 @@ ul {
     transform: rotate(90deg);
 }
 
-.nested {
+.hidden {
     display: none;
 }
 
