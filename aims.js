@@ -1,3 +1,21 @@
+function compareAlphabetically(a, b) {
+    const titleA = a.title.toLowerCase();
+    const titleB = b.title.toLowerCase();
+    let comparison = 0;
+    if (titleA > titleB) {
+      comparison = 1;
+    } else if (titleA < titleB) {
+      comparison = -1;
+    }
+    return comparison;
+  };
+
+  function compareTime(a,b){
+    return a.createdDate - b.createdDate;
+}
+
+
+
 class User {
     constructor(userName, password) {
         this.userName = userName;
@@ -25,16 +43,26 @@ class User {
     }
 
     sortByTitle(){
-        // TO DO
+        this.repository.sort(compareAlphabetically)
     }
 
     sortByCreatedDate(){
-        // TO DO
+        this.repository.sort(compareTime);
     }
 
     // Everytime an action of modification happens, we run these 2 methods
     updateAllNotes() {
-        // TO DO
+        this.allNoteList = [];
+        for (let i = 0; i < this.repository.length; i++) {
+            let folder = repository[i];
+            for (let j = 0; j < folder.length; j++) {
+                let file = array[j];
+                for (let k = 0; k < file.length; k++) {
+                    let note = array[k];
+                    this.allNoteList.push(note)                   
+                }               
+            }        
+        }
     }
     updateRecentNotes() {
         // TO DO
@@ -68,15 +96,15 @@ class Folder {
     }
 
     sortByTitle(){
-        // TO DO
+        this.fileList.sort(compareAlphabetically)
     }
 
     sortByCreatedDate(){
-        // TO DO
+        this.fileList.sort(compareTime);
     }
 
     moveFile(file, newFolder){
-        // TO DO
+        return newFolder.push(file)
     }
 
     printFolder() {
