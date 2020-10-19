@@ -59,15 +59,15 @@ class User {
         }
     }
     updateRecentNotes() {
+        const LIMIT = 10;
         let sortedAllNoteList = this.allNoteList;
         sortedAllNoteList.sort(compareTime);
         this.recentNoteList = [];
         for (let i = 0; i < sortedAllNoteList.length; i++) {
-            if (i>10){
-                break;
+            if (i < 10){
+                let note = sortedAllNoteList[i];
+                this.recentNoteList.push(note);
             }
-            let note = sortedAllNoteList[i];
-            this.recentNoteList.push(note);  
         }
     }
 
@@ -186,19 +186,22 @@ class Note {
 
 let userAdmin = new User("admin", "123456");
 let folder1 = new Folder("Folder1");
-let folder2 = new Folder("folder2");
-let file1 = new File("FiLe1");
-let file2 = new File("file2");
+let folder2 = new Folder("Folder2");
+let file1 = new File("File1");
+let file2 = new File("File2");
+let file3 = new File("File3");
 let note1 = new Note('note1');
 let note2 = new Note('note2');
 let note3 = new Note('note3');
-
+let note4 = new Note('note4');
 
 file1.addNote(note1);
 file1.addNote(note2);
 file2.addNote(note3);
+file3.addNote(note4);
 folder1.addFile(file1);
 folder2.addFile(file2);
+folder2.addFile(file3);
 userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
 

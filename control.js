@@ -9,31 +9,18 @@ let detailFileZone = document.getElementsByClassName("detail-file-zone")[0];
 
 let folderListBtn = document.getElementById("folder-list-btn");
 let newFolderBtn = document.getElementById("new-folder-btn");
-let newFilallNoteListZoneeBtn = document.getElementById("new-file-btn");
+let newFileBtn = document.getElementById("new-file-btn");
 let searchBtn = document.getElementById("search-btn");
 let userBtn = document.getElementById("user-btn");
 
+let nestedTogglers;
+
 function displayRepository(user) {
     if (repoZone.style.display === "none") {
-        let allNoteList = user.allNoteList;
-        let recentNoteList = user.recentNoteList;
-        let repository = user.repository;
+        currentUser.updateAllNotes();
+        currentUser.updateRecentNotes();
 
-        allNoteListZone.innerHTML = "";
-        recentNoteListZone.innerHTML = "";
-        
-        for (let i = 0; i < allNoteList.length; i++) {
-            let note = allNoteList[i];
-            allNoteListZone.innerHTML += `
-                <li><div class="note">${note.title}</div></li>
-            `
-        }
-        for (let i = 0; i < recentNoteList.length; i++) {
-            let note = recentNoteList[i];
-            recentNoteListZone.innerHTML += `
-                <li><div class="note">${note.title}</div></li>
-            `
-        }
+        updateTreeView(user);
 
         repoZone.style.display = "block";
         detailZone.style.width = "80vw";
@@ -45,11 +32,69 @@ function displayRepository(user) {
     detailZone.style.float = "none";
 }
 
-let nestedTogglers = document.getElementsByClassName("fa-angle-right");
-for (let i = 0; i < nestedTogglers.length; i++) {
-    nestedTogglers[i].addEventListener("click", function () {
-        this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
-        this.classList.toggle("fa-angle-down");
-    });
+function fillAllNoteList(noteList) {
+    allNoteListZone.innerHTML = "";
+    for (let i = 0; i < noteList.length; i++) {
+        const note = noteList[i];
+        allNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>`
+    }
 }
 
+function fillRecentNoteList(noteList) {
+    recentNoteListZone.innerHTML = "";
+    for (let i = 0; i < noteList.length; i++) {
+        const note = noteList[i];
+        recentNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>`
+    }
+}
+
+function fillRepository(repository) {
+    let stringHtml = "";
+    for (let i = 0; i < repository.length; i++) {
+        const folder = repository[i];
+        const fileList = folder.fileList;
+        stringHtml += `
+            <li>
+                <div class="folder"><i class="fas fa-angle-right"></i> ${folder.title}</div>
+                <ul class="hidden file-list animate__animated animate__slideInLeft">
+        `;
+        for (let j = 0; j < fileList.length; j++) {
+            const file = fileList[j];
+            const noteList = file.noteList;
+            stringHtml += `
+                    <li>
+                        <div class="file"><i class="fas fa-angle-right"></i> ${file.title}</div>
+                        <ul class="hidden note-list animate__animated animate__slideInLeft">
+            `;
+
+            for (let k = 0; k < noteList.length; k++) {
+                const note = noteList[k];
+                stringHtml += `<li><div class="note">${note.title}</div></li>`;
+            }
+
+            stringHtml += `
+                        </ul>
+                    </li>
+            `;
+        }
+        stringHtml += `
+                </ul>
+            </li>
+        `;
+    }
+    repoListZone.innerHTML = stringHtml;
+}
+
+function updateTreeView(user) {
+    fillAllNoteList(user.allNoteList);
+    fillRecentNoteList(user.recentNoteList);
+    fillRepository(user.repository);
+
+    nestedTogglers = document.getElementsByClassName("fa-angle-right");
+    for (let i = 0; i < nestedTogglers.length; i++) {
+        nestedTogglers[i].addEventListener("click", function () {
+            this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
+            this.classList.toggle("fa-angle-down");
+        });
+    }
+}
