@@ -8,12 +8,6 @@ class User {
         this.repository = [];
     }
 
-    getUser() {
-        console.log(`User Name: ${this.userName}`);
-        console.log(`Password: ${this.password}`);
-        console.log(`Created Time: ${this.createdDate}`);
-    }
-
     addFolder(newFolder) {
         this.repository.push(newFolder);
     }
@@ -53,11 +47,6 @@ class Folder {
         this.fileList = [];
     }
 
-    getFolder() {
-        console.log(`Folder: ${this.title}`);
-        console.log(`Created: ${this.createdDate}`);
-    }
-
     addFile(newFile) {
         this.fileList.push(newFile);
     }
@@ -92,11 +81,6 @@ class File {
         this.noteList = [];
     }
 
-    getFile() {
-        console.log(`File: ${this.title}`);
-        console.log(`Created: ${this.createdDate}`);
-    }
-
     addNote(newNote) {
         this.noteList.push(newNote);
     }
@@ -118,13 +102,6 @@ class Note {
         this.attachedLink = attachedLink;
         this.content = content;
         this.createdDate = new Date();
-    }
-
-    getNote() {
-        console.log(`Note: ${this.title}`);
-        console.log(`Attached Link: ${this.attachedLink}`);
-        console.log(`Created: ${this.createdDate}`);
-        console.log("");
     }
 
     printNote() {
