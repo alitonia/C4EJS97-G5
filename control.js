@@ -36,7 +36,8 @@ function fillAllNoteList(noteList) {
     allNoteListZone.innerHTML = "";
     for (let i = 0; i < noteList.length; i++) {
         const note = noteList[i];
-        allNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>`
+        allNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>
+        `
     }
 }
 
@@ -44,7 +45,7 @@ function fillRecentNoteList(noteList) {
     recentNoteListZone.innerHTML = "";
     for (let i = 0; i < noteList.length; i++) {
         const note = noteList[i];
-        recentNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>`
+        recentNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>`;
     }
 }
 
@@ -55,7 +56,11 @@ function fillRepository(repository) {
         const fileList = folder.fileList;
         stringHtml += `
             <li>
-                <div class="folder"><i class="fas fa-angle-right"></i> ${folder.title}</div>
+                <div class="folder">
+                    <i class="fas fa-angle-right"></i> 
+                    <i class="fas fa-folder"></i>
+                    ${folder.title}
+                </div>
                 <ul class="hidden file-list animate__animated animate__slideInLeft">
         `;
         for (let j = 0; j < fileList.length; j++) {
@@ -63,13 +68,17 @@ function fillRepository(repository) {
             const noteList = file.noteList;
             stringHtml += `
                     <li>
-                        <div class="file"><i class="fas fa-angle-right"></i> ${file.title}</div>
+                        <div class="file">
+                            <i class="fas fa-angle-right"></i> 
+                            <i class="fas fa-sticky-note"></i> 
+                            ${file.title}
+                        </div>
                         <ul class="hidden note-list animate__animated animate__slideInLeft">
             `;
 
             for (let k = 0; k < noteList.length; k++) {
                 const note = noteList[k];
-                stringHtml += `<li><div class="note">${note.title}</div></li>`;
+                stringHtml += `<li><div class="note">${note.title}</div></li>`
             }
 
             stringHtml += `

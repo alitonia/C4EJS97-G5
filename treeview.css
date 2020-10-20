@@ -3,6 +3,8 @@ ul {
     padding: 0;
     margin: 0;
     user-select: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
 }
 
 .fa-angle-right .fa-angle-down {
@@ -33,7 +35,7 @@ ul {
 }
 
 .note{
-    padding-left: 48px;
+    padding-left: 64px;
 }
 
 .folder:hover,.file:hover,.note:hover{
