@@ -7,6 +7,10 @@ ul {
     font-size: 18px;
 }
 
+i{
+    margin-left: 5px;
+}
+
 .fa-angle-right .fa-angle-down {
     cursor: pointer;
     user-select: none;
@@ -31,11 +35,11 @@ ul {
 }
 
 .file{
-    padding-left: 32px;
+    padding-left: 40px;
 }
 
 .note{
-    padding-left: 64px;
+    padding-left: 84px;
 }
 
 .folder:hover,.file:hover,.note:hover{
