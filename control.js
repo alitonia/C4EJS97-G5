@@ -14,8 +14,9 @@ let searchBtn = document.getElementById("search-btn");
 let userBtn = document.getElementById("user-btn");
 
 let nestedTogglers;
+let folderDivs;
 
-function displayRepository(user) {
+function displayRepoTreeView(user) {
     if (repoZone.style.display === "none") {
         currentUser.updateAllNotes();
         currentUser.updateRecentNotes();
@@ -32,53 +33,57 @@ function displayRepository(user) {
     detailZone.style.float = "none";
 }
 
-function fillAllNoteList(noteList) {
+function displayFolder(){
+
+}
+
+function fillAllNoteTree(noteList) {
     allNoteListZone.innerHTML = "";
     for (let i = 0; i < noteList.length; i++) {
         const note = noteList[i];
-        allNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>
+        allNoteListZone.innerHTML += `<li><div class="note-tree">${note.title}</div></li>
         `
     }
 }
 
-function fillRecentNoteList(noteList) {
+function fillRecentNoteTree(noteList) {
     recentNoteListZone.innerHTML = "";
     for (let i = 0; i < noteList.length; i++) {
         const note = noteList[i];
-        recentNoteListZone.innerHTML += `<li><div class="note">${note.title}</div></li>`;
+        recentNoteListZone.innerHTML += `<li><div class="note-tree">${note.title}</div></li>`;
     }
 }
 
-function fillRepository(repository) {
+function fillRepoTree(repository) {
     let stringHtml = "";
     for (let i = 0; i < repository.length; i++) {
         const folder = repository[i];
         const fileList = folder.fileList;
         stringHtml += `
             <li>
-                <div class="folder">
+                <div class="folder-tree">
                     <i class="fas fa-angle-right"></i> 
                     <i class="fas fa-folder"></i>
                     ${folder.title}
                 </div>
-                <ul class="hidden file-list animate__animated animate__slideInLeft">
+                <ul class="hidden file-tree-list animate__animated animate__slideInLeft">
         `;
         for (let j = 0; j < fileList.length; j++) {
             const file = fileList[j];
             const noteList = file.noteList;
             stringHtml += `
                     <li>
-                        <div class="file">
+                        <div class="file-tree">
                             <i class="fas fa-angle-right"></i> 
                             <i class="fas fa-sticky-note"></i> 
                             ${file.title}
                         </div>
-                        <ul class="hidden note-list animate__animated animate__slideInLeft">
+                        <ul class="hidden note-tree-list animate__animated animate__slideInLeft">
             `;
 
             for (let k = 0; k < noteList.length; k++) {
                 const note = noteList[k];
-                stringHtml += `<li><div class="note">${note.title}</div></li>`
+                stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
             }
 
             stringHtml += `
@@ -95,15 +100,27 @@ function fillRepository(repository) {
 }
 
 function updateTreeView(user) {
-    fillAllNoteList(user.allNoteList);
-    fillRecentNoteList(user.recentNoteList);
-    fillRepository(user.repository);
+    fillAllNoteTree(user.allNoteList);
+    fillRecentNoteTree(user.recentNoteList);
+    fillRepoTree(user.repository);
+    updateHTML();
+}
 
+function updateHTML() {
     nestedTogglers = document.getElementsByClassName("fa-angle-right");
+    folderDivs = document.getElementsByClassName("folder-tree");
+
     for (let i = 0; i < nestedTogglers.length; i++) {
         nestedTogglers[i].addEventListener("click", function () {
             this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
             this.classList.toggle("fa-angle-down");
         });
     }
+
+    for (let i = 0; i < folderDivs.length; i++) {
+        let folderDiv = folderDivs[i];
+        folderDiv.removeAttribute("onclick");
+        folderDiv.setAttribute("onclick", "displayFolder()");
+    }
 }
+

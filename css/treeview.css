@@ -5,6 +5,7 @@ ul {
     user-select: none;
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
+    color: #495057;
 }
 
 i{
@@ -30,18 +31,18 @@ i{
     display: block;
 }
 
-.folder{
+.folder-tree{
     padding-left: 16px;
 }
 
-.file{
+.file-tree{
     padding-left: 40px;
 }
 
-.note{
+.note-tree{
     padding-left: 84px;
 }
 
-.folder:hover,.file:hover,.note:hover{
+.folder-tree:hover,.file-tree:hover,.note-tree:hover{
     background-color: gainsboro;
 }

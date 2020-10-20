@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyNotebook</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="bootstrap-4\css\bootstrap.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="treeview.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
+    <link rel="stylesheet" href="bootstrap-4\css\bootstrap.min.css">
+    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="css\treeview.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css">
 </head>
@@ -16,9 +16,10 @@
 <body>
     <nav class="navbar navbar-dark bg-secondary text-white sticky-top">
         <div class="left-btns btn-group">
-            <div class="btn fas fa-bars" id="folder-list-btn" onclick="displayRepository(currentUser)"></div>
+            <div class="btn fas fa-bars" id="folder-list-btn" onclick="displayRepoTreeView(currentUser)"></div>
             <div class="btn fas fa-plus" id="new-folder-btn"></div>
             <div class="btn fas fa-file" id="new-file-btn"></div>
+            <div class="btn fas fa-trash" id="delete-btn"></div>
         </div>
 
         <div class="web-name">
@@ -35,18 +36,18 @@
         <div class="repo-zone border bg-light py-2 animate__animated animate__slideInLeft" style="display: none;">
             <ul>
                 <li class="all-notes">
-                    <div class="folder">
-                        <i class="fas fa-angle-right"></i> 
-                        <i class="fas fa-globe-asia"></i> 
+                    <div class="folder-tree">
+                        <i class="fas fa-angle-right"></i>
+                        <i class="fas fa-globe-asia"></i>
                         All notes
                     </div>
                     <ul class="hidden all-note-list animate__animated animate__slideInLeft"></ul>
                 </li>
 
                 <li class="recent-notes">
-                    <div class="folder">
-                        <i class="fas fa-angle-right"></i> 
-                        <i class="fas fa-clock"></i> 
+                    <div class="folder-tree">
+                        <i class="fas fa-angle-right"></i>
+                        <i class="fas fa-clock"></i>
                         Recent notes</div>
                     <ul class="hidden recent-note-list animate__animated animate__slideInLeft"></ul>
                 </li>
@@ -55,16 +56,81 @@
             </ul>
         </div>
 
-        <div class="detail-zone p-2 text-center">
-            <h1>ahihi</h1>
-            <h1>ahihi</h1>
-            <h1>ahihi</h1>
-            <h1>ahihi</h1>
+        <div class="detail-zone">
+            <div class="folder-detail">
+                <div class="file-list">
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File2</p>
+                    </div>
+                    <div class="file">
+                        <img class="img-thumbnail" src="img\file.png" alt="File">
+                        <p>File3</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden file-detail"></div>
         </div>
     </div>
 
     <script src="aims.js"></script>
-    <script defer src="control.js"></script>
+    <script src="control.js"></script>
 </body>
 
 </html>
