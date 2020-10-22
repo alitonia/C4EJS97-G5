@@ -69,16 +69,19 @@ class User {
         }
     }
 
-    checkDuplicateFolder(input) {
+    printRepository() {
+        // TO DO
+    }
+
+    findFolder(input){
         for (let i = 0; i < this.repository.length; i++) {
             input = input.toLowerCase();
             let folder = this.repository[i];
-            if (folder["title"].toLowerCase() === input) {
-                console.log(`A folder named "${input}" has already exist`);
-                break;
-            }
-            console.log(`There aren't folders that named "${input}"`);
+            if (folder["title"].toLowerCase() === input){
+                return folder;
+            }           
         }
+        return null;
     }
 }
 
@@ -117,16 +120,15 @@ class Folder {
         // TO DO
     }
 
-    checkDuplicateFile(input) {
+    findFile(input){
         for (let i = 0; i < this.fileList.length; i++) {
             input = input.toLowerCase();
             let file = this.fileList[i];
-            if (file["title"].toLowerCase() === input) {
-                console.log(`A file named "${input}" has already exist`);
-                break;
-            }
-            console.log(`There aren't any files that named "${input}"`);
+            if (file["title"].toLowerCase() === input){
+                return file;
+            }            
         }
+        return null;
     }
 }
 
@@ -147,16 +149,20 @@ class File {
         })
     }
 
-    checkDuplicateNote(input) {
+
+    printFile() {
+        // TO DO
+    }
+
+    findNote(input){
         for (let i = 0; i < this.noteList.length; i++) {
             input = input.toLowerCase();
             let note = this.noteList[i];
-            if (note["title"].toLowerCase() === input) {
-                console.log(`A note titled "${input}" has already exist`);
-                break;
+            if (note["title"].toLowerCase() === input){
+                return note;
             }
-            console.log(`There aren't any note that titled "${input}"`);
         }
+        return null;
     }
 }
 
@@ -190,4 +196,4 @@ folder2.addFile(file3);
 userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
 
-let currentUser = userAdmin;
+currentUser = userAdmin;
