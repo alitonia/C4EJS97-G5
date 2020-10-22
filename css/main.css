@@ -21,7 +21,7 @@ nav{
 
 .repo-zone {
     width: 20vw;
-    height: 93vh;
+    height: 100%;
     padding-left: 0;
     padding-right: 0;
     float: left;
@@ -33,7 +33,7 @@ nav{
 
 .detail-zone {
     width: auto;
-    height: 93vh;
+    height: 100%;
     position: relative;
     color: #495057;
 }

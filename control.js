@@ -7,6 +7,8 @@ let detailZone = document.getElementsByClassName("detail-zone")[0];
 let detailFolderZone = document.getElementsByClassName("detail-folder-zone")[0];
 let detailFileZone = document.getElementsByClassName("detail-file-zone")[0];
 
+let fileListZone = document.getElementsByClassName("file-list")[0];
+
 let newFolderBtn = document.getElementById("new-folder-btn");
 let newFileBtn = document.getElementById("new-file-btn");
 let searchBtn = document.getElementById("search-btn");
@@ -14,7 +16,8 @@ let userBtn = document.getElementById("user-btn");
 
 let nestedTogglers;
 let folderTreeDivs;
-let currentFocus;
+let noteTreeDivs;
+let currentFocus = null;
 
 searchBtn.addEventListener("click", function () {
     document.getElementById("search-input").classList.toggle("active");
@@ -40,16 +43,15 @@ function displayRepoTreeView(user) {
 function addNewFolder(e) {
     repoListZone.innerHTML += `
         <li>
-            <div class="folder-tree" style="padding-left: 16px; overflow: hidden; height: 100%; display: flex; align-items: center;">
+            <div class="folder-tree" style="padding-left: 16px; display: flex; align-items: center;">
                 <i class="fas fa-angle-right"></i> 
                 <i class="fas fa-folder" style="margin-left: 10px"></i>
-                <div class="form-group" style="height: 100%; margin:auto; width: 100%;">
+                <div class="form-group" style="width: 80%; margin:auto">
                     <input type="text" 
-                           class="form-control-plaintext border" 
+                           class="form-control border" 
                            id="new-folder-name" 
                            placeholder="Folder name" 
-                           onkeyup="enterNewFolder(event)" 
-                           style="height: 100%; margin-left: 5px;">
+                           onkeyup="enterNewFolder(event)">
                 </div>
             </div>
             <ul class="hidden file-tree-list animate__animated animate__slideInLeft"></ul>
@@ -59,9 +61,15 @@ function addNewFolder(e) {
 
 function enterNewFolder(e) {
     let newFolderInput = document.getElementById("new-folder-name");
-    let isDuplicate = currentUser.checkDuplicateFolder(newFolderInput.value);
-    if (e.key === "Enter" && !isDuplicate) {
-        let newFolder = new Folder(newFolderInput.value);
+    let newFolderTitle = newFolderInput.value;
+    let findFolder = currentUser.findFolder(newFolderTitle);
+
+    if (findFolder) newFolderInput.classList.add("border-danger");
+    else newFolderInput.classList.remove("border-danger");
+
+    if (e.key === "Enter" && !findFolder) {
+
+        let newFolder = new Folder(newFolderTitle);
         currentUser.addFolder(newFolder);
         updateTreeView(currentUser);
     }
@@ -79,8 +87,18 @@ function displaySearchResult() {
     console.log("display search result");
 }
 
-function displayFolder() {
-    console.log("display folder");
+function displayFolder(folder) {
+    let fileList = folder.fileList;
+    fileListZone.innerHTML = "";
+    for (let i = 0; i < fileList.length; i++) {
+        let file = fileList[i];
+        fileListZone.innerHTML += `
+            <div class="file">
+                <img class="img-thumbnail" src="img\\file.png" alt="File">
+                <p>${file.title}</p>
+            </div>
+        `
+    }
 }
 
 function fillAllNoteTree(noteList) {
@@ -155,6 +173,7 @@ function updateTreeView(user) {
 function updateHTML() {
     nestedTogglers = document.getElementsByClassName("fa-angle-right");
     folderTreeDivs = document.getElementsByClassName("folder-tree");
+    noteTreeDivs = document.getElementsByClassName('note-tree');
 
     for (let i = 0; i < nestedTogglers.length; i++) {
         nestedTogglers[i].addEventListener("click", function () {
@@ -165,12 +184,26 @@ function updateHTML() {
 
     for (let i = 0; i < folderTreeDivs.length; i++) {
         let folderTreeDiv = folderTreeDivs[i];
-        const folderName = folderTreeDiv.innerText;
-
+        const folderName = folderTreeDiv.innerText.trim();
         if (!folderTreeDiv.parentElement.classList.contains("all-notes") && !folderTreeDiv.parentElement.classList.contains("recent-notes")) {
+            folderTreeDiv.addEventListener("dblclick", function () {
+                let folder = currentUser.findFolder(folderName);
+                displayFolder(folder);
+            })
             folderTreeDiv.addEventListener("click", function () {
-                displayFolder();
+                if (currentFocus) currentFocus.style.background = "#f8f9fa";
+                currentFocus = this;
+                currentFocus.style.background = "#c3e3ff";
             })
         }
+    }
+
+    for (let i = 0; i < noteTreeDivs.length; i++) {
+        let noteTreeDiv = noteTreeDivs[i];
+        noteTreeDiv.addEventListener("click", function () {
+            if (currentFocus) currentFocus.style.background = "#f8f9fa";
+            currentFocus = this;
+            currentFocus.style.background = "#c3e3ff";
+        })
     }
 }
