@@ -7,7 +7,6 @@ let detailZone = document.getElementsByClassName("detail-zone")[0];
 let detailFolderZone = document.getElementsByClassName("detail-folder-zone")[0];
 let detailFileZone = document.getElementsByClassName("detail-file-zone")[0];
 
-let folderTreeListBtn = document.getElementById("folder-tree-list-btn");
 let newFolderBtn = document.getElementById("new-folder-btn");
 let newFileBtn = document.getElementById("new-file-btn");
 let searchBtn = document.getElementById("search-btn");
@@ -15,8 +14,9 @@ let userBtn = document.getElementById("user-btn");
 
 let nestedTogglers;
 let folderTreeDivs;
+let currentFocus;
 
-searchBtn.addEventListener("click", function(){
+searchBtn.addEventListener("click", function () {
     document.getElementById("search-input").classList.toggle("active");
 })
 
@@ -24,12 +24,12 @@ function displayRepoTreeView(user) {
     if (repoZone.style.display === "none") {
         currentUser.updateAllNotes();
         currentUser.updateRecentNotes();
-
         updateTreeView(user);
 
         repoZone.style.display = "block";
         detailZone.style.width = "80vw";
         detailZone.style.float = "right";
+
         return;
     }
     repoZone.style.display = "none";
@@ -37,12 +37,47 @@ function displayRepoTreeView(user) {
     detailZone.style.float = "none";
 }
 
+function addNewFolder(){
+    console.log("add new folder");
+    repoListZone.innerHTML += `
+    <li>
+        <div class="folder-tree" style="padding-left: 16px; height:auto">
+            <i class="fas fa-angle-right"></i> 
+            <i class="fas fa-folder"></i>
+            <div class="form-group" style="width: auto">
+                <input type="text" class="form-control" id="new-folder-name" placeholder="Folder name" onkeypress="enterNewFolder(event)">
+            </div>
+        </div>
+        <ul class="hidden file-tree-list animate__animated animate__slideInLeft">
+        </ul>
+    </li>
+    `
+}
+
+function enterNewFolder(e){
+    let newFolder = document.getElementById("new-folder-name");
+    let isDuplicate = currentUser.checkDuplicateFolder(newFolder.value);
+    if (e.key === "Enter" && !isDuplicate){
+        let newFolder = new Folder(title);
+        currentUser.addFolder(newFolder);
+        updateTreeView(currentUser);
+    }
+}
+
+function addNewFile(){
+    console.log("add new file");
+}
+
+function deleteItem(){
+    console.log("delete item");
+}
+
 function displaySearchResult() {
-    console.log("ahihi");
+    console.log("display search result");
 }
 
 function displayFolder() {
-
+    console.log("display folder");
 }
 
 function fillAllNoteTree(noteList) {
@@ -132,4 +167,3 @@ function updateHTML() {
         })
     }
 }
-

@@ -3,18 +3,16 @@ function compareAlphabetically(a, b) {
     const titleB = b.title.toLowerCase();
     let comparison = 0;
     if (titleA > titleB) {
-      comparison = 1;
+        comparison = 1;
     } else if (titleA < titleB) {
-      comparison = -1;
+        comparison = -1;
     }
     return comparison;
-  };
+};
 
-  function compareTime(a,b){
+function compareTime(a, b) {
     return a.createdDate - b.createdDate;
 }
-
-
 
 class User {
     constructor(userName, password) {
@@ -30,17 +28,17 @@ class User {
         this.repository.push(newFolder);
     }
 
-    deleteFolder(folder){
+    deleteFolder(folder) {
         this.repository = this.repository.filter((f) => {
             return f.title !== folder.title;
         })
     }
 
-    sortByTitle(){
+    sortByTitle() {
         this.repository.sort(compareAlphabetically)
     }
 
-    sortByCreatedDate(){
+    sortByCreatedDate() {
         this.repository.sort(compareTime);
     }
 
@@ -53,9 +51,9 @@ class User {
                 let file = folder.fileList[j];
                 for (let k = 0; k < file.noteList.length; k++) {
                     let note = file.noteList[k];
-                    this.allNoteList.push(note)                   
-                }               
-            }        
+                    this.allNoteList.push(note)
+                }
+            }
         }
     }
     updateRecentNotes() {
@@ -64,26 +62,22 @@ class User {
         sortedAllNoteList.sort(compareTime);
         this.recentNoteList = [];
         for (let i = 0; i < sortedAllNoteList.length; i++) {
-            if (i < 10){
+            if (i < 10) {
                 let note = sortedAllNoteList[i];
                 this.recentNoteList.push(note);
             }
         }
     }
 
-    printRepository() {
-        // TO DO
-    }
-
-    checkDuplicateFolder(input){
+    checkDuplicateFolder(input) {
         for (let i = 0; i < this.repository.length; i++) {
             input = input.toLowerCase();
             let folder = this.repository[i];
-            if (folder["title"].toLowerCase() === input){
+            if (folder["title"].toLowerCase() === input) {
                 console.log(`A folder named "${input}" has already exist`);
                 break;
-            } 
-            console.log(`There aren't folders that named "${input}"`);           
+            }
+            console.log(`There aren't folders that named "${input}"`);
         }
     }
 }
@@ -99,21 +93,21 @@ class Folder {
         this.fileList.push(newFile);
     }
 
-    deleteFile(file){
+    deleteFile(file) {
         this.fileList = this.fileList.filter((f) => {
             return f.title !== file.title;
         })
     }
 
-    sortByTitle(){
+    sortByTitle() {
         this.fileList.sort(compareAlphabetically)
     }
 
-    sortByCreatedDate(){
+    sortByCreatedDate() {
         this.fileList.sort(compareTime);
     }
 
-    moveFile(file, newFolder){
+    moveFile(file, newFolder) {
         newFolder.addFile(file);
         this.deleteFile(file);
 
@@ -123,15 +117,15 @@ class Folder {
         // TO DO
     }
 
-    checkDuplicateFile(input){
+    checkDuplicateFile(input) {
         for (let i = 0; i < this.fileList.length; i++) {
             input = input.toLowerCase();
             let file = this.fileList[i];
-            if (file["title"].toLowerCase() === input){
+            if (file["title"].toLowerCase() === input) {
                 console.log(`A file named "${input}" has already exist`);
                 break;
-            } 
-            console.log(`There aren't any files that named "${input}"`);           
+            }
+            console.log(`There aren't any files that named "${input}"`);
         }
     }
 }
@@ -147,26 +141,21 @@ class File {
         this.noteList.push(newNote);
     }
 
-    deleteNote(note){
+    deleteNote(note) {
         this.noteList = this.noteList.filter((n) => {
             return n.title !== note.title;
         })
     }
 
-
-    printFile() {
-        // TO DO
-    }
-
-    checkDuplicateNote(input){
+    checkDuplicateNote(input) {
         for (let i = 0; i < this.noteList.length; i++) {
             input = input.toLowerCase();
             let note = this.noteList[i];
-            if (note["title"].toLowerCase() === input){
+            if (note["title"].toLowerCase() === input) {
                 console.log(`A note titled "${input}" has already exist`);
                 break;
-            } 
-            console.log(`There aren't any note that titled "${input}"`);           
+            }
+            console.log(`There aren't any note that titled "${input}"`);
         }
     }
 }
@@ -177,10 +166,6 @@ class Note {
         this.attachedLink = attachedLink;
         this.content = content;
         this.createdDate = new Date();
-    }
-
-    printNote() {
-        // TO DO
     }
 }
 

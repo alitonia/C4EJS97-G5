@@ -12,11 +12,6 @@ i{
     margin-left: 5px;
 }
 
-.fa-angle-right .fa-angle-down {
-    cursor: pointer;
-    user-select: none;
-}
-
 .fa-angle-down {
     -ms-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
@@ -45,4 +40,6 @@ i{
 
 .folder-tree:hover,.file-tree:hover,.note-tree:hover{
     background-color: gainsboro;
+    cursor: pointer;
+    user-select: none;
 }

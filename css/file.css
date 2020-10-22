@@ -9,14 +9,19 @@
 }
 
 .file-list{
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    justify-content: center;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    padding-top: 20px;
 }
 
 .file{
-    width: 100px;
-    height: 130px;
-    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.file img {
+    width: 35%;
 }
