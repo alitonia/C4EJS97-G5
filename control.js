@@ -37,38 +37,41 @@ function displayRepoTreeView(user) {
     detailZone.style.float = "none";
 }
 
-function addNewFolder(){
-    console.log("add new folder");
+function addNewFolder(e) {
     repoListZone.innerHTML += `
-    <li>
-        <div class="folder-tree" style="padding-left: 16px; height:auto">
-            <i class="fas fa-angle-right"></i> 
-            <i class="fas fa-folder"></i>
-            <div class="form-group" style="width: auto">
-                <input type="text" class="form-control" id="new-folder-name" placeholder="Folder name" onkeypress="enterNewFolder(event)">
+        <li>
+            <div class="folder-tree" style="padding-left: 16px; overflow: hidden; height: 100%; display: flex; align-items: center;">
+                <i class="fas fa-angle-right"></i> 
+                <i class="fas fa-folder" style="margin-left: 10px"></i>
+                <div class="form-group" style="height: 100%; margin:auto; width: 100%;">
+                    <input type="text" 
+                           class="form-control-plaintext border" 
+                           id="new-folder-name" 
+                           placeholder="Folder name" 
+                           onkeyup="enterNewFolder(event)" 
+                           style="height: 100%; margin-left: 5px;">
+                </div>
             </div>
-        </div>
-        <ul class="hidden file-tree-list animate__animated animate__slideInLeft">
-        </ul>
-    </li>
-    `
+            <ul class="hidden file-tree-list animate__animated animate__slideInLeft"></ul>
+        </li>
+        `
 }
 
-function enterNewFolder(e){
-    let newFolder = document.getElementById("new-folder-name");
-    let isDuplicate = currentUser.checkDuplicateFolder(newFolder.value);
-    if (e.key === "Enter" && !isDuplicate){
-        let newFolder = new Folder(title);
+function enterNewFolder(e) {
+    let newFolderInput = document.getElementById("new-folder-name");
+    let isDuplicate = currentUser.checkDuplicateFolder(newFolderInput.value);
+    if (e.key === "Enter" && !isDuplicate) {
+        let newFolder = new Folder(newFolderInput.value);
         currentUser.addFolder(newFolder);
         updateTreeView(currentUser);
     }
 }
 
-function addNewFile(){
+function addNewFile() {
     console.log("add new file");
 }
 
-function deleteItem(){
+function deleteItem() {
     console.log("delete item");
 }
 
@@ -162,8 +165,12 @@ function updateHTML() {
 
     for (let i = 0; i < folderTreeDivs.length; i++) {
         let folderTreeDiv = folderTreeDivs[i];
-        folderTreeDiv.addEventListener("click", function () {
+        const folderName = folderTreeDiv.innerText;
 
-        })
+        if (!folderTreeDiv.parentElement.classList.contains("all-notes") && !folderTreeDiv.parentElement.classList.contains("recent-notes")) {
+            folderTreeDiv.addEventListener("click", function () {
+                displayFolder();
+            })
+        }
     }
 }
