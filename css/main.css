@@ -12,6 +12,10 @@ nav{
     font-size: 25px;
 }
 
+.web-name{
+    transform: translate(-25%, 5%);
+}
+
 .repo-zone {
     width: 20vw;
     height: 93vh;
