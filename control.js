@@ -16,6 +16,9 @@ let userBtn = document.getElementById("user-btn");
 let nestedTogglers;
 let folderDivs;
 
+let treeChosen = false;
+let currentFocus;
+
 function displayRepoTreeView(user) {
     if (repoZone.style.display === "none") {
         currentUser.updateAllNotes();
@@ -33,7 +36,7 @@ function displayRepoTreeView(user) {
     detailZone.style.float = "none";
 }
 
-function displayFolder(){
+function displayFolder() {
 
 }
 
@@ -119,8 +122,9 @@ function updateHTML() {
 
     for (let i = 0; i < folderDivs.length; i++) {
         let folderDiv = folderDivs[i];
-        folderDiv.removeAttribute("onclick");
-        folderDiv.setAttribute("onclick", "displayFolder()");
+        folderDiv.addEventListener("click", function () {
+            
+        })
     }
 }
 

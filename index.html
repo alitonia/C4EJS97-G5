@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-secondary text-white sticky-top">
+    <nav class="navbar navbar-dark bg-secondary text-white flex-nowrap sticky-top">
         <div class="left-btns btn-group">
             <div class="btn fas fa-bars" id="folder-list-btn" onclick="displayRepoTreeView(currentUser)"></div>
             <div class="btn fas fa-plus" id="new-folder-btn"></div>
@@ -34,7 +34,7 @@
     </nav>
 
     <div class="main">
-        <div class="repo-zone border bg-light py-2 animate__animated animate__slideInLeft" style="display: none;">
+        <div class="container-fluid repo-zone border bg-light py-2 animate__animated animate__slideInLeft" style="display: none;">
             <ul>
                 <li class="all-notes">
                     <div class="folder-tree">
@@ -57,9 +57,9 @@
             </ul>
         </div>
 
-        <div class="detail-zone">
+        <div class="container-fluid detail-zone">
             <div class="folder-detail">
-                <div class="file-list justify-content-center">
+                <div class="file-list">
                     <div class="file">
                         <img class="img-thumbnail" src="img\file.png" alt="File">
                         <p>File2</p>

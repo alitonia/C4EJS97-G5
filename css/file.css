@@ -12,10 +12,12 @@
     display: flex;
     flex-wrap: wrap;
     height: auto;
+    align-items: center;
+    justify-content: center;
 }
 
 .file{
     width: 100px;
-    margin: 20px;
     height: 130px;
+    margin: 20px;
 }

@@ -3,6 +3,10 @@
     padding-left: 0;
 }
 
+nav{
+    overflow-x: hidden;
+}
+
 .btn {
     color: white;
     font-size: 25px;
@@ -16,6 +20,8 @@
     overflow-y: auto;
     white-space: nowrap;
     position: fixed;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .detail-zone {
