@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar navbar-dark bg-secondary text-white flex-nowrap sticky-top">
         <div class="left-btns btn-group">
-            <div class="btn fas fa-bars" id="folder-list-btn" onclick="displayRepoTreeView(currentUser)"></div>
+            <div class="btn fas fa-bars" id="folder-tree-list-btn" onclick="displayRepoTreeView(currentUser)"></div>
             <div class="btn fas fa-plus" id="new-folder-btn"></div>
             <div class="btn fas fa-file" id="new-file-btn"></div>
             <div class="btn fas fa-trash" id="delete-btn"></div>
@@ -28,6 +28,9 @@
         </div>
 
         <div class="right-btns btn-group">
+            <div class="form-group animate__animated animate__fadeInRight hidden" id="search-input">
+                <input type="text" class="form-control" id="key-search" onkeyup="displaySearchResult()">
+            </div>
             <div class="btn fas fa-search" id="search-btn"></div>
             <div class="btn fas fa-user" id="user-btn"></div>
         </div>

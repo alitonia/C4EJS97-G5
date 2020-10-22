@@ -13,19 +13,22 @@ nav{
 }
 
 .web-name{
-    transform: translate(-25%, 5%);
+    top: 3.25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
 }
 
 .repo-zone {
     width: 20vw;
     height: 93vh;
+    padding-left: 0;
+    padding-right: 0;
     float: left;
     overflow-x: hidden;
     overflow-y: auto;
     white-space: nowrap;
     position: fixed;
-    padding-left: 0;
-    padding-right: 0;
 }
 
 .detail-zone {
@@ -37,4 +40,15 @@ nav{
 
 .animate__animated.animate__slideInLeft {
     --animate-duration: 0.3s;
+}
+
+.animate__animated.animate__fadeInRight {
+    --animate-duration: 0.3s;
+}
+
+#search-input{
+    background-color: white;
+    margin: auto;
+    font-size: 20px;
+    border-radius: 5px;
 }

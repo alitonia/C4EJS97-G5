@@ -7,17 +7,18 @@ let detailZone = document.getElementsByClassName("detail-zone")[0];
 let detailFolderZone = document.getElementsByClassName("detail-folder-zone")[0];
 let detailFileZone = document.getElementsByClassName("detail-file-zone")[0];
 
-let folderListBtn = document.getElementById("folder-list-btn");
+let folderTreeListBtn = document.getElementById("folder-tree-list-btn");
 let newFolderBtn = document.getElementById("new-folder-btn");
 let newFileBtn = document.getElementById("new-file-btn");
 let searchBtn = document.getElementById("search-btn");
 let userBtn = document.getElementById("user-btn");
 
 let nestedTogglers;
-let folderDivs;
+let folderTreeDivs;
 
-let treeChosen = false;
-let currentFocus;
+searchBtn.addEventListener("click", function(){
+    document.getElementById("search-input").classList.toggle("active");
+})
 
 function displayRepoTreeView(user) {
     if (repoZone.style.display === "none") {
@@ -34,6 +35,10 @@ function displayRepoTreeView(user) {
     repoZone.style.display = "none";
     detailZone.style.width = "auto";
     detailZone.style.float = "none";
+}
+
+function displaySearchResult() {
+    console.log("ahihi");
 }
 
 function displayFolder() {
@@ -111,7 +116,7 @@ function updateTreeView(user) {
 
 function updateHTML() {
     nestedTogglers = document.getElementsByClassName("fa-angle-right");
-    folderDivs = document.getElementsByClassName("folder-tree");
+    folderTreeDivs = document.getElementsByClassName("folder-tree");
 
     for (let i = 0; i < nestedTogglers.length; i++) {
         nestedTogglers[i].addEventListener("click", function () {
@@ -120,10 +125,10 @@ function updateHTML() {
         });
     }
 
-    for (let i = 0; i < folderDivs.length; i++) {
-        let folderDiv = folderDivs[i];
-        folderDiv.addEventListener("click", function () {
-            
+    for (let i = 0; i < folderTreeDivs.length; i++) {
+        let folderTreeDiv = folderTreeDivs[i];
+        folderTreeDiv.addEventListener("click", function () {
+
         })
     }
 }
