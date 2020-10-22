@@ -82,16 +82,15 @@ class User {
         // TO DO
     }
 
-    checkDuplicateFolder(input){
+    findFolder(input){
         for (let i = 0; i < this.repository.length; i++) {
             input = input.toLowerCase();
             let folder = this.repository[i];
             if (folder["title"].toLowerCase() === input){
-                console.log(`A folder named "${input}" has already exist`);
-                break;
-            } 
-            console.log(`There aren't folders that named "${input}"`);           
+                return folder;
+            }           
         }
+        return null;
     }
 }
 
@@ -135,16 +134,15 @@ class Folder {
         // TO DO
     }
 
-    checkDuplicateFile(input){
+    findFile(input){
         for (let i = 0; i < this.fileList.length; i++) {
             input = input.toLowerCase();
             let file = this.fileList[i];
             if (file["title"].toLowerCase() === input){
-                console.log(`A file named "${input}" has already exist`);
-                break;
-            } 
-            console.log(`There aren't any files that named "${input}"`);           
+                return file;
+            }            
         }
+        return null;
     }
 }
 
@@ -175,16 +173,15 @@ class File {
         // TO DO
     }
 
-    checkDuplicateNote(input){
+    findNote(input){
         for (let i = 0; i < this.noteList.length; i++) {
             input = input.toLowerCase();
             let note = this.noteList[i];
             if (note["title"].toLowerCase() === input){
-                console.log(`A note titled "${input}" has already exist`);
-                break;
-            } 
-            console.log(`There aren't any note that titled "${input}"`);           
+                return note;
+            }
         }
+        return null;
     }
 }
 
@@ -235,6 +232,7 @@ console.log(userAdmin.repository);
 // userAdmin.checkDuplicateFolder('folder1');
 // folder1.checkDuplicateFile('file')
 // file1.checkDuplicateNote('note')
+console.log(file1.findNote('note1'));
 
 
 
