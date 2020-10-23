@@ -20,6 +20,8 @@ nav{
 .btn {
     color: white;
     font-size: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .web-name{
@@ -50,18 +52,17 @@ nav{
 
 .relative-link{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 25px;
     padding-left: 20px;
-    width: auto;
     position: relative;   
 }
 
 .animate__animated.animate__slideInLeft {
-    --animate-duration: 0.3s;
+    --animate-duration: 0.5s;
 }
 
 .animate__animated.animate__fadeInRight {
-    --animate-duration: 0.3s;
+    --animate-duration: 0.5s;
 }
 
 #search-input{

@@ -13,3 +13,7 @@ function compareAlphabetically(a, b) {
 function compareTime(a, b) {
     return a.createdDate - b.createdDate;
 }
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})

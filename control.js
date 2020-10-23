@@ -15,6 +15,7 @@ let userBtn = document.getElementById("user-btn");
 
 let nestedTogglers;
 let folderTreeDivs;
+let fileTreeDivs;
 let noteTreeDivs;
 let currentFocus = null;
 
@@ -43,7 +44,7 @@ function displayRepoTreeView(user) {
 
 function addNewFolder() {
     let currentAdding = document.getElementById("new-folder-name");
-    if (!currentAdding){
+    if (!currentAdding) {
         repoListZone.innerHTML += `
         <li>
             <div class="folder-tree" style="padding-left: 16px; display: flex; align-items: center;">
@@ -92,8 +93,8 @@ function displaySearchResult() {
 
 function displayFolder(folder) {
     let fileList = folder.fileList;
-    fileListZone.innerHTML = "";
     relLinkZone.innerText = folder.title;
+    fileListZone.innerHTML = "";
     for (let i = 0; i < fileList.length; i++) {
         let file = fileList[i];
         fileListZone.innerHTML += `
@@ -103,6 +104,10 @@ function displayFolder(folder) {
             </div>
         `
     }
+}
+
+function displayFile(folder, file){
+    console.log(`display ${file.title} in ${folder.title}`);
 }
 
 function fillAllNoteTree(noteList) {
@@ -177,29 +182,44 @@ function updateTreeView(user) {
 function updateHTML() {
     nestedTogglers = document.getElementsByClassName("fa-angle-right");
     folderTreeDivs = document.getElementsByClassName("folder-tree");
+    fileTreeDivs = document.getElementsByClassName("file-tree");
     noteTreeDivs = document.getElementsByClassName('note-tree');
 
     for (let i = 0; i < nestedTogglers.length; i++) {
-        nestedTogglers[i].addEventListener("click", showUpToggler);
+        nestedTogglers[i].addEventListener("click", function () {
+            this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
+            this.classList.toggle("fa-angle-down");
+        });
     }
 
     for (let i = 0; i < folderTreeDivs.length; i++) {
         let folderTreeDiv = folderTreeDivs[i];
         const folderName = folderTreeDiv.innerText.trim();
-        if (!folderTreeDiv.parentElement.classList.contains("all-notes") && !folderTreeDiv.parentElement.classList.contains("recent-notes")) {
-            folderTreeDiv.addEventListener("dblclick", function () {
-                let folder = currentUser.findFolder(folderName);
-                displayFolder(folder);
-            })
-        }
+
+        folderTreeDiv.addEventListener("dblclick", function () {
+            let folder = currentUser.findFolder(folderName);
+            if (folder) displayFolder(folder);
+            this.parentElement.querySelector(".hidden").classList.toggle("active");
+            this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
+        })
+    }
+
+    for (let i = 0 ; i < fileTreeDivs.length; i++){
+        let fileTreeDiv = fileTreeDivs[i];
+        let folderTreeDiv = fileTreeDiv.parentElement.parentElement.parentElement.querySelector(".folder-tree");
+        const fileName = fileTreeDiv.innerText.trim();
+        const folderName = folderTreeDiv.innerText.trim();
+
+        fileTreeDiv.addEventListener("dblclick", function(){
+            let folder = currentUser.findFolder(folderName);
+            let file = folder.findFile(fileName);
+            displayFile(folder, file);
+            this.parentElement.querySelector(".hidden").classList.toggle("active");
+            this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
+        })
     }
 
     // for (let i = 0; i < noteTreeDivs.length; i++) {
     //     let noteTreeDiv = noteTreeDivs[i];
     // }
-}
-
-function showUpToggler(){
-    this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
-    this.classList.toggle("fa-angle-down");
 }
