@@ -1,19 +1,3 @@
-function compareAlphabetically(a, b) {
-    const titleA = a.title.toLowerCase();
-    const titleB = b.title.toLowerCase();
-    let comparison = 0;
-    if (titleA > titleB) {
-        comparison = 1;
-    } else if (titleA < titleB) {
-        comparison = -1;
-    }
-    return comparison;
-};
-
-function compareTime(a, b) {
-    return a.createdDate - b.createdDate;
-}
-
 class User {
     constructor(userName, password) {
         this.userName = userName;
@@ -69,10 +53,6 @@ class User {
         }
     }
 
-    printRepository() {
-        // TO DO
-    }
-
     findFolder(input){
         for (let i = 0; i < this.repository.length; i++) {
             input = input.toLowerCase();
@@ -116,10 +96,6 @@ class Folder {
 
     }
 
-    printFolder() {
-        // TO DO
-    }
-
     findFile(input){
         for (let i = 0; i < this.fileList.length; i++) {
             input = input.toLowerCase();
@@ -149,11 +125,6 @@ class File {
         })
     }
 
-
-    printFile() {
-        // TO DO
-    }
-
     findNote(input){
         for (let i = 0; i < this.noteList.length; i++) {
             input = input.toLowerCase();
@@ -176,11 +147,14 @@ class Note {
 }
 
 let userAdmin = new User("admin", "123456");
+
 let folder1 = new Folder("Folder1");
 let folder2 = new Folder("Folder2");
+
 let file1 = new File("File1");
 let file2 = new File("File2");
 let file3 = new File("File3");
+
 let note1 = new Note('Note1');
 let note2 = new Note('Note2');
 let note3 = new Note('Note3');
@@ -190,9 +164,11 @@ file1.addNote(note1);
 file1.addNote(note2);
 file2.addNote(note3);
 file3.addNote(note4);
+
 folder1.addFile(file1);
 folder2.addFile(file2);
 folder2.addFile(file3);
+
 userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
 
