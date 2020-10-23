@@ -181,10 +181,10 @@ let folder2 = new Folder("Folder2");
 let file1 = new File("File1");
 let file2 = new File("File2");
 let file3 = new File("File3");
-let note1 = new Note('note1');
-let note2 = new Note('note2');
-let note3 = new Note('note3');
-let note4 = new Note('note4');
+let note1 = new Note('Note1');
+let note2 = new Note('Note2');
+let note3 = new Note('Note3');
+let note4 = new Note('Note4');
 
 file1.addNote(note1);
 file1.addNote(note2);

@@ -21,7 +21,6 @@
             <div class="btn fas fa-bars" id="folder-tree-list-btn" onclick="displayRepoTreeView(currentUser)"></div>
             <div class="btn fas fa-plus" id="new-folder-btn" onclick="addNewFolder()"></div>
             <div class="btn fas fa-file" id="new-file-btn" onclick="addNewFile()"></div>
-            <div class="btn fas fa-trash" id="delete-btn" onclick="deleteItem()"></div>
         </div>
 
         <div class="web-name">
@@ -48,7 +47,7 @@
                         <i class="fas fa-globe-asia"></i>
                         All notes
                     </div>
-                    <ul class="hidden all-note-list animate__animated animate__slideInLeft"></ul>
+                    <ul class="hidden all-note-list"></ul>
                 </li>
 
                 <li class="recent-notes">
@@ -56,7 +55,7 @@
                         <i class="fas fa-angle-right"></i>
                         <i class="fas fa-clock"></i>
                         Recent notes</div>
-                    <ul class="hidden recent-note-list animate__animated animate__slideInLeft"></ul>
+                    <ul class="hidden recent-note-list"></ul>
                 </li>
 
                 <div class="repo-list"></div>
@@ -64,7 +63,9 @@
         </div>
 
         <div class="container-fluid px-0 detail-zone">
-            <div class="container-fluid border-bottom bg-light px-0 relative-link text-center text-monospace"></div>
+            <div class="border-bottom bg-light">
+                <div class="container mx-0 relative-link text-monospace"></div>
+            </div>
             <div class="folder-detail">
                 <div class="file-list"></div>
             </div>

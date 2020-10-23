@@ -3,6 +3,16 @@
     padding-left: 0;
 }
 
+html{
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+html::-webkit-scrollbar {
+    /* For Chrome, Safari, and Opera */
+    width: 0px; 
+}
+
 nav{
     overflow-x: hidden;
 }
@@ -21,8 +31,7 @@ nav{
 
 .repo-zone {
     width: 20vw;
-    /* min-width: 200px; */
-    height: 100%;
+    height: 95vh;
     padding-left: 0;
     padding-right: 0;
     float: left;

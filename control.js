@@ -16,7 +16,6 @@ let userBtn = document.getElementById("user-btn");
 let nestedTogglers;
 let folderTreeDivs;
 let noteTreeDivs;
-let isAddingNewItem = false;
 let currentFocus = null;
 
 searchBtn.addEventListener("click", function () {
@@ -43,7 +42,9 @@ function displayRepoTreeView(user) {
 }
 
 function addNewFolder() {
-    repoListZone.innerHTML += `
+    let currentAdding = document.getElementById("new-folder-name");
+    if (!currentAdding){
+        repoListZone.innerHTML += `
         <li>
             <div class="folder-tree" style="padding-left: 16px; display: flex; align-items: center;">
                 <i class="fas fa-angle-right"></i> 
@@ -56,9 +57,10 @@ function addNewFolder() {
                            onkeyup="enterNewFolder(event)">
                 </div>
             </div>
-            <ul class="hidden file-tree-list animate__animated animate__slideInLeft"></ul>
+            <ul class="hidden file-tree-list"></ul>
         </li>
     `
+    }
 }
 
 function enterNewFolder(e) {
@@ -132,7 +134,7 @@ function fillRepoTree(repository) {
                     <i class="fas fa-folder"></i>
                     ${folder.title}                  
                 </div>
-                <ul class="hidden file-tree-list animate__animated animate__slideInLeft">
+                <ul class="hidden file-tree-list">
         `;
         for (let j = 0; j < fileList.length; j++) {
             const file = fileList[j];
@@ -144,7 +146,7 @@ function fillRepoTree(repository) {
                             <i class="fas fa-sticky-note"></i> 
                             ${file.title}
                         </div>
-                        <ul class="hidden note-tree-list animate__animated animate__slideInLeft">
+                        <ul class="hidden note-tree-list">
             `;
 
             for (let k = 0; k < noteList.length; k++) {
@@ -178,10 +180,7 @@ function updateHTML() {
     noteTreeDivs = document.getElementsByClassName('note-tree');
 
     for (let i = 0; i < nestedTogglers.length; i++) {
-        nestedTogglers[i].addEventListener("click", function () {
-            this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
-            this.classList.toggle("fa-angle-down");
-        });
+        nestedTogglers[i].addEventListener("click", showUpToggler);
     }
 
     for (let i = 0; i < folderTreeDivs.length; i++) {
@@ -192,16 +191,15 @@ function updateHTML() {
                 let folder = currentUser.findFolder(folderName);
                 displayFolder(folder);
             })
-            folderTreeDiv.addEventListener("click", function () {
-                currentFocus = this;
-            })
         }
     }
 
-    for (let i = 0; i < noteTreeDivs.length; i++) {
-        let noteTreeDiv = noteTreeDivs[i];
-        noteTreeDiv.addEventListener("click", function () {
-            currentFocus = this;
-        })
-    }
+    // for (let i = 0; i < noteTreeDivs.length; i++) {
+    //     let noteTreeDiv = noteTreeDivs[i];
+    // }
+}
+
+function showUpToggler(){
+    this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
+    this.classList.toggle("fa-angle-down");
 }
