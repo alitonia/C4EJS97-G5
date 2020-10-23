@@ -4,10 +4,9 @@ let allNoteListZone = document.getElementsByClassName("all-note-list")[0];
 let recentNoteListZone = document.getElementsByClassName("recent-note-list")[0];
 
 let detailZone = document.getElementsByClassName("detail-zone")[0];
-let detailFolderZone = document.getElementsByClassName("detail-folder-zone")[0];
-let detailFileZone = document.getElementsByClassName("detail-file-zone")[0];
-
+let relLinkZone = document.getElementsByClassName("relative-link")[0];
 let fileListZone = document.getElementsByClassName("file-list")[0];
+let noteListZone = document.getElementsByClassName("note-list")[0];
 
 let newFolderBtn = document.getElementById("new-folder-btn");
 let newFileBtn = document.getElementById("new-file-btn");
@@ -17,6 +16,7 @@ let userBtn = document.getElementById("user-btn");
 let nestedTogglers;
 let folderTreeDivs;
 let noteTreeDivs;
+let isAddingNewItem = false;
 let currentFocus = null;
 
 searchBtn.addEventListener("click", function () {
@@ -30,25 +30,27 @@ function displayRepoTreeView(user) {
         updateTreeView(user);
 
         repoZone.style.display = "block";
+        relLinkZone.style.width = "80vw";
         detailZone.style.width = "80vw";
         detailZone.style.float = "right";
 
         return;
     }
     repoZone.style.display = "none";
+    relLinkZone.style.width = "auto";
     detailZone.style.width = "auto";
     detailZone.style.float = "none";
 }
 
-function addNewFolder(e) {
+function addNewFolder() {
     repoListZone.innerHTML += `
         <li>
             <div class="folder-tree" style="padding-left: 16px; display: flex; align-items: center;">
                 <i class="fas fa-angle-right"></i> 
                 <i class="fas fa-folder" style="margin-left: 10px"></i>
-                <div class="form-group" style="width: 80%; margin:auto">
+                <div class="form-group mx-1" style="width: 100%; margin: auto;">
                     <input type="text" 
-                           class="form-control border" 
+                           class="form-control" 
                            id="new-folder-name" 
                            placeholder="Folder name" 
                            onkeyup="enterNewFolder(event)">
@@ -56,19 +58,18 @@ function addNewFolder(e) {
             </div>
             <ul class="hidden file-tree-list animate__animated animate__slideInLeft"></ul>
         </li>
-        `
+    `
 }
 
 function enterNewFolder(e) {
     let newFolderInput = document.getElementById("new-folder-name");
-    let newFolderTitle = newFolderInput.value;
+    const newFolderTitle = newFolderInput.value;
     let findFolder = currentUser.findFolder(newFolderTitle);
 
     if (findFolder) newFolderInput.classList.add("border-danger");
     else newFolderInput.classList.remove("border-danger");
 
     if (e.key === "Enter" && !findFolder) {
-
         let newFolder = new Folder(newFolderTitle);
         currentUser.addFolder(newFolder);
         updateTreeView(currentUser);
@@ -90,6 +91,7 @@ function displaySearchResult() {
 function displayFolder(folder) {
     let fileList = folder.fileList;
     fileListZone.innerHTML = "";
+    relLinkZone.innerText = folder.title;
     for (let i = 0; i < fileList.length; i++) {
         let file = fileList[i];
         fileListZone.innerHTML += `
@@ -128,7 +130,7 @@ function fillRepoTree(repository) {
                 <div class="folder-tree">
                     <i class="fas fa-angle-right"></i> 
                     <i class="fas fa-folder"></i>
-                    ${folder.title}
+                    ${folder.title}                  
                 </div>
                 <ul class="hidden file-tree-list animate__animated animate__slideInLeft">
         `;
@@ -191,9 +193,7 @@ function updateHTML() {
                 displayFolder(folder);
             })
             folderTreeDiv.addEventListener("click", function () {
-                if (currentFocus) currentFocus.style.background = "#f8f9fa";
                 currentFocus = this;
-                currentFocus.style.background = "#c3e3ff";
             })
         }
     }
@@ -201,9 +201,7 @@ function updateHTML() {
     for (let i = 0; i < noteTreeDivs.length; i++) {
         let noteTreeDiv = noteTreeDivs[i];
         noteTreeDiv.addEventListener("click", function () {
-            if (currentFocus) currentFocus.style.background = "#f8f9fa";
             currentFocus = this;
-            currentFocus.style.background = "#c3e3ff";
         })
     }
 }

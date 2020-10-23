@@ -21,6 +21,7 @@ nav{
 
 .repo-zone {
     width: 20vw;
+    /* min-width: 200px; */
     height: 100%;
     padding-left: 0;
     padding-right: 0;
@@ -38,6 +39,14 @@ nav{
     color: #495057;
 }
 
+.relative-link{
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 20px;
+    width: auto;
+    position: relative;   
+}
+
 .animate__animated.animate__slideInLeft {
     --animate-duration: 0.3s;
 }
@@ -51,4 +60,9 @@ nav{
     margin: auto;
     font-size: 20px;
     border-radius: 5px;
+}
+
+.form-control:focus{
+    border-color: #ced4da;
+    box-shadow: none;
 }

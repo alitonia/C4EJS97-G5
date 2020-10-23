@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="css\treeview.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-dark bg-secondary text-white flex-nowrap sticky-top">
         <div class="left-btns btn-group">
             <div class="btn fas fa-bars" id="folder-tree-list-btn" onclick="displayRepoTreeView(currentUser)"></div>
-            <div class="btn fas fa-plus" id="new-folder-btn" onclick="addNewFolder(event)"></div>
+            <div class="btn fas fa-plus" id="new-folder-btn" onclick="addNewFolder()"></div>
             <div class="btn fas fa-file" id="new-file-btn" onclick="addNewFile()"></div>
             <div class="btn fas fa-trash" id="delete-btn" onclick="deleteItem()"></div>
         </div>
@@ -29,7 +30,8 @@
 
         <div class="right-btns btn-group">
             <div class="form-group animate__animated animate__fadeInRight hidden" id="search-input">
-                <input type="text" class="form-control" id="key-search" placeholder="Search" onkeyup="displaySearchResult()">
+                <input type="text" class="form-control" id="key-search" placeholder="Search"
+                    onkeyup="displaySearchResult()">
             </div>
             <div class="btn fas fa-search" id="search-btn"></div>
             <div class="btn fas fa-user" id="user-btn"></div>
@@ -37,7 +39,8 @@
     </nav>
 
     <div class="main">
-        <div class="container-fluid repo-zone border bg-light py-2 animate__animated animate__slideInLeft" style="display: none;">
+        <div class="container-fluid repo-zone border bg-light py-2 animate__animated animate__slideInLeft"
+            style="display: none;">
             <ul>
                 <li class="all-notes">
                     <div class="folder-tree">
@@ -60,7 +63,8 @@
             </ul>
         </div>
 
-        <div class="container-fluid detail-zone">
+        <div class="container-fluid px-0 detail-zone">
+            <div class="container-fluid border-bottom bg-light px-0 relative-link text-center text-monospace"></div>
             <div class="folder-detail">
                 <div class="file-list"></div>
             </div>
