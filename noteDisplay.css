@@ -1,0 +1,63 @@
+* {
+    font-family: sans-serif;
+}
+
+.note-container{
+    max-width: 700px;
+    margin: auto;
+    padding: 10px;
+    box-shadow: 0 0 20px 9px #474f721f;
+    border-radius: 10px;
+
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+.note-left-col{
+    flex: 1;
+    padding: 10px;
+}
+
+.note-left-col img{
+    height: 160px;
+    width: 160px;
+    object-fit: cover; 
+    border-radius: 10px;
+    align-items: center;
+}
+
+.note-left-col .note-date{
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-top: 10px;
+    color: grey;
+}
+
+
+.note-right-col{
+    flex:3;
+    padding: 10px
+}
+
+.note-right-col .note-title{
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.note-right-col .note-link{
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.note-right-col .note-content{
+    margin-top: 15px;
+    line-height: 25px;
+}
