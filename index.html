@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css\treeview.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="bootstrap-4\js\bootstrap.bundle.min.js"></script>
 </head>
 
@@ -29,7 +29,7 @@
         </div>
 
         <div class="right-btns btn-group">
-            <div class="form-group animate__animated animate__fadeInRight hidden" id="search-input">
+            <div class="form-group animate__animated animate__slideInRight hidden" id="search-input">
                 <input type="text" class="form-control" id="key-search" placeholder="Search"
                     onkeyup="displaySearchResult()">
             </div>
@@ -42,23 +42,8 @@
         <div class="container-fluid repo-zone border bg-light py-2 animate__animated animate__slideInLeft"
             style="display: none;">
             <ul>
-                <li class="all-notes">
-                    <div class="folder-tree">
-                        <i class="fas fa-angle-right"></i>
-                        <i class="fas fa-globe-asia"></i>
-                        All notes
-                    </div>
-                    <ul class="hidden all-note-list"></ul>
-                </li>
-
-                <li class="recent-notes">
-                    <div class="folder-tree">
-                        <i class="fas fa-angle-right"></i>
-                        <i class="fas fa-clock"></i>
-                        Recent notes</div>
-                    <ul class="hidden recent-note-list"></ul>
-                </li>
-
+                <li class="all-notes"></li>
+                <li class="recent-notes"></li>
                 <div class="repo-list"></div>
             </ul>
         </div>
@@ -67,10 +52,10 @@
             <div class="border-bottom bg-light">
                 <div class="container mx-0 relative-link text-monospace"></div>
             </div>
-            <div class="folder-detail">
+            <div class="folder-detail" style="display: none;">
                 <div class="file-list"></div>
             </div>
-            <div class="hidden file-detail">
+            <div class="file-detail" style="display: none;">
                 <div class="note-list">
 
                 </div>
@@ -81,6 +66,7 @@
     <script src="aims.js"></script>
     <script src="utils.js"></script>
     <script src="control.js"></script>
+    <script src="jqueryfunction.js"></script>
 </body>
 
 </html>

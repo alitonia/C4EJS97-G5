@@ -28,6 +28,7 @@ nav{
     top: 3.25%;
     left: 50%;
     transform: translate(-50%, -50%);
+    user-select: none;
     position: fixed;
 }
 
@@ -61,7 +62,7 @@ nav{
     --animate-duration: 0.5s;
 }
 
-.animate__animated.animate__fadeInRight {
+.animate__animated.animate__slideInRight {
     --animate-duration: 0.5s;
 }
 
@@ -72,7 +73,7 @@ nav{
     border-radius: 5px;
 }
 
-.form-control:focus{
+.repo-zone .form-control:focus{
     border-color: #ced4da;
     box-shadow: none;
 }

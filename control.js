@@ -1,10 +1,12 @@
 let repoZone = document.getElementsByClassName("repo-zone")[0];
 let repoListZone = document.getElementsByClassName("repo-list")[0];
-let allNoteListZone = document.getElementsByClassName("all-note-list")[0];
-let recentNoteListZone = document.getElementsByClassName("recent-note-list")[0];
+let allNoteZone = document.getElementsByClassName("all-notes")[0];
+let recentNoteZone = document.getElementsByClassName("recent-notes")[0];
 
 let detailZone = document.getElementsByClassName("detail-zone")[0];
 let relLinkZone = document.getElementsByClassName("relative-link")[0];
+let folderDetailZone = document.getElementsByClassName("folder-detail")[0];
+let fileDetailZone = document.getElementsByClassName("file-detail")[0];
 let fileListZone = document.getElementsByClassName("file-list")[0];
 let noteListZone = document.getElementsByClassName("note-list")[0];
 
@@ -14,14 +16,16 @@ let searchBtn = document.getElementById("search-btn");
 let userBtn = document.getElementById("user-btn");
 
 let nestedTogglers;
+
 let folderTreeDivs;
 let fileTreeDivs;
 let noteTreeDivs;
-let currentFocus = null;
 
-searchBtn.addEventListener("click", function () {
-    document.getElementById("search-input").classList.toggle("active");
-})
+let fileDivs;
+
+let currentFolderDiv = null;
+
+let isTreeViewDisplayed = false;
 
 function displayRepoTreeView(user) {
     if (repoZone.style.display === "none") {
@@ -34,33 +38,37 @@ function displayRepoTreeView(user) {
         detailZone.style.width = "80vw";
         detailZone.style.float = "right";
 
+        isTreeViewDisplayed = true;
         return;
     }
     repoZone.style.display = "none";
     relLinkZone.style.width = "auto";
     detailZone.style.width = "auto";
     detailZone.style.float = "none";
+    isTreeViewDisplayed = false;
 }
 
 function addNewFolder() {
-    let currentAdding = document.getElementById("new-folder-name");
-    if (!currentAdding) {
+    if (!document.getElementById("new-folder-name")) {
+        if (!isTreeViewDisplayed) displayRepoTreeView(currentUser);
         repoListZone.innerHTML += `
-        <li>
-            <div class="folder-tree" style="padding-left: 16px; display: flex; align-items: center;">
-                <i class="fas fa-angle-right"></i> 
-                <i class="fas fa-folder" style="margin-left: 10px"></i>
-                <div class="form-group mx-1" style="width: 100%; margin: auto;">
-                    <input type="text" 
-                           class="form-control" 
-                           id="new-folder-name" 
-                           placeholder="Folder name" 
-                           onkeyup="enterNewFolder(event)">
+            <li>
+                <div class="folder-tree" style="padding-left: 16px; display: flex; align-items: center;">
+                    <i class="fas fa-angle-right"></i> 
+                    <i class="fas fa-folder" style="margin-left: 10px"></i>
+                    <div class="form-group mx-1" style="width: 100%; margin: auto;">
+                        <input type="text" 
+                            class="form-control" 
+                            id="new-folder-name" autofocus
+                            placeholder="Folder name" 
+                            onkeyup="enterNewFolder(event)">
+                    </div>
                 </div>
-            </div>
-            <ul class="hidden file-tree-list"></ul>
-        </li>
-    `
+                <ul class="hidden file-tree-list"></ul>
+            </li>
+        `
+        let newFolderInput = document.getElementById("new-folder-name");
+        newFolderInput.addEventListener("focusout", updateTreeView);
     }
 }
 
@@ -75,13 +83,57 @@ function enterNewFolder(e) {
     if (e.key === "Enter" && !findFolder) {
         let newFolder = new Folder(newFolderTitle);
         currentUser.addFolder(newFolder);
+        document.getElementById("new-folder-name").removeEventListener("focusout", updateTreeView);
         updateTreeView(currentUser);
     }
 }
 
 function addNewFile() {
     console.log("add new file");
+    // if (currentFolderDiv) {
+    //     if (!document.getElementById("new-file-name")) {
+    //         let fileListDiv = currentFolderDiv.parentElement.querySelector(".file-tree-list");
+    //         fileListDiv.innerHTML += `
+    //             <li>
+    //                 <div class="file-tree" style="padding-left: 40px; display: flex; align-items: center;">
+    //                     <i class="fas fa-angle-right"></i> 
+    //                     <i class="fas fa-sticky-note" style="margin-left: 10px"></i>
+    //                     <div class="form-group mx-1" style="width: 100%; margin: auto;">
+    //                         <input type="text" 
+    //                             class="form-control" 
+    //                             id="new-file-name" autofocus
+    //                             placeholder="File name" 
+    //                             onkeyup="enterNewFile(event)">
+    //                     </div>
+    //                 </div>
+    //                 <ul class="hidden file-tree-list"></ul>
+    //             </li>
+    //         `
+    //         let input = document.getElementById('new-file-name');
+    //         input.addEventListener("focusout", function () {
+    //             updateTreeView(currentUser);
+    //         })
+    //     }
+    // }
+    // else alert("Select a folder first");
 }
+
+// function enterNewFile(e) {
+//     let newFileInput = document.getElementById("new-file-name");
+//     const newFileTitle = newFileInput.value;
+//     let findFolder = currentUser.findFolder(currentFolderDiv.innerText.trim());
+//     let findFile = findFolder.findFile(newFileTitle);
+
+//     if (findFile) newFileInput.classList.add("border-danger");
+//     else newFileInput.classList.remove("border-danger");
+
+//     if (e.key === "Enter" && !findFile) {
+//         let newFile = new File(newFileTitle);
+//         findFolder.addFile(newFile);
+//         updateTreeView(currentUser);
+//         displayFolder(findFolder);
+//     }
+// }
 
 function deleteItem() {
     console.log("delete item");
@@ -93,7 +145,7 @@ function displaySearchResult() {
 
 function displayFolder(folder) {
     let fileList = folder.fileList;
-    relLinkZone.innerText = folder.title;
+    relLinkZone.innerText = `> ${folder.title}`;
     fileListZone.innerHTML = "";
     for (let i = 0; i < fileList.length; i++) {
         let file = fileList[i];
@@ -106,25 +158,49 @@ function displayFolder(folder) {
     }
 }
 
-function displayFile(folder, file){
+function displayFile(folder, file) {
+    relLinkZone.innerText = `> ${folder.title} > ${file.title}`
     console.log(`display ${file.title} in ${folder.title}`);
 }
 
 function fillAllNoteTree(noteList) {
-    allNoteListZone.innerHTML = "";
+    let stringHtml = "";
+    stringHtml += `
+        <div class="folder-tree">
+            <i class="fas fa-angle-right"></i>
+            <i class="fas fa-globe-asia"></i>
+            All notes
+        </div>
+        <ul class="hidden all-note-list">
+    `
+
     for (let i = 0; i < noteList.length; i++) {
         const note = noteList[i];
-        allNoteListZone.innerHTML += `<li><div class="note-tree">${note.title}</div></li>
-        `
+        stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
     }
+
+    stringHtml += `</ul>`;
+    allNoteZone.innerHTML = stringHtml;
 }
 
 function fillRecentNoteTree(noteList) {
-    recentNoteListZone.innerHTML = "";
+    let stringHtml = "";
+    stringHtml += `
+        <div class="folder-tree">
+            <i class="fas fa-angle-right"></i>
+            <i class="fas fa-globe-asia"></i>
+            Recent notes
+        </div>
+        <ul class="hidden recent-note-list">
+    `
+
     for (let i = 0; i < noteList.length; i++) {
         const note = noteList[i];
-        recentNoteListZone.innerHTML += `<li><div class="note-tree">${note.title}</div></li>`;
+        stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
     }
+
+    stringHtml += `</ul>`;
+    recentNoteZone.innerHTML = stringHtml;
 }
 
 function fillRepoTree(repository) {
@@ -172,10 +248,10 @@ function fillRepoTree(repository) {
     repoListZone.innerHTML = stringHtml;
 }
 
-function updateTreeView(user) {
-    fillAllNoteTree(user.allNoteList);
-    fillRecentNoteTree(user.recentNoteList);
-    fillRepoTree(user.repository);
+function updateTreeView() {
+    fillAllNoteTree(currentUser.allNoteList);
+    fillRecentNoteTree(currentUser.recentNoteList);
+    fillRepoTree(currentUser.repository);
     updateHTML();
 }
 
@@ -184,9 +260,11 @@ function updateHTML() {
     folderTreeDivs = document.getElementsByClassName("folder-tree");
     fileTreeDivs = document.getElementsByClassName("file-tree");
     noteTreeDivs = document.getElementsByClassName('note-tree');
+    fileDivs = document.getElementsByClassName('file');
 
     for (let i = 0; i < nestedTogglers.length; i++) {
-        nestedTogglers[i].addEventListener("click", function () {
+        let nestedToggler = nestedTogglers[i];
+        nestedToggler.addEventListener("click", function () {
             this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
             this.classList.toggle("fa-angle-down");
         });
@@ -195,24 +273,38 @@ function updateHTML() {
     for (let i = 0; i < folderTreeDivs.length; i++) {
         let folderTreeDiv = folderTreeDivs[i];
         const folderName = folderTreeDiv.innerText.trim();
-
         folderTreeDiv.addEventListener("dblclick", function () {
             let folder = currentUser.findFolder(folderName);
-            if (folder) displayFolder(folder);
+            if (folder) {
+                currentFolderDiv = this;
+                folderDetailZone.style.display = "block";
+                fileDetailZone.style.display = "none";
+                displayFolder(folder);
+                fileDivs = document.getElementsByClassName('file');
+                for (let j = 0; j < fileDivs.length; j++) {
+                    let fileDiv = fileDivs[j];
+                    let file = fileDiv.innerText;
+                    fileDiv.addEventListener("dblclick", function () {
+                        displayFile(folder, file)
+                    })
+                }
+            }
             this.parentElement.querySelector(".hidden").classList.toggle("active");
             this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
         })
     }
 
-    for (let i = 0 ; i < fileTreeDivs.length; i++){
+    for (let i = 0; i < fileTreeDivs.length; i++) {
         let fileTreeDiv = fileTreeDivs[i];
         let folderTreeDiv = fileTreeDiv.parentElement.parentElement.parentElement.querySelector(".folder-tree");
         const fileName = fileTreeDiv.innerText.trim();
         const folderName = folderTreeDiv.innerText.trim();
 
-        fileTreeDiv.addEventListener("dblclick", function(){
+        fileTreeDiv.addEventListener("dblclick", function () {
             let folder = currentUser.findFolder(folderName);
             let file = folder.findFile(fileName);
+            folderDetailZone.style.display = "none";
+            fileDetailZone.style.display = "block";
             displayFile(folder, file);
             this.parentElement.querySelector(".hidden").classList.toggle("active");
             this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
