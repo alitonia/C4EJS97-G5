@@ -19,9 +19,10 @@
 <body>
     <nav class="navbar navbar-dark bg-secondary text-white flex-nowrap sticky-top">
         <div class="left-btns btn-group">
-            <div class="btn fas fa-bars" id="folder-tree-list-btn" data-toggle="tooltip" data-placement="right" title="Display treeview" onclick="displayRepoTreeView(currentUser)"></div>
-            <div class="btn fas fa-plus" id="new-folder-btn" data-toggle="tooltip" data-placement="right" title="Add new folder" onclick="addNewFolder()"></div>
-            <div class="btn fas fa-file" id="new-file-btn" data-toggle="tooltip" data-placement="right" title="Add new file" onclick="addNewFile()"></div>
+            <button type="button" class="btn fas fa-bars" id="folder-tree-list-btn" title="Tree View"
+                onclick="displayRepoTreeView()"></button>
+            <button type="button" class="btn fas fa-plus" id="new-folder-btn" title="New folder" onclick="addNewFolder()"></button>
+            <button type="button" class="btn fas fa-file" id="new-file-btn" title="New file" onclick="addNewFile()"></button>
         </div>
 
         <div class="web-name">
@@ -33,10 +34,17 @@
                 <input type="text" class="form-control" id="key-search" placeholder="Search"
                     onkeyup="displaySearchResult()">
             </div>
-            <div class="btn fas fa-search" id="search-btn" data-toggle="tooltip" data-placement="left" title="Search"></div>
-            <div class="btn fas fa-user" id="user-btn" data-toggle="tooltip" data-placement="left" title="User"></div>
+            <button type="button" class="btn fas fa-search" id="search-btn" title="Search"></button>
+            <button type="button" class="btn fas fa-user" id="user-btn" title="User"></button>
         </div>
     </nav>
+
+    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div> -->
 
     <div class="main">
         <div class="container-fluid repo-zone border bg-light py-2 animate__animated animate__slideInLeft"

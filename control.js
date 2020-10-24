@@ -27,11 +27,11 @@ let currentFolderDiv = null;
 
 let isTreeViewDisplayed = false;
 
-function displayRepoTreeView(user) {
+function displayRepoTreeView() {
     if (repoZone.style.display === "none") {
         currentUser.updateAllNotes();
         currentUser.updateRecentNotes();
-        updateTreeView(user);
+        updateTreeView(currentUser);
 
         repoZone.style.display = "block";
         relLinkZone.style.width = "80vw";
@@ -45,12 +45,13 @@ function displayRepoTreeView(user) {
     relLinkZone.style.width = "auto";
     detailZone.style.width = "auto";
     detailZone.style.float = "none";
+
     isTreeViewDisplayed = false;
 }
 
 function addNewFolder() {
     if (!document.getElementById("new-folder-name")) {
-        if (!isTreeViewDisplayed) displayRepoTreeView(currentUser);
+        if (!isTreeViewDisplayed) displayRepoTreeView();
         repoListZone.innerHTML += `
             <li>
                 <div class="folder-tree" style="padding-left: 16px; display: flex; align-items: center;">
@@ -59,8 +60,8 @@ function addNewFolder() {
                     <div class="form-group mx-1" style="width: 100%; margin: auto;">
                         <input type="text" 
                             class="form-control" 
-                            id="new-folder-name" autofocus
-                            placeholder="Folder name" 
+                            id="new-folder-name"
+                            placeholder="Folder name"  
                             onkeyup="enterNewFolder(event)">
                     </div>
                 </div>
@@ -68,6 +69,7 @@ function addNewFolder() {
             </li>
         `
         let newFolderInput = document.getElementById("new-folder-name");
+        newFolderInput.focus();
         newFolderInput.addEventListener("focusout", updateTreeView);
     }
 }
@@ -101,7 +103,7 @@ function addNewFile() {
     //                     <div class="form-group mx-1" style="width: 100%; margin: auto;">
     //                         <input type="text" 
     //                             class="form-control" 
-    //                             id="new-file-name" autofocus
+    //                             id="new-file-name"
     //                             placeholder="File name" 
     //                             onkeyup="enterNewFile(event)">
     //                     </div>

@@ -58,11 +58,7 @@ nav{
     position: relative;   
 }
 
-.animate__animated.animate__slideInLeft {
-    --animate-duration: 0.5s;
-}
-
-.animate__animated.animate__slideInRight {
+.animate__animated.animate__slideInLeft, .animate__animated.animate__slideInRight {
     --animate-duration: 0.5s;
 }
 
@@ -73,7 +69,7 @@ nav{
     border-radius: 5px;
 }
 
-.repo-zone .form-control:focus{
-    border-color: #ced4da;
+.repo-zone .form-control:focus, .navbar .btn:focus{
+    outline: none;
     box-shadow: none;
 }
