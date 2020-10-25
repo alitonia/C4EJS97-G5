@@ -24,6 +24,18 @@ nav{
     margin-right: 5px;
 }
 
+#newFolderWindow .modal-body{
+    display: flex;
+}
+
+#newFileWindow .modal-body{
+    display: flex;
+}
+
+.modal .btn{
+    font-size: 1rem;
+}
+
 .web-name{
     top: 3.25%;
     left: 50%;
@@ -69,7 +81,18 @@ nav{
     border-radius: 5px;
 }
 
-.repo-zone .form-control:focus, .navbar .btn:focus{
+.form-control:focus, .navbar .btn:focus{
     outline: none;
     box-shadow: none;
+}
+
+#folder-select{
+    outline: none;
+    box-shadow: none;
+}
+
+.alert{
+    font-size: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

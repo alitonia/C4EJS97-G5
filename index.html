@@ -20,9 +20,11 @@
     <nav class="navbar navbar-dark bg-secondary text-white flex-nowrap sticky-top">
         <div class="left-btns btn-group">
             <button type="button" class="btn fas fa-bars" id="folder-tree-list-btn" title="Tree View"
-                onclick="displayRepoTreeView()"></button>
-            <button type="button" class="btn fas fa-plus" id="new-folder-btn" title="New folder" onclick="addNewFolder()"></button>
-            <button type="button" class="btn fas fa-file" id="new-file-btn" title="New file" onclick="addNewFile()"></button>
+                onclick="toggleTreeView()"></button>
+            <button type="button" class="btn fas fa-plus" id="new-folder-btn" title="New Folder" data-toggle="modal"
+                data-target="#newFolderWindow" onclick="openTreeView();"></button>
+            <button type="button" class="btn fas fa-file" id="new-file-btn" title="New File" data-toggle="modal"
+                data-target="#newFileWindow" onclick="openTreeView(); fillFolderOption();"></button>
         </div>
 
         <div class="web-name">
@@ -39,12 +41,54 @@
         </div>
     </nav>
 
-    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div> -->
+    <div class="modal fade" id="newFolderWindow" tabindex="-1" role="dialog" aria-labelledby="newFolderWindowTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newFolderWindowTitle">New Folder</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mx-1" style="width: 100%; margin: auto;">
+                        <input type="text" class="form-control" id="new-folder-name" placeholder="Folder Name"
+                            autocomplete="off" onkeyup="enterNewFolder(event)">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="add-folder-btn"
+                        onclick="addNewFolder()">Add</button>
+                </div>
+                <div class="alert alert-danger new-folder-alert hidden animate__animated animate__bounceIn"
+                    role="alert"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newFileWindow" tabindex="-1" role="dialog" aria-labelledby="newFileWindowTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newFileWindowTitle">New File</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mx-1" style="width: 100%; margin: auto;">
+                        <select class="custom-select mr-sm-2 mb-2" id="folder-select"></select>
+                        <input type="text" class="form-control hidden animate__animated animate__fadeIn"
+                            id="new-file-name" placeholder="File Name" autocomplete="off" onkeyup="enterNewFile(event)">
+                    </div>
+                    <button type="submit" class="btn btn-primary animate__animated animate__fadeIn hidden"
+                        id="add-file-btn" onclick="addNewFile()">Add</button>
+                </div>
+                <div class="alert alert-danger new-file-alert hidden animate__animated animate__bounceIn" role="alert">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="main">
         <div class="container-fluid repo-zone border bg-light py-2 animate__animated animate__slideInLeft"
@@ -60,21 +104,22 @@
             <div class="border-bottom bg-light">
                 <div class="container mx-0 relative-link text-monospace"></div>
             </div>
+            <div class="repo-detail">
+                <div class="folder-list"></div>
+            </div>
             <div class="folder-detail" style="display: none;">
                 <div class="file-list"></div>
             </div>
             <div class="file-detail" style="display: none;">
-                <div class="note-list">
-
-                </div>
+                <div class="note-list"></div>
             </div>
         </div>
     </div>
 
+    <script src="jqueryfunction.js"></script>
     <script src="aims.js"></script>
     <script src="utils.js"></script>
     <script src="control.js"></script>
-    <script src="jqueryfunction.js"></script>
 </body>
 
 </html>
