@@ -9,7 +9,7 @@
     padding: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    background-color: rgb(242, 242, 232);
+    background-color: rgb(254, 254, 247);
 
 }
 
@@ -51,8 +51,20 @@
     align-items: baseline;
 }
 
+.note-pin{
+    align-items: center;
+    padding-left: 50%;
+    padding-bottom: 10px;
+}
+.note-pin img{
+    height: 40px;
+    
+}
+
+
 .note-right-col img{
-    height: 45px;
+    height: 40px;
+    align-items: center;
 }
 
 .note-right-col .note-title{
@@ -82,4 +94,45 @@
     border-top:1px solid grey;
     width: 100%;
     line-height: 30px;
+}
+
+
+
+
+
+
+
+
+/* Google font */
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+body {
+  background-color: rgba(0,0,0,0.1);
+}
+
+/* styling paper */
+#paper {
+  width: 700px;
+  position: relative;
+  margin: 20px auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+  box-shadow: 0px 0px 5px 0px #888;
+}
+
+/* styling red vertical line */
+#paper::before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  background-color: rgba(255,0,0,0.6);
+}
+
+/* styling blue horizontal lines */
+#pattern {
+  height: 100%;
+  background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
 }
