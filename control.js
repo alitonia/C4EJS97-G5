@@ -256,7 +256,6 @@ function fillRepoTree(repository) {
             stringHtml += `
                     <li>
                         <div class="file-tree">
-                            <i class="fas fa-angle-right"></i> 
                             <i class="fas fa-sticky-note"></i> 
                             ${file.title}
                         </div>
@@ -329,7 +328,6 @@ function updateHTML() {
 
             displayFile(folder, file);
             this.parentElement.querySelector(".hidden").classList.toggle("active");
-            this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
         })
     }
 }

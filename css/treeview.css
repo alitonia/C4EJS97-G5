@@ -31,11 +31,11 @@ i{
 }
 
 .file-tree{
-    padding-left: 40px;
+    padding-left: 60px;
 }
 
 .note-tree{
-    padding-left: 84px;
+    padding-left: 85px;
 }
 
 .folder-tree:hover,.file-tree:hover,.note-tree:hover{
