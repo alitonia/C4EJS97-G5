@@ -140,7 +140,7 @@ function addNewFile() {
         findFolder.addFile(newFile);
         newFileInput.value = "";
         updateTreeView();
-        displayFolder(findFolder);
+        displayFile(findFolder, newFile);
         $('.new-file-alert-success').text(`A new file ${newFileTitle} is added to folder ${findFolder.title} successfully!`);
         $('.new-file-alert-success').show();
         setTimeout(function(){
