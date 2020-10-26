@@ -26,4 +26,5 @@
 .file img {
     width: 30%;
     max-width: 100px;
+    border: none;
 }
