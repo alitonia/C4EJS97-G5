@@ -59,7 +59,9 @@
                     <button type="button" class="btn btn-primary" id="add-folder-btn"
                         onclick="addNewFolder()">Add</button>
                 </div>
-                <div class="alert alert-danger new-folder-alert hidden animate__animated animate__bounceIn"
+                <div class="alert alert-danger new-folder-alert-error hidden animate__animated animate__bounceIn"
+                    role="alert"></div>
+                <div class="alert alert-success new-folder-alert-success hidden animate__animated animate__bounceIn"
                     role="alert"></div>
             </div>
         </div>
@@ -84,7 +86,9 @@
                     <button type="submit" class="btn btn-primary animate__animated animate__fadeIn hidden"
                         id="add-file-btn" onclick="addNewFile()">Add</button>
                 </div>
-                <div class="alert alert-danger new-file-alert hidden animate__animated animate__bounceIn" role="alert">
+                <div class="alert alert-danger new-file-alert-error hidden animate__animated animate__bounceIn" role="alert">
+                </div>
+                <div class="alert alert-success new-file-alert-success hidden animate__animated animate__bounceIn" role="alert">
                 </div>
             </div>
         </div>

@@ -44,6 +44,14 @@ nav{
     position: fixed;
 }
 
+.web-name:hover{
+    cursor: pointer;
+}
+
+.web-name:active{
+    background-color: #6c757d;
+}
+
 .repo-zone {
     width: 20vw;
     height: 95vh;

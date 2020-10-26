@@ -51,17 +51,17 @@ function enterNewFolder(e) {
 
     if (findFolder) {
         newFolderInput.classList.add("border-danger");
-        $('.new-folder-alert').text(`A folder ${newFolderTitle} already exists!`);
-        $('.new-folder-alert').show();
+        $('.new-folder-alert-error').text(`A folder ${newFolderTitle} already exists!`);
+        $('.new-folder-alert-error').show();
     }
     else if (newFolderTitle.length === 0) {
         newFolderInput.classList.add("border-danger");
-        $('.new-folder-alert').text(`A folder name must be provided!`);
-        $('.new-folder-alert').show();
+        $('.new-folder-alert-error').text(`A folder name must be provided!`);
+        $('.new-folder-alert-error').show();
     }
     else {
         newFolderInput.classList.remove("border-danger");
-        $('.new-folder-alert').hide();
+        $('.new-folder-alert-error').hide();
         if (e.key === "Enter") document.getElementById("add-folder-btn").click();
     }
 }
@@ -75,6 +75,12 @@ function addNewFolder() {
         currentUser.addFolder(newFolder);
         newFolderInput.value = "";
         updateTreeView();
+        displayFolder(newFolder);
+        $('.new-folder-alert-success').text(`A new folder ${newFolderTitle} is added successfully!`);
+        $('.new-folder-alert-success').show();
+        setTimeout(function(){
+            $('#newFolderWindow').modal('hide');
+        }, 1500);
     }
 }
 
@@ -107,17 +113,17 @@ function enterNewFile(e) {
 
     if (findFile) {
         newFileInput.classList.add("border-danger");
-        $('.new-file-alert').text(`A file ${newFileTitle} already exists!`);
-        $('.new-file-alert').show();
+        $('.new-file-alert-error').text(`A file ${newFileTitle} already exists!`);
+        $('.new-file-alert-error').show();
     }
     else if (newFileTitle.length === 0) {
         newFileInput.classList.add("border-danger");
-        $('.new-file-alert').text(`A file name must be provided!`);
-        $('.new-file-alert').show();
+        $('.new-file-alert-error').text(`A file name must be provided!`);
+        $('.new-file-alert-error').show();
     }
     else {
         newFileInput.classList.remove("border-danger");
-        $('.new-file-alert').hide();
+        $('.new-file-alert-error').hide();
         if (e.key === "Enter") document.getElementById("add-file-btn").click();
     }
 }
@@ -133,7 +139,14 @@ function addNewFile() {
         let newFile = new File(newFileTitle);
         findFolder.addFile(newFile);
         newFileInput.value = "";
-        updateTreeView(currentUser);
+        updateTreeView();
+        displayFolder(findFolder);
+        $('.new-file-alert-success').text(`A new file ${newFileTitle} is added to folder ${findFolder.title} successfully!`);
+        $('.new-file-alert-success').show();
+        setTimeout(function(){
+            $('#newFileWindow').modal('hide');
+        }, 1500);
+        
     }
 }
 
