@@ -2,21 +2,22 @@
     font-family: sans-serif;
 }
 
+
 .note-container{
     max-width: 700px;
     margin: auto;
     padding: 10px;
-    box-shadow: 0 0 20px 9px #474f721f;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    background-color: rgb(242, 242, 232);
 
 }
 
 .row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 }
-
 
 .note-left-col{
     flex: 1;
@@ -43,13 +44,22 @@
 
 .note-right-col{
     flex:3;
-    padding: 10px
+    padding: 10px;
+}
+
+.note-right-col .row{
+    align-items: baseline;
+}
+
+.note-right-col img{
+    height: 45px;
 }
 
 .note-right-col .note-title{
     font-size: 20px;
     text-align: left;
     font-weight: bold;
+    
 }
 
 .note-right-col .note-link{
@@ -58,6 +68,18 @@
 }
 
 .note-right-col .note-content{
+    display: block;
     margin-top: 15px;
-    line-height: 25px;
+    background-image: repeating-linear-gradient(180deg, transparent, transparent 29px, grey 30px);
+    border-top:1px solid grey;
+    width: 100%;
+    line-height: 30px;
+}
+
+.note-right-col .note-content span{
+    display: block;
+    background-image: repeating-linear-gradient(180deg, transparent, transparent 29px, grey 30px);
+    border-top:1px solid grey;
+    width: 100%;
+    line-height: 30px;
 }
