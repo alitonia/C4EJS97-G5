@@ -331,3 +331,22 @@ function updateHTML() {
         })
     }
 }
+
+function findFolderDiv(folderTitle){
+    updateTreeView();
+    let folderTreeDivs = document.getElementsByClassName("folder-tree");
+    folderTreeDivs = new Array(...folderTreeDivs);
+    return folderTreeDivs.find(function(folderTreeDiv){
+        return folderTreeDiv.innerText.trim() === folderTitle;
+    })
+}
+
+function findFileDiv(folderTitle, fileTitle){
+    updateTreeView();
+    let folderTreeDiv = findFolderDiv(folderTitle);
+    let fileTreeDivs = folderTreeDiv.parentElement.getElementsByClassName("file-tree");
+    fileTreeDivs = new Array(...fileTreeDivs);
+    return fileTreeDivs.find(function(fileTreeDiv){
+        return fileTreeDiv.innerText.trim() === fileTitle;
+    })
+}

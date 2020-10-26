@@ -72,6 +72,7 @@ nav{
 }
 
 .relative-link{
+    width: inherit;
     font-weight: bold;
     font-size: 25px;
     padding-left: 20px;
@@ -103,4 +104,35 @@ nav{
     font-size: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+#add-note-btn, #search-btn{
+    font-size: 30px;
+    color: white;
+    background-color: #6c757d;
+    border: 10px solid #6c757d;
+    border-radius: 50%;
+    position: fixed;
+    
+}
+
+#search-btn{
+    right: 30px;
+    top: 120px;
+}
+
+#add-note-btn{
+    right: 30px;
+    top: 180px;
+}
+
+#add-note-btn:active, #search-btn:active{
+    background-color: #495057;
+    border: 10px solid #495057;
+}
+
+.search-container{
+    position: fixed;
+    right: 90px;
+    top: 127px;
 }
