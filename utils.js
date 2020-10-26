@@ -13,3 +13,7 @@ function compareAlphabetically(a, b) {
 function compareTime(a, b) {
     return a.createdDate - b.createdDate;
 }
+
+function formatDate(date){
+    return `${date.getHours()}:${date.getMinutes()} <br> ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+} 

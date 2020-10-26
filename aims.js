@@ -53,13 +53,13 @@ class User {
         }
     }
 
-    findFolder(input){
+    findFolder(input) {
         for (let i = 0; i < this.repository.length; i++) {
             input = input.toLowerCase();
             let folder = this.repository[i];
-            if (folder["title"].toLowerCase() === input){
+            if (folder["title"].toLowerCase() === input) {
                 return folder;
-            }           
+            }
         }
         return null;
     }
@@ -96,13 +96,13 @@ class Folder {
 
     }
 
-    findFile(input){
+    findFile(input) {
         for (let i = 0; i < this.fileList.length; i++) {
             input = input.toLowerCase();
             let file = this.fileList[i];
-            if (file["title"].toLowerCase() === input){
+            if (file["title"].toLowerCase() === input) {
                 return file;
-            }            
+            }
         }
         return null;
     }
@@ -125,11 +125,11 @@ class File {
         })
     }
 
-    findNote(input){
+    findNote(input) {
         for (let i = 0; i < this.noteList.length; i++) {
             input = input.toLowerCase();
             let note = this.noteList[i];
-            if (note["title"].toLowerCase() === input){
+            if (note["title"].toLowerCase() === input) {
                 return note;
             }
         }
@@ -155,10 +155,38 @@ let file1 = new File("File1");
 let file2 = new File("File2");
 let file3 = new File("File3");
 
-let note1 = new Note('Note1');
-let note2 = new Note('Note2');
-let note3 = new Note('Note3');
-let note4 = new Note('Note4');
+let note1 = new Note('Event JS', 'https://www.w3schools.com/js/js_events.asp', `HTML events are "things" that happen to HTML elements.
+When JavaScript is used in HTML pages, JavaScript can "react" on these events.`);
+let note2 = new Note('Array JS', 'https://www.w3schools.com/js/js_arrays.asp', 'JavaScript arrays are used to store multiple values in a single variable.');
+let note3 = new Note('String JS', 'https://www.w3schools.com/js/js_strings.asp', 'JavaScript strings are used for storing and manipulating text.');
+let note4 = new Note('Bootstrap 4', 'https://www.w3schools.com/bootstrap4/default.asp', `Bootstrap is a free front-end framework for faster and easier web development
+Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins
+Bootstrap also gives you the ability to easily create responsive designs.`);
+
+file1.addNote(note1);
+file1.addNote(note2);
+file2.addNote(note3);
+file3.addNote(note4);
+
+file1.addNote(note1);
+file1.addNote(note2);
+file2.addNote(note3);
+file3.addNote(note4);
+
+file1.addNote(note1);
+file1.addNote(note2);
+file2.addNote(note3);
+file3.addNote(note4);
+
+file1.addNote(note1);
+file1.addNote(note2);
+file2.addNote(note3);
+file3.addNote(note4);
+
+file1.addNote(note1);
+file1.addNote(note2);
+file2.addNote(note3);
+file3.addNote(note4);
 
 file1.addNote(note1);
 file1.addNote(note2);
