@@ -63,7 +63,7 @@
 .note-right-col .note-content span{
     display: block;
     background-image: repeating-linear-gradient(180deg, transparent, transparent 29px, grey 30px);
-    border-top:1px solid grey;
+    border-top: 1px solid grey;
     width: 100%;
     line-height: 30px;
 }
