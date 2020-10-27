@@ -178,27 +178,36 @@ function addNewNote() {
                 </div>
             </div>
             <div class="note-btns">
-                <div class="fas fa-save save-note-btn"></div>
-                <div class="fas fa-trash delete-note-btn" data-toggle="modal"
-                data-target="#deleteNoteConfirm"></div>
+                <div class="fas fa-save" id="save-new-note-btn"></div>
+                <div class="fas fa-trash" id="delete-new-note-btn"></div>
             </div>
         </div>
         `;
     document.getElementById("new-note").scrollIntoView({ behavior: "smooth", block: "center" });
-    let saveBtn = document.getElementsByClassName("save-note-btn")[0];
-    saveBtn.onclick = function(){
-        let tokens = analyzeRelativeLink(relLinkZone.innerText);
-        let folder = currentUser.findFolder(tokens[0]);
-        let file = folder.findFile(tokens[1]);
+    let saveBtn = document.getElementById("save-new-note-btn");
+    let deleteBtn = document.getElementById("delete-new-note-btn");
+    let tokens = analyzeRelativeLink(relLinkZone.innerText);
+    let folder = currentUser.findFolder(tokens[0]);
+    let file = folder.findFile(tokens[1]);
+    saveBtn.onclick = function () {
         let newNoteTitle = document.getElementById("new-note-title").value;
         let newNoteLink = document.getElementById("new-note-link").value;
         let newNoteContent = document.getElementById("new-note-content").value;
         let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
         newNote.createdDate = date;
         file.addNote(newNote);
+        displayFile(folder, file);
+        currentUser.updateAllNotes();
+        currentUser.updateRecentNotes();
         updateTreeView();
         document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    deleteBtn.onclick = function () {
         displayFile(folder, file);
+        currentUser.updateAllNotes();
+        currentUser.updateRecentNotes();
+        updateTreeView();
+        document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
     }
 }
 
@@ -414,7 +423,7 @@ function findFileTreeDiv(folderTitle, fileTitle) {
     })
 }
 
-function analyzeRelativeLink(relatveLink){
+function analyzeRelativeLink(relatveLink) {
     let tokens = relatveLink.split("> ");
     tokens = tokens.filter((token) => {
         return token.length !== 0;
