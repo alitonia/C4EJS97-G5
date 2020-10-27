@@ -54,7 +54,7 @@ nav{
 }
 
 .repo-zone {
-    width: 20vw;
+    width: 15vw;
     height: 95vh;
     bottom: 0;
     padding-left: 0;
@@ -99,6 +99,11 @@ nav{
     box-shadow: none;
 }
 
+.form-control-lg:focus{
+    outline: none;
+    box-shadow: none;
+}
+
 #folder-select{
     outline: none;
     box-shadow: none;
@@ -128,6 +133,10 @@ nav{
 #add-note-btn{
     right: 30px;
     top: 180px;
+}
+
+#add-note-btn:hover, #search-btn:hover{
+    cursor: pointer;
 }
 
 #add-note-btn:active, #search-btn:active{

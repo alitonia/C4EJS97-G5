@@ -6,8 +6,8 @@
 
 .note-container{
     display: flex;
-    height: 300px;
-    width: 80%;
+    height: 400px;
+    width: 60%;
     max-width: 1000px;
     margin: auto;
     padding: 30px;
@@ -18,8 +18,10 @@
 
 .note-left-col{
     width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-right: 15px;
-    text-align: center;
     overflow-x: auto;
     overflow-y: hidden;
 }
@@ -50,4 +52,13 @@
     background-image: repeating-linear-gradient(180deg, transparent, transparent 29px, grey 30px);
     width: 100%;
     line-height: 30px;
+}
+
+.delete-note-btn, .edit-note-btn, .save-note-btn{
+    margin-bottom: 10px;
+    float: right;
+    font-size: 25px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }

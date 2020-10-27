@@ -19,6 +19,7 @@ let noteTreeDivs;
 let fileDivs;
 
 let isTreeViewDisplayed = false;
+let newNoteCount = 0;
 
 function toggleTreeView() {
     if (repoZone.style.display === "none") openTreeView();
@@ -28,10 +29,10 @@ function toggleTreeView() {
 function openTreeView() {
     currentUser.updateAllNotes();
     currentUser.updateRecentNotes();
-    updateTreeView(currentUser);
+    updateTreeView();
     repoZone.style.display = "block";
-    relLinkZone.style.width = "80vw";
-    detailZone.style.width = "80vw";
+    relLinkZone.style.width = "85vw";
+    detailZone.style.width = "85vw";
     detailZone.style.float = "right";
     isTreeViewDisplayed = true;
 }
@@ -59,7 +60,7 @@ function enterNewFolder(e) {
         $('.new-folder-alert-error').text(`A folder name must be provided!`);
         $('.new-folder-alert-error').show();
     }
-    else if (!isValidName(newFolderTitle)){
+    else if (!isValidName(newFolderTitle)) {
         newFolderInput.classList.add("border-danger");
         $('.new-folder-alert-error').text(`Folder name must contain only characters, numeric digits, underscore!`);
         $('.new-folder-alert-error').show();
@@ -75,7 +76,7 @@ function addNewFolder() {
     let newFolderInput = document.getElementById("new-folder-name");
     let newFolderTitle = newFolderInput.value;
     let findFolder = currentUser.findFolder(newFolderTitle);
-    if (!findFolder && newFolderTitle.length !== 0) {
+    if (!findFolder && newFolderTitle.length !== 0 && isValidName(newFolderTitle)) {
         let newFolder = new Folder(newFolderTitle);
         currentUser.addFolder(newFolder);
         newFolderInput.value = "";
@@ -92,11 +93,10 @@ function addNewFolder() {
 function fillFolderOption() {
     let folderSelect = document.getElementById("folder-select");
     folderSelect.innerHTML = `<option value="">Choose Folder...</option>`;
-    for (let i = 0; i < currentUser.repository.length; i++) {
-        let folder = currentUser.repository[i];
+    currentUser.repository.forEach((folder) => {
         folderSelect.innerHTML += `<option value="${folder.title}">${folder.title}</option>`
-    }
-    folderSelect.addEventListener("change", function () {
+    })
+    folderSelect.onchange = function () {
         if (folderSelect.value !== "") {
             $('#new-file-name').show();
             $('#add-file-btn').show();
@@ -105,7 +105,7 @@ function fillFolderOption() {
             $('#new-file-name').hide();
             $('#add-file-btn').hide();
         }
-    })
+    };
 }
 
 function enterNewFile(e) {
@@ -126,6 +126,11 @@ function enterNewFile(e) {
         $('.new-file-alert-error').text(`A file name must be provided!`);
         $('.new-file-alert-error').show();
     }
+    else if (!isValidName(newFileTitle)) {
+        newFileInput.classList.add("border-danger");
+        $('.new-file-alert-error').text(`File name must contain only characters, numeric digits, underscore!`);
+        $('.new-file-alert-error').show();
+    }
     else {
         newFileInput.classList.remove("border-danger");
         $('.new-file-alert-error').hide();
@@ -140,11 +145,11 @@ function addNewFile() {
     let newFileTitle = newFileInput.value;
     let findFolder = currentUser.findFolder(folderTitle);
     let findFile = findFolder.findFile(newFileTitle);
-    if (!findFile && !newFileTitle.length !== 0) {
+    if (!findFile && newFileTitle.length !== 0 && isValidName(newFileTitle)) {
         let newFile = new File(newFileTitle);
         findFolder.addFile(newFile);
         newFileInput.value = "";
-        updateTreeView();    
+        updateTreeView();
         $('.new-file-alert-success').text(`A new file ${newFileTitle} is added to folder ${findFolder.title} successfully!`);
         $('.new-file-alert-success').show();
         setTimeout(function () {
@@ -154,12 +159,47 @@ function addNewFile() {
     }
 }
 
-function deleteItem() {
-    console.log("delete item");
-}
-
-function displaySearchResult() {
-    console.log("display search result");
+function addNewNote() {
+    var date = new Date();
+    noteListZone.innerHTML += `
+        <div class="note-container my-5" id="new-note">
+            <div class="note-left-col align-items-center">
+                <img class="note-img" src="img/note-img-1.jpg" alt="note img">
+                <p class='note-date text-center'>${formatDate(date)}</p>
+            </div>
+            <div class="note-right-col">
+                <input class="form-control-lg border-0 font-weight-bold w-100" type="text" placeholder="Note Title" id="new-note-title"> 
+                <div class='note-link my-3'>
+                    <input class="form-control border-0 text-info" type="text" placeholder="Attached Link" id="new-note-link"> 
+                </div>
+                <div class="form-group">
+                    <label for="new-note-content">Note Content</label>
+                    <textarea class="form-control border-0" id="new-note-content" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="note-btns">
+                <div class="fas fa-save save-note-btn"></div>
+                <div class="fas fa-trash delete-note-btn" data-toggle="modal"
+                data-target="#deleteNoteConfirm"></div>
+            </div>
+        </div>
+        `;
+    document.getElementById("new-note").scrollIntoView({ behavior: "smooth", block: "center" });
+    let saveBtn = document.getElementsByClassName("save-note-btn")[0];
+    saveBtn.onclick = function(){
+        let tokens = analyzeRelativeLink(relLinkZone.innerText);
+        let folder = currentUser.findFolder(tokens[0]);
+        let file = folder.findFile(tokens[1]);
+        let newNoteTitle = document.getElementById("new-note-title").value;
+        let newNoteLink = document.getElementById("new-note-link").value;
+        let newNoteContent = document.getElementById("new-note-content").value;
+        let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
+        newNote.createdDate = date;
+        file.addNote(newNote);
+        updateTreeView();
+        document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+        displayFile(folder, file);
+    }
 }
 
 function displayFolder(folder) {
@@ -168,23 +208,21 @@ function displayFolder(folder) {
     fileDetailZone.style.display = "none";
     relLinkZone.innerText = `> ${folder.title}`;
     fileListZone.innerHTML = "";
-    for (let i = 0; i < fileList.length; i++) {
-        let file = fileList[i];
+    folder.fileList.forEach((file) => {
         fileListZone.innerHTML += `
-            <div class="file">
-                <div class="file-inside">
-                    <img class="img-thumbnail" src="img\\file.png" alt="File">
-                    <p>${file.title}</p>
-                </div> 
-            </div>
-        `
-    }
+        <div class="file">
+            <div class="file-inside">
+                <img class="img-thumbnail" src="img\\file.png" alt="File">
+                <p>${file.title}</p>
+            </div> 
+        </div>
+    `
+    })
     fileDivs = document.getElementsByClassName("file");
-    for (let j = 0; j < fileDivs.length; j++) {
-        let fileDiv = fileDivs[j];
-        fileDiv.addEventListener("dblclick", function () {
-            displayFile(folder, fileList[j]);
-        })
+    for (let i = 0; i < fileDivs.length; i++) {
+        fileDivs[i].ondblclick = () => {
+            displayFile(folder, fileList[i]);
+        }
     }
 }
 
@@ -194,8 +232,7 @@ function displayFile(folder, file) {
     fileDetailZone.style.display = "block";
     relLinkZone.innerText = `> ${folder.title} > ${file.title}`
     noteListZone.innerHTML = "";
-    for (let i = 0; i < noteList.length; i++) {
-        let note = noteList[i];
+    noteList.forEach((note) => {
         noteListZone.innerHTML += `
         <div class="note-container my-5">
             <div class="note-left-col align-items-center">
@@ -209,8 +246,24 @@ function displayFile(folder, file) {
                 </div>
                 <div class='note-content'>${note.content}</div>
             </div>
+            <div class="note-btns">
+                <div class="fas fa-edit edit-note-btn"></div>
+                <div class="fas fa-trash delete-note-btn" data-toggle="modal"
+                data-target="#deleteNoteConfirm"></div>
+            </div>
         </div>
         `;
+    })
+    let deleteBtns = document.getElementsByClassName("delete-note");
+    for (let i = 0; i < deleteBtns.length; i++) {
+        deleteBtns[i].onclick = function () {
+            file.deleteNote(noteList[i]);
+            currentUser.updateAllNotes();
+            currentUser.updateRecentNotes();
+            updateTreeView();
+            displayFile(folder, file);
+            $("#deleteNoteConfirm").modal("hide");
+        }
     }
 }
 
@@ -224,12 +277,9 @@ function fillAllNoteTree(noteList) {
         </div>
         <ul class="hidden all-note-list">
     `
-
-    for (let i = 0; i < noteList.length; i++) {
-        const note = noteList[i];
+    noteList.forEach((note) => {
         stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
-    }
-
+    })
     stringHtml += `</ul>`;
     allNoteZone.innerHTML = stringHtml;
 }
@@ -244,21 +294,16 @@ function fillRecentNoteTree(noteList) {
         </div>
         <ul class="hidden recent-note-list">
     `
-
-    for (let i = 0; i < noteList.length; i++) {
-        const note = noteList[i];
+    noteList.forEach((note) => {
         stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
-    }
-
+    })
     stringHtml += `</ul>`;
     recentNoteZone.innerHTML = stringHtml;
 }
 
 function fillRepoTree(repository) {
     let stringHtml = "";
-    for (let i = 0; i < repository.length; i++) {
-        const folder = repository[i];
-        const fileList = folder.fileList;
+    repository.forEach((folder) => {
         stringHtml += `
             <li>
                 <div class="folder-tree">
@@ -268,9 +313,7 @@ function fillRepoTree(repository) {
                 </div>
                 <ul class="hidden file-tree-list">
         `;
-        for (let j = 0; j < fileList.length; j++) {
-            const file = fileList[j];
-            const noteList = file.noteList;
+        folder.fileList.forEach((file) => {
             stringHtml += `
                     <li>
                         <div class="file-tree">
@@ -279,22 +322,13 @@ function fillRepoTree(repository) {
                         </div>
                         <ul class="hidden note-tree-list">
             `;
-
-            for (let k = 0; k < noteList.length; k++) {
-                const note = noteList[k];
+            file.noteList.forEach((note) => {
                 stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
-            }
-
-            stringHtml += `
-                        </ul>
-                    </li>
-            `;
-        }
-        stringHtml += `
-                </ul>
-            </li>
-        `;
-    }
+            })
+            stringHtml += `</ul></li>`;
+        })
+        stringHtml += `</ul></li>`;
+    })
     repoListZone.innerHTML = stringHtml;
 }
 
@@ -311,18 +345,16 @@ function updateHTML() {
     fileTreeDivs = document.getElementsByClassName("file-tree");
     noteTreeDivs = document.getElementsByClassName('note-tree');
 
-    for (let i = 0; i < nestedTogglers.length; i++) {
-        let nestedToggler = nestedTogglers[i];
-        nestedToggler.addEventListener("click", function () {
+    for (nestedToggler of nestedTogglers) {
+        nestedToggler.onclick = function () {
             this.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
             this.classList.toggle("fa-angle-down");
-        });
+        }
     }
 
-    for (let i = 0; i < folderTreeDivs.length; i++) {
-        let folderTreeDiv = folderTreeDivs[i];
-        const folderName = folderTreeDiv.innerText.trim();
-        folderTreeDiv.addEventListener("dblclick", function () {
+    for (folderTreeDiv of folderTreeDivs) {
+        let folderName = folderTreeDiv.innerText.trim();
+        folderTreeDiv.ondblclick = function () {
             let folder = currentUser.findFolder(folderName);
             if (folder) {
                 folderDetailZone.style.display = "block";
@@ -331,41 +363,44 @@ function updateHTML() {
             }
             this.parentElement.querySelector(".hidden").classList.toggle("active");
             this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
-        })
+        }
     }
 
-    for (let i = 0; i < fileTreeDivs.length; i++) {
-        let fileTreeDiv = fileTreeDivs[i];
+    for (fileTreeDiv of fileTreeDivs) {
         let folderTreeDiv = fileTreeDiv.parentElement.parentElement.parentElement.querySelector(".folder-tree");
-        const fileName = fileTreeDiv.innerText.trim();
-        const folderName = folderTreeDiv.innerText.trim();
-
-        fileTreeDiv.addEventListener("dblclick", function () {
+        let fileName = fileTreeDiv.innerText.trim();
+        let folderName = folderTreeDiv.innerText.trim();
+        fileTreeDiv.setAttribute("title", `\\${folderName}`)
+        fileTreeDiv.ondblclick = function () {
             let folder = currentUser.findFolder(folderName);
             let file = folder.findFile(fileName);
             displayFile(folder, file);
             this.parentElement.querySelector(".hidden").classList.toggle("active");
-        })
+        }
     }
 
-    for (let i = 0 ; i < noteTreeDivs.length ; i++){
-        let noteTreeDiv = noteTreeDivs[i];
+    for (noteTreeDiv of noteTreeDivs) {
         let noteTitle = noteTreeDiv.innerText;
-        noteTreeDiv.addEventListener("click", function(){
+        let note = currentUser.findNote(noteTitle);
+        let file = note.findFile(currentUser);
+        let folder = note.findFolder(currentUser);
+        noteTreeDiv.setAttribute("title", `\\${folder.title}\\${file.title}`)
+        noteTreeDiv.onclick = function () {
+            displayFile(folder, file);
             let noteDivs = document.getElementsByClassName('note-container');
-            let findNoteDiv = Array(...noteDivs).find(function(noteDiv){
+            let findNoteDiv = Array(...noteDivs).find(function (noteDiv) {
                 let noteTitleDiv = noteDiv.querySelector(".note-title");
                 return noteTitleDiv.innerText.trim() === noteTitle;
             })
-            if (findNoteDiv) findNoteDiv.scrollIntoView({behavior: "smooth", block: "center"});
-        })
+            findNoteDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
     }
 }
 
 function findFolderTreeDiv(folderTitle) {
     let folderTreeDivs = document.getElementsByClassName("folder-tree");
     folderTreeDivs = new Array(...folderTreeDivs);
-    return folderTreeDivs.find(function (folderTreeDiv) {
+    return folderTreeDivs.find((folderTreeDiv) => {
         return folderTreeDiv.innerText.trim() === folderTitle;
     })
 }
@@ -374,7 +409,17 @@ function findFileTreeDiv(folderTitle, fileTitle) {
     let folderTreeDiv = findFolderTreeDiv(folderTitle);
     let fileTreeDivs = folderTreeDiv.parentElement.getElementsByClassName("file-tree");
     fileTreeDivs = new Array(...fileTreeDivs);
-    return fileTreeDivs.find(function (fileTreeDiv) {
+    return fileTreeDivs.find((fileTreeDiv) => {
         return fileTreeDiv.innerText.trim() === fileTitle;
     })
+}
+
+function analyzeRelativeLink(relatveLink){
+    let tokens = relatveLink.split("> ");
+    tokens = tokens.filter((token) => {
+        return token.length !== 0;
+    })
+    tokens[0] = tokens[0].trim();
+    tokens[1] = tokens[1].trim();
+    return tokens;
 }

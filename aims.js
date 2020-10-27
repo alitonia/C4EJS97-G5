@@ -28,17 +28,15 @@ class User {
 
     // Everytime an action of modification happens, we run these 2 methods
     updateAllNotes() {
-        this.allNoteList = [];
-        for (let i = 0; i < this.repository.length; i++) {
-            let folder = this.repository[i];
-            for (let j = 0; j < folder.fileList.length; j++) {
-                let file = folder.fileList[j];
-                for (let k = 0; k < file.noteList.length; k++) {
-                    let note = file.noteList[k];
-                    this.allNoteList.push(note)
-                }
-            }
-        }
+        let newNoteList = [];
+        this.repository.forEach((folder) => {
+            folder.fileList.forEach((file) => {
+                file.noteList.forEach((note) => {
+                    newNoteList.push(note);
+                })
+            })
+        })
+        this.allNoteList = newNoteList;
     }
     updateRecentNotes() {
         const LIMIT = 10;
@@ -59,6 +57,21 @@ class User {
             let folder = this.repository[i];
             if (folder["title"].toLowerCase() === input) {
                 return folder;
+            }
+        }
+        return null;
+    }
+
+    findNote(input) {
+        for (let i = 0; i < this.repository.length; i++) {
+            let folder = this.repository[i];
+            for (let j = 0; j < folder.fileList.length; j++) {
+                let file = folder.fileList[j];
+                for (let k = 0; k < file.noteList.length; k++) {
+                    let note = file.noteList[k];
+                    if (note.title === input)
+                        return note;
+                }
             }
         }
         return null;
@@ -138,11 +151,41 @@ class File {
 }
 
 class Note {
-    constructor(title, attachedLink, content) {
+    constructor(title, attachedLink, content){
         this.title = title;
         this.attachedLink = attachedLink;
         this.content = content;
         this.createdDate = new Date();
+    }
+
+    findFile(user) {
+        for (let i = 0; i < user.repository.length; i++) {
+            let folder = user.repository[i];
+            for (let j = 0; j < folder.fileList.length; j++) {
+                let file = folder.fileList[j];
+                for (let k = 0; k < file.noteList.length; k++) {
+                    let note = file.noteList[k];
+                    if (note.title === this.title)
+                        return file;
+                }
+            }
+        }
+        return null;
+    }
+
+    findFolder(user) {
+        for (let i = 0; i < user.repository.length; i++) {
+            let folder = user.repository[i];
+            for (let j = 0; j < folder.fileList.length; j++) {
+                let file = folder.fileList[j];
+                for (let k = 0; k < file.noteList.length; k++) {
+                    let note = file.noteList[k];
+                    if (note.title === this.title)
+                        return folder;
+                }
+            }
+        }
+        return null;
     }
 }
 
@@ -165,8 +208,6 @@ Bootstrap also gives you the ability to easily create responsive designs.`);
 
 file1.addNote(note1);
 file1.addNote(note2);
-file1.addNote(note3);
-file1.addNote(note4);
 file2.addNote(note3);
 file3.addNote(note4);
 
@@ -177,4 +218,4 @@ folder2.addFile(file3);
 userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
 
-currentUser = userAdmin;
+var currentUser = userAdmin;
