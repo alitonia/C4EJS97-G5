@@ -165,16 +165,16 @@ function addNewNote() {
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
-                    <img class="note-img" src="img/note-img-1.jpg" alt="note img">
+                    <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/200/300" alt="note img">
                     <p class='note-date text-center'>${formatDate(date)}</p>
                 </div>
                 <div class="note-right-col">
                     <input class="form-control bg-light w-100" type="text" placeholder="Note Title" onkeyup="enterNewNote(event)" id="new-note-title"> 
                     <div class='note-link my-3'>
-                        <input class="form-control border-0 text-info" type="text" placeholder="Attached Link" id="new-note-link"> 
+                        <input class="form-control text-info" type="text" placeholder="Attached Link" id="new-note-link"> 
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control border-0" id="new-note-content" rows="6" placeholder="Content" style="resize: none"></textarea>
+                        <textarea class="form-control" id="new-note-content" rows="6" placeholder="Content" style="resize: none"></textarea>
                     </div>
                     <div class="alert alert-danger new-note-alert-error hidden animate__animated animate__bounceIn"
                     role="alert">
@@ -280,7 +280,7 @@ function displayFile(folder, file) {
         noteListZone.innerHTML += `
         <div class="note-container my-5">
             <div class="note-left-col align-items-center">
-                <img class="note-img" src="img/note-img-1.jpg" alt="note img">
+                <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/200/300" alt="note img">
                 <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
             </div>
             <div class="note-right-col">
