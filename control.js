@@ -191,13 +191,13 @@ function displayFile(folder, file) {
     for (let i = 0; i < noteList.length; i++) {
         let note = noteList[i];
         noteListZone.innerHTML += `
-        <div class="note-container my-4">
+        <div class="note-container my-5">
             <div class="note-left-col align-items-center">
                 <img class="note-img" src="img/note-img-1.jpg" alt="note img">
                 <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
             </div>
             <div class="note-right-col">
-                <div class='note-title'>${note.title}</div>       
+                <h2 class='note-title'>${note.title}</h2>       
                 <div class='note-link'>
                     <a href="${note.attachedLink}">Link</a>
                 </div>
