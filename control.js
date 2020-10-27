@@ -197,7 +197,7 @@ function displayFile(folder, file) {
                 <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
             </div>
             <div class="note-right-col">
-                <h2 class='note-title'>${note.title}</h2>       
+                <h3 class='note-title'>${note.title}</h3>       
                 <div class='note-link'>
                     <a href="${note.attachedLink}">Link</a>
                 </div>

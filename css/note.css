@@ -1,5 +1,5 @@
 .note-list{
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -19,11 +19,12 @@
     width: 25%;
     margin-right: 20px;
     text-align: center;
-    overflow-x: hidden;
+    overflow-wrap: break-word;
 }
 
 .note-left-col img{
-    width: 150px;
+    width: 100%;
+    max-width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 10px;
@@ -43,8 +44,6 @@
 }
 
 .note-right-col .note-title{
-    font-size: 20px;
-    text-align: left;
     font-weight: bold;
 }
 
@@ -68,5 +67,3 @@
     width: 100%;
     line-height: 30px;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
