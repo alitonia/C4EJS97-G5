@@ -267,7 +267,6 @@ function displayFile(folder, file) {
     for (let i = 0; i < deleteBtns.length; i++) {
         deleteBtns[i].onclick = function () {
             let deleteConfirmBtn = document.getElementsByClassName("delete-note")[0];
-            console.log(deleteConfirmBtn);
             let noteTitle = this.parentElement.parentElement.querySelector(".note-title").innerText;
             deleteConfirmBtn.onclick = function () {
                 file.deleteNote(currentUser.findNote(noteTitle));
