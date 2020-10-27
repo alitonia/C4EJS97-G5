@@ -3,18 +3,19 @@
     padding-left: 0;
 }
 
-html{
+*:not(.repo-zone){
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 
-html::-webkit-scrollbar {
+*:not(.repo-zone)::-webkit-scrollbar {
     /* For Chrome, Safari, and Opera */
     width: 0px; 
 }
 
 nav{
     overflow-x: hidden;
+    background-color: #94b4a4;
 }
 
 .btn {
@@ -49,12 +50,13 @@ nav{
 }
 
 .web-name:active{
-    background-color: #6c757d;
+    background-color: #94b4a4;
 }
 
 .repo-zone {
     width: 20vw;
     height: 95vh;
+    bottom: 0;
     padding-left: 0;
     padding-right: 0;
     float: left;
@@ -65,8 +67,9 @@ nav{
 }
 
 .detail-zone {
-    width: auto;
-    height: 100%;
+    width: 100vw;
+    height: 95vh;
+    bottom: 0;
     position: relative;
     color: #495057;
 }
@@ -76,10 +79,11 @@ nav{
     font-weight: bold;
     font-size: 25px;
     padding-left: 20px;
-    position: relative;   
+    background-color: #d6d2c4;
+    position: fixed;   
 }
 
-.animate__animated.animate__slideInLeft, .animate__animated.animate__slideInRight {
+.animate__animated.animate__slideInLeft, .animate__animated.animate__fadeInDown {
     --animate-duration: 0.5s;
 }
 

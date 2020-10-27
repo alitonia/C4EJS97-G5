@@ -38,15 +38,15 @@ function openTreeView() {
 
 function hideTreeView() {
     repoZone.style.display = "none";
-    relLinkZone.style.width = "auto";
-    detailZone.style.width = "auto";
+    relLinkZone.style.width = "100vw";
+    detailZone.style.width = "100vw";
     detailZone.style.float = "none";
     isTreeViewDisplayed = false;
 }
 
 function enterNewFolder(e) {
     let newFolderInput = document.getElementById("new-folder-name");
-    let newFolderTitle = newFolderInput.value;
+    let newFolderTitle = newFolderInput.value.trim();
     let findFolder = currentUser.findFolder(newFolderTitle);
 
     if (findFolder) {
@@ -57,6 +57,11 @@ function enterNewFolder(e) {
     else if (newFolderTitle.length === 0) {
         newFolderInput.classList.add("border-danger");
         $('.new-folder-alert-error').text(`A folder name must be provided!`);
+        $('.new-folder-alert-error').show();
+    }
+    else if (!isValidName(newFolderTitle)){
+        newFolderInput.classList.add("border-danger");
+        $('.new-folder-alert-error').text(`Folder name must contain only characters, numeric digits, underscore!`);
         $('.new-folder-alert-error').show();
     }
     else {
@@ -75,12 +80,12 @@ function addNewFolder() {
         currentUser.addFolder(newFolder);
         newFolderInput.value = "";
         updateTreeView();
-        displayFolder(newFolder);
         $('.new-folder-alert-success').text(`A new folder ${newFolderTitle} is added successfully!`);
         $('.new-folder-alert-success').show();
         setTimeout(function () {
             $('#newFolderWindow').modal('hide');
         }, 1500);
+        displayFolder(newFolder);
     }
 }
 
@@ -139,14 +144,13 @@ function addNewFile() {
         let newFile = new File(newFileTitle);
         findFolder.addFile(newFile);
         newFileInput.value = "";
-        updateTreeView();
-        displayFile(findFolder, newFile);
+        updateTreeView();    
         $('.new-file-alert-success').text(`A new file ${newFileTitle} is added to folder ${findFolder.title} successfully!`);
         $('.new-file-alert-success').show();
         setTimeout(function () {
             $('#newFileWindow').modal('hide');
         }, 1500);
-
+        displayFile(findFolder, newFile);
     }
 }
 
@@ -168,8 +172,10 @@ function displayFolder(folder) {
         let file = fileList[i];
         fileListZone.innerHTML += `
             <div class="file">
-                <img class="img-thumbnail" src="img\\file.png" alt="File">
-                <p>${file.title}</p>
+                <div class="file-inside">
+                    <img class="img-thumbnail" src="img\\file.png" alt="File">
+                    <p>${file.title}</p>
+                </div> 
             </div>
         `
     }
@@ -197,9 +203,9 @@ function displayFile(folder, file) {
                 <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
             </div>
             <div class="note-right-col">
-                <h3 class='note-title'>${note.title}</h3>       
-                <div class='note-link'>
-                    <a href="${note.attachedLink}">Link</a>
+                <h3 class='note-title font-weight-bold'>${note.title}</h3>       
+                <div class='note-link mt-3'>
+                    <a href="${note.attachedLink}" target="_blank">Link</a>
                 </div>
                 <div class='note-content'>${note.content}</div>
             </div>
@@ -337,15 +343,26 @@ function updateHTML() {
         fileTreeDiv.addEventListener("dblclick", function () {
             let folder = currentUser.findFolder(folderName);
             let file = folder.findFile(fileName);
-
             displayFile(folder, file);
             this.parentElement.querySelector(".hidden").classList.toggle("active");
         })
     }
+
+    for (let i = 0 ; i < noteTreeDivs.length ; i++){
+        let noteTreeDiv = noteTreeDivs[i];
+        let noteTitle = noteTreeDiv.innerText;
+        noteTreeDiv.addEventListener("click", function(){
+            let noteDivs = document.getElementsByClassName('note-container');
+            let findNoteDiv = Array(...noteDivs).find(function(noteDiv){
+                let noteTitleDiv = noteDiv.querySelector(".note-title");
+                return noteTitleDiv.innerText.trim() === noteTitle;
+            })
+            if (findNoteDiv) findNoteDiv.scrollIntoView({behavior: "smooth", block: "center"});
+        })
+    }
 }
 
-function findFolderDiv(folderTitle) {
-    updateTreeView();
+function findFolderTreeDiv(folderTitle) {
     let folderTreeDivs = document.getElementsByClassName("folder-tree");
     folderTreeDivs = new Array(...folderTreeDivs);
     return folderTreeDivs.find(function (folderTreeDiv) {
@@ -353,9 +370,8 @@ function findFolderDiv(folderTitle) {
     })
 }
 
-function findFileDiv(folderTitle, fileTitle) {
-    updateTreeView();
-    let folderTreeDiv = findFolderDiv(folderTitle);
+function findFileTreeDiv(folderTitle, fileTitle) {
+    let folderTreeDiv = findFolderTreeDiv(folderTitle);
     let fileTreeDivs = folderTreeDiv.parentElement.getElementsByClassName("file-tree");
     fileTreeDivs = new Array(...fileTreeDivs);
     return fileTreeDivs.find(function (fileTreeDiv) {

@@ -159,37 +159,14 @@ let note1 = new Note('Event JS', 'https://www.w3schools.com/js/js_events.asp', `
 When JavaScript is used in HTML pages, JavaScript can "react" on these events.`);
 let note2 = new Note('Array JS', 'https://www.w3schools.com/js/js_arrays.asp', 'JavaScript arrays are used to store multiple values in a single variable.');
 let note3 = new Note('String JS', 'https://www.w3schools.com/js/js_strings.asp', 'JavaScript strings are used for storing and manipulating text.');
-let note4 = new Note('Bootstrap 4', 'https://www.w3schools.com/bootstrap4/default.asp', `Bootstrap is a free front-end framework for faster and easier web development
-Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins
+let note4 = new Note('Bootstrap 4', 'https://www.w3schools.com/bootstrap4/default.asp', `Bootstrap is a free front-end framework for faster and easier web development.
+Bootstrap includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels and many other, as well as optional JavaScript plugins.
 Bootstrap also gives you the ability to easily create responsive designs.`);
 
 file1.addNote(note1);
 file1.addNote(note2);
-file2.addNote(note3);
-file3.addNote(note4);
-
-file1.addNote(note1);
-file1.addNote(note2);
-file2.addNote(note3);
-file3.addNote(note4);
-
-file1.addNote(note1);
-file1.addNote(note2);
-file2.addNote(note3);
-file3.addNote(note4);
-
-file1.addNote(note1);
-file1.addNote(note2);
-file2.addNote(note3);
-file3.addNote(note4);
-
-file1.addNote(note1);
-file1.addNote(note2);
-file2.addNote(note3);
-file3.addNote(note4);
-
-file1.addNote(note1);
-file1.addNote(note2);
+file1.addNote(note3);
+file1.addNote(note4);
 file2.addNote(note3);
 file3.addNote(note4);
 

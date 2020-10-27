@@ -1,9 +1,13 @@
-.file:hover{
-    background-color: aliceblue;
+.file-inside:hover{
+    background-color: #c9e4fb;
 }
 
-.file>p{
-    padding-top: 5px;
+.file-inside{
+    padding: 10px;
+}
+
+.file>.file-inside>p{
+    margin: auto;
     text-align: center;
     overflow-wrap: break-word;
 }
@@ -12,7 +16,7 @@
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    padding-top: 20px;
+    padding-top: 50px;
     overflow-y: hidden;
 }
 
@@ -24,7 +28,6 @@
 }
 
 .file img {
-    width: 30%;
     max-width: 100px;
     border: none;
 }

@@ -17,3 +17,8 @@ function compareTime(a, b) {
 function formatDate(date){
     return `${date.getHours()}:${date.getMinutes()} <br> ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 } 
+
+function isValidName(name){
+    const validName = /^[a-zA-Z\w\s+]+$/;
+    return name.match(validName);
+}

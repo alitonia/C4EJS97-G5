@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-secondary text-white flex-nowrap sticky-top">
+    <nav class="navbar navbar-dark text-white sticky-top">
         <div class="left-btns btn-group">
             <button type="button" class="btn fas fa-bars" id="folder-tree-list-btn" title="Tree View"
                 onclick="toggleTreeView()"></button>
@@ -41,7 +41,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background-color: #d6d2c4;">
                     <h5 class="modal-title" id="newFolderWindowTitle">New Folder</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -67,7 +67,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background-color: #d6d2c4;">
                     <h5 class="modal-title" id="newFileWindowTitle">New File</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -82,16 +82,18 @@
                     <button type="submit" class="btn btn-primary animate__animated animate__fadeIn hidden"
                         id="add-file-btn" onclick="addNewFile()">Add</button>
                 </div>
-                <div class="alert alert-danger new-file-alert-error hidden animate__animated animate__bounceIn" role="alert">
+                <div class="alert alert-danger new-file-alert-error hidden animate__animated animate__bounceIn"
+                    role="alert">
                 </div>
-                <div class="alert alert-success new-file-alert-success hidden animate__animated animate__bounceIn" role="alert">
+                <div class="alert alert-success new-file-alert-success hidden animate__animated animate__bounceIn"
+                    role="alert">
                 </div>
             </div>
         </div>
     </div>
 
     <div class="main">
-        <div class="container-fluid repo-zone border bg-light py-2 animate__animated animate__slideInLeft"
+        <div class="container-fluid repo-zone bg-light border py-2 animate__animated animate__slideInLeft"
             style="display: none;">
             <ul>
                 <li class="all-notes"></li>
@@ -100,14 +102,12 @@
             </ul>
         </div>
 
-        <div class="container-fluid px-0 detail-zone">
-            <div class="border-bottom bg-light">
-                <div class="container mx-0 relative-link text-monospace"></div>
-            </div>
+        <div class="container-fluid px-0 detail-zone animate__animated">
+            <div class="container-fluid mx-0 border-bottom relative-link text-monospace"></div>
             <!-- <div class="repo-detail">
                 <div class="folder-list"></div>
             </div> -->
-            <div class="folder-detail" style="display: none;">
+            <div class="container-fluid folder-detail p-x-0" style="display: none;">
                 <div class="file-list"></div>
             </div>
             <div class="container-fluid file-detail p-x-0" style="display: none;">
@@ -119,7 +119,7 @@
                     </div>
                     <span class="fas fa-search" id="search-btn"></span>
                 </span>
-                <span class="fas fa-pen" id="add-note-btn"></span>        
+                <span class="fas fa-pen" id="add-note-btn"></span>
             </div>
         </div>
     </div>
