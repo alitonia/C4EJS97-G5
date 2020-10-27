@@ -20,7 +20,6 @@
     width: 25%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin-right: 15px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -61,4 +60,8 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
+}
+
+#new-note .form-control{
+    border-radius: 1.3rem;
 }

@@ -74,7 +74,7 @@ function enterNewFolder(e) {
 
 function addNewFolder() {
     let newFolderInput = document.getElementById("new-folder-name");
-    let newFolderTitle = newFolderInput.value;
+    let newFolderTitle = newFolderInput.value.trim();
     let findFolder = currentUser.findFolder(newFolderTitle);
     if (!findFolder && newFolderTitle.length !== 0 && isValidName(newFolderTitle)) {
         let newFolder = new Folder(newFolderTitle);
@@ -112,7 +112,7 @@ function enterNewFile(e) {
     let folderSelect = document.getElementById("folder-select");
     let newFileInput = document.getElementById("new-file-name");
     let folderTitle = folderSelect.value;
-    let newFileTitle = newFileInput.value;
+    let newFileTitle = newFileInput.value.trim();
     let findFolder = currentUser.findFolder(folderTitle);
     let findFile = findFolder.findFile(newFileTitle);
 
@@ -142,7 +142,7 @@ function addNewFile() {
     let folderSelect = document.getElementById("folder-select");
     let newFileInput = document.getElementById("new-file-name");
     let folderTitle = folderSelect.value;
-    let newFileTitle = newFileInput.value;
+    let newFileTitle = newFileInput.value.trim();
     let findFolder = currentUser.findFolder(folderTitle);
     let findFile = findFolder.findFile(newFileTitle);
     if (!findFile && newFileTitle.length !== 0 && isValidName(newFileTitle)) {
@@ -160,54 +160,89 @@ function addNewFile() {
 }
 
 function addNewNote() {
-    var date = new Date();
-    noteListZone.innerHTML += `
-        <div class="note-container my-5" id="new-note">
-            <div class="note-left-col align-items-center">
-                <img class="note-img" src="img/note-img-1.jpg" alt="note img">
-                <p class='note-date text-center'>${formatDate(date)}</p>
-            </div>
-            <div class="note-right-col">
-                <input class="form-control-lg border-0 font-weight-bold w-100" type="text" placeholder="Note Title" id="new-note-title"> 
-                <div class='note-link my-3'>
-                    <input class="form-control border-0 text-info" type="text" placeholder="Attached Link" id="new-note-link"> 
+    if (!document.getElementById("new-note")) {
+        var date = new Date();
+        noteListZone.innerHTML += `
+            <div class="note-container my-5" id="new-note">
+                <div class="note-left-col align-items-center">
+                    <img class="note-img" src="img/note-img-1.jpg" alt="note img">
+                    <p class='note-date text-center'>${formatDate(date)}</p>
                 </div>
-                <div class="form-group">
-                    <label for="new-note-content">Note Content</label>
-                    <textarea class="form-control border-0" id="new-note-content" rows="5"></textarea>
+                <div class="note-right-col">
+                    <input class="form-control bg-light w-100" type="text" placeholder="Note Title" onkeyup="enterNewNote(event)" id="new-note-title"> 
+                    <div class='note-link my-3'>
+                        <input class="form-control border-0 text-info" type="text" placeholder="Attached Link" id="new-note-link"> 
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control border-0" id="new-note-content" rows="6" placeholder="Content" style="resize: none"></textarea>
+                    </div>
+                    <div class="alert alert-danger new-note-alert-error hidden animate__animated animate__bounceIn"
+                    role="alert">
+                    </div>
+                </div>
+                <div class="note-btns">
+                    <div class="fas fa-save" id="save-new-note-btn"></div>
+                    <div class="fas fa-trash" id="delete-new-note-btn"></div>
                 </div>
             </div>
-            <div class="note-btns">
-                <div class="fas fa-save" id="save-new-note-btn"></div>
-                <div class="fas fa-trash" id="delete-new-note-btn"></div>
-            </div>
-        </div>
-        `;
-    document.getElementById("new-note").scrollIntoView({ behavior: "smooth", block: "center" });
-    let saveBtn = document.getElementById("save-new-note-btn");
-    let deleteBtn = document.getElementById("delete-new-note-btn");
+            `;
+        document.getElementById("new-note").scrollIntoView({ behavior: "smooth", block: "center" });
+        let saveBtn = document.getElementById("save-new-note-btn");
+        let deleteBtn = document.getElementById("delete-new-note-btn");
+        let tokens = analyzeRelativeLink(relLinkZone.innerText);
+        let folder = currentUser.findFolder(tokens[0]);
+        let file = folder.findFile(tokens[1]);
+        saveBtn.onclick = function () {
+            let newNoteTitle = document.getElementById("new-note-title").value.trim();
+            let newNoteLink = document.getElementById("new-note-link").value;
+            let newNoteContent = document.getElementById("new-note-content").value;
+            if (newNoteTitle.length !== 0) {
+                let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
+                newNote.createdDate = date;
+                file.addNote(newNote);
+                currentUser.updateAllNotes();
+                currentUser.updateRecentNotes();
+                updateTreeView();
+                displayFile(folder, file);
+                document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+            else alert("dit me may");
+        }
+        deleteBtn.onclick = function () {
+            displayFile(folder, file);
+            currentUser.updateAllNotes();
+            currentUser.updateRecentNotes();
+            updateTreeView();
+            document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }
+}
+
+function enterNewNote(e) {
+    let noteTitleInput = document.getElementById("new-note-title");
     let tokens = analyzeRelativeLink(relLinkZone.innerText);
     let folder = currentUser.findFolder(tokens[0]);
     let file = folder.findFile(tokens[1]);
-    saveBtn.onclick = function () {
-        let newNoteTitle = document.getElementById("new-note-title").value;
-        let newNoteLink = document.getElementById("new-note-link").value;
-        let newNoteContent = document.getElementById("new-note-content").value;
-        let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
-        newNote.createdDate = date;
-        file.addNote(newNote);
-        currentUser.updateAllNotes();
-        currentUser.updateRecentNotes();
-        updateTreeView();
-        displayFile(folder, file);
-        document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    let newNoteTitle = noteTitleInput.value.trim();
+    let findNote = file.findNote(newNoteTitle);
+    if (findNote) {
+        noteTitleInput.classList.add("border-danger");
+        $('.new-note-alert-error').text(`A note ${newNoteTitle} already exists!`);
+        $('.new-note-alert-error').show();
     }
-    deleteBtn.onclick = function () {
-        displayFile(folder, file);
-        currentUser.updateAllNotes();
-        currentUser.updateRecentNotes();
-        updateTreeView();
-        document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    else if (newNoteTitle.length === 0) {
+        noteTitleInput.classList.add("border-danger");
+        $('.new-note-alert-error').text(`A note name must be provided!`);
+        $('.new-note-alert-error').show();
+    }
+    else if (!isValidName(newNoteTitle)) {
+        noteTitleInput.classList.add("border-danger");
+        $('.new-note-alert-error').text(`Note name must contain only characters, numeric digits, underscore!`);
+        $('.new-note-alert-error').show();
+    }
+    else {
+        noteTitleInput.classList.remove("border-danger");
+        $('.new-note-alert-error').hide();
     }
 }
 
@@ -275,6 +310,7 @@ function displayFile(folder, file) {
                 updateTreeView();
                 displayFile(folder, file);
                 $("#deleteNoteConfirm").modal("hide");
+                document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
             }
         }
     }
