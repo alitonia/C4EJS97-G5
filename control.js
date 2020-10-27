@@ -196,10 +196,10 @@ function addNewNote() {
         let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
         newNote.createdDate = date;
         file.addNote(newNote);
-        displayFile(folder, file);
         currentUser.updateAllNotes();
         currentUser.updateRecentNotes();
         updateTreeView();
+        displayFile(folder, file);
         document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
     }
     deleteBtn.onclick = function () {
@@ -263,15 +263,20 @@ function displayFile(folder, file) {
         </div>
         `;
     })
-    let deleteBtns = document.getElementsByClassName("delete-note");
+    let deleteBtns = document.getElementsByClassName("delete-note-btn");
     for (let i = 0; i < deleteBtns.length; i++) {
         deleteBtns[i].onclick = function () {
-            file.deleteNote(noteList[i]);
-            currentUser.updateAllNotes();
-            currentUser.updateRecentNotes();
-            updateTreeView();
-            displayFile(folder, file);
-            $("#deleteNoteConfirm").modal("hide");
+            let deleteConfirmBtn = document.getElementsByClassName("delete-note")[0];
+            console.log(deleteConfirmBtn);
+            let noteTitle = this.parentElement.parentElement.querySelector(".note-title").innerText;
+            deleteConfirmBtn.onclick = function () {
+                file.deleteNote(currentUser.findNote(noteTitle));
+                currentUser.updateAllNotes();
+                currentUser.updateRecentNotes();
+                updateTreeView();
+                displayFile(folder, file);
+                $("#deleteNoteConfirm").modal("hide");
+            }
         }
     }
 }
