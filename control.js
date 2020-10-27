@@ -226,7 +226,6 @@ function displaySearchResult() {
     file = searchFile;
     let searchInput = document.getElementById("key-search").value;
     searchInput = searchInput.trim().toLowerCase();
-    console.log(searchInput);
     folderDetailZone.style.display = "none";
     fileDetailZone.style.display = "block";
 
