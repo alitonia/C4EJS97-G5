@@ -188,6 +188,7 @@ function displayFolder(folder) {
     }
 }
 
+
 function displayFile(folder, file) {
     let noteList = file.noteList;
     folderDetailZone.style.display = "none";
@@ -212,6 +213,66 @@ function displayFile(folder, file) {
         </div>
         `;
     }
+    searchBtn = document.getElementById("search-btn");
+    searchBtn.addEventListener("click", function () {
+        searchFolder = folder;
+        searchFile = file;
+        displaySearchResult(folder, file);
+    })
+}
+
+function displaySearchResult() {
+    folder = searchFolder;
+    file = searchFile;
+    let searchInput = document.getElementById("key-search").value;
+    searchInput = searchInput.trim().toLowerCase();
+    console.log(searchInput);
+    folderDetailZone.style.display = "none";
+    fileDetailZone.style.display = "block";
+
+    let noteSearchList = file.searchNote(searchInput);
+    noteListZone.innerHTML = "";
+    for (let i = 0; i < noteSearchList.length; i++) {
+        let note = noteSearchList[i];
+        console.log(note.content);
+        let noteContent = highlightContent(note.content, searchInput);
+        let noteTitle = highlightTitle(note.title, searchInput);
+
+
+        noteListZone.innerHTML += `
+        <div class="note-container my-5">
+            <div class="note-left-col align-items-center">
+                <img class="note-img" src="img/note-img-1.jpg" alt="note img">
+                <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
+            </div>
+            <div class="note-right-col">
+                <h3 class='note-title font-weight-bold'>${noteTitle}</h3>       
+                <div class='note-link mt-3'>
+                    <a href="${note.attachedLink}" target="_blank">Link</a>
+                </div>
+                <div class='note-content'>${noteContent}</div>
+            </div>
+        </div>
+        `;
+    }
+}
+
+function highlightContent(content, searchText){
+    let searchExp =  new RegExp(searchText, "ig");
+    let matches = content.match(searchExp);
+    if (matches){
+        content = content.replace(matches[0], `<span class='highlight'>` + matches[0] + `</span>`)
+    }
+    return content;
+}
+
+function highlightTitle(title, searchText){
+    let searchExp =  new RegExp(searchText, "ig");
+    let matches = title.match(searchExp);
+    if (matches){
+        title = title.replace(matches[0], `<span class='highlight'>` + matches[0] + `</span>`)
+    }
+    return title;
 }
 
 function fillAllNoteTree(noteList) {

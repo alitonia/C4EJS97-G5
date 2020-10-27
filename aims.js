@@ -125,15 +125,27 @@ class File {
         })
     }
 
-    findNote(input) {
+    findNote(input){
         for (let i = 0; i < this.noteList.length; i++) {
             input = input.toLowerCase();
             let note = this.noteList[i];
-            if (note["title"].toLowerCase() === input) {
+            if (note["title"].toLowerCase() === input){
                 return note;
             }
         }
         return null;
+    }
+
+    searchNote(input) {
+        let noteSearchList = [];
+        for (let i = 0; i < this.noteList.length; i++) {
+            //input = input.toLowerCase();
+            let note = this.noteList[i];
+            if (note["title"].toLowerCase().includes(input) || note["content"].toLowerCase().includes(input)) {
+                noteSearchList.push(note)
+            }
+        }
+        return noteSearchList;
     }
 }
 
@@ -178,3 +190,6 @@ userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
 
 currentUser = userAdmin;
+
+console.log(userAdmin);
+
