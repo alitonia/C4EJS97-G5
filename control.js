@@ -165,7 +165,7 @@ function addNewNote() {
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
-                    <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/200/300" alt="note img">
+                    <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/150/150" alt="note img">
                     <p class='note-date text-center'>${formatDate(date)}</p>
                 </div>
                 <div class="note-right-col">
@@ -280,7 +280,7 @@ function displayFile(folder, file) {
         noteListZone.innerHTML += `
         <div class="note-container my-5">
             <div class="note-left-col align-items-center">
-                <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/200/300" alt="note img">
+                <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/150/150" alt="note img">
                 <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
             </div>
             <div class="note-right-col">
