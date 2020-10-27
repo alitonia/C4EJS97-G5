@@ -217,7 +217,7 @@ function displayFile(folder, file) {
     searchBtn.addEventListener("click", function () {
         searchFolder = folder;
         searchFile = file;
-        displaySearchResult(folder, file);
+        displaySearchResult();
     })
 }
 
