@@ -2,12 +2,13 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    font-size: 14px;
 }
 
 .container{
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(images/login-background.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(images/back.jpg);
     background-position: center;
     background-size: cover;
     position: absolute;
@@ -28,7 +29,8 @@
     width: 220px;
     margin: 35px auto;
     position: relative;
-    box-shadow: 0 0 20px 9px#4d66d81f;
+    box-shadow: 0 0 20px 9px#67e68d1f;
+    background-color: rgb(219, 236, 228);
     border-radius: 30px;
 }
 
@@ -45,9 +47,10 @@
     top: 0;
     left: 0;
     position: absolute;
+    margin: auto;
     width: 50%;
     height: 100%;
-    background: linear-gradient(to right, rgb(112, 112, 192), beige);
+    background: #94b4a4;
     border-radius: 30px;
     transition: 0.5s;
 }
@@ -66,7 +69,7 @@
     border-left: 0;
     border-right: 0;
     border-top: 0;
-    border-bottom: 1px solid rgb(112, 112, 192);
+    border-bottom: 1px solid #94b4a4;
     outline: none;
     background: transparent;
 }
@@ -76,7 +79,7 @@
     padding: 10px 30px;
     cursor: pointer;
     display: block;
-    background: linear-gradient(to right, rgb(112, 112, 192), beige);
+    background: #94b4a4;
     border: 0;
     outline: none;
     border-radius: 30px; 

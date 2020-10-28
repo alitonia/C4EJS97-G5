@@ -1,4 +1,4 @@
-//----------Silder Buttion------------------------
+//----------Silder Button------------------------
 var loginForm = document.getElementById("login");
 var signupForm = document.getElementById("signup");
 var slide = document.getElementById("btn");
