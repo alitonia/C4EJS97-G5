@@ -77,33 +77,6 @@ $('#new-file-name').keyup(function(e){
     }
 })
 
-$('#new-note-title').keyup(function(e){
-    let newNoteTitle = $(this).val().trim();
-    let tokens = analyzeRelativeLink($('.relative-link').text());
-    let folder = currentUser.findFolder(tokens[0]);
-    let file = folder.findFile(tokens[1]);
-    let findNote = file.findNote(newNoteTitle);
-    if (findNote) {
-        $(this).addClass("border-danger");
-        $('.new-note-alert-error').text(`A note ${newNoteTitle} already exists!`);
-        $('.new-note-alert-error').show();
-    }
-    else if (newNoteTitle.length === 0) {
-        $(this).addClass("border-danger");
-        $('.new-note-alert-error').text(`A note name must be provided!`);
-        $('.new-note-alert-error').show();
-    }
-    else if (!isValidName(newNoteTitle)) {
-        $(this).addClass("border-danger");
-        $('.new-note-alert-error').text(`Note name must contain only characters, numeric digits, underscore!`);
-        $('.new-note-alert-error').show();
-    }
-    else {
-        $(this).removeClass("border-danger");
-        $('.new-note-alert-error').hide();
-    }
-})
-
 function toggleTreeView(){
     if (!$('.repo-zone').is(":visible")) openTreeView();
     else hideTreeView();

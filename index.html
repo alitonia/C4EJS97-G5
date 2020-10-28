@@ -130,7 +130,7 @@
                 <span class="search-container">
                     <div class="form-group animate__animated animate__fadeInDown hidden" id="search-input">
                         <input type="text" class="form-control" id="key-search" placeholder="Find ..."
-                            onkeyup="displaySearchResult()">
+                            autocomplete="off" onkeyup="displaySearchResult(searchFolder, searchFile)">
                     </div>
                     <span class="fas fa-search" id="search-btn"></span>
                 </span>
@@ -143,6 +143,7 @@
     <script src="aims.js"></script>
     <script src="utils.js"></script>
     <script src="control.js"></script>
+    
 </body>
 
 </html>

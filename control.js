@@ -1,3 +1,5 @@
+var searchFolder, searchFile;
+
 let fileListZone = document.getElementsByClassName("file-list")[0];
 let noteListZone = document.getElementsByClassName("note-list")[0];
 
@@ -6,7 +8,7 @@ function addNewFolder() {
     let findFolder = currentUser.findFolder(newFolderTitle);
     if (!findFolder && newFolderTitle.length !== 0 && isValidName(newFolderTitle)) {
         let newFolder = new Folder(newFolderTitle);
-        currentUser.addFolder(newFolder);   
+        currentUser.addFolder(newFolder);
         $('.new-folder-alert-success').text(`A new folder ${newFolderTitle} is added successfully!`);
         $('.new-folder-alert-success').show();
         setTimeout(function () {
@@ -63,15 +65,38 @@ function addNewNote() {
                 </div>
             </div>
         `;
-        let newNoteTitle = $("#new-note-title").val().trim();
-        let newNoteLink = $("#new-note-link").val();
-        let newNoteContent = $("#new-note-content").val();
+        let newNoteTitle, newNoteLink, newNoteContent, findNote;
         let tokens = analyzeRelativeLink($('.relative-link').text());
         let folder = currentUser.findFolder(tokens[0]);
         let file = folder.findFile(tokens[1]);
         $("#new-note")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+        $('#new-note-title').keyup(function (e) {
+            newNoteTitle = $("#new-note-title").val().trim();
+            newNoteLink = $("#new-note-link").val();
+            newNoteContent = $("#new-note-content").val();
+            findNote = file.findNote(newNoteTitle);
+            if (findNote) {
+                $(this).addClass("border-danger");
+                $('.new-note-alert-error').text(`A note ${newNoteTitle} already exists!`);
+                $('.new-note-alert-error').show();
+            }
+            else if (newNoteTitle.length === 0) {
+                $(this).addClass("border-danger");
+                $('.new-note-alert-error').text(`A note name must be provided!`);
+                $('.new-note-alert-error').show();
+            }
+            else if (!isValidName(newNoteTitle)) {
+                $(this).addClass("border-danger");
+                $('.new-note-alert-error').text(`Note name must contain only characters, numeric digits, underscore!`);
+                $('.new-note-alert-error').show();
+            }
+            else {
+                $(this).removeClass("border-danger");
+                $('.new-note-alert-error').hide();
+            }
+        })
         $('#save-new-note-btn').click(function () {
-            if (newNoteTitle.length !== 0 && isValidName(newNoteTitle)) {
+            if (newNoteTitle.length !== 0 && isValidName(newNoteTitle) && !findNote) {
                 let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent, img);
                 newNote.createdDate = date;
                 file.addNote(newNote);
@@ -144,7 +169,59 @@ function displayFile(folder, file) {
         deleteBtn.onclick = function () {
             let noteTitle = this.parentElement.parentElement.querySelector(".note-title").innerText;
             $('#delete-note').click(function () {
-                file.deleteNote(currentUser.findNote(noteTitle));
+                file.deleteNote(file.findNote(noteTitle));
+                updateTreeView();
+                displayFile(folder, file);
+                $("#deleteNoteConfirm").modal("hide");
+                $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+            })
+        }
+    }
+    $('#search-btn').click(function () {
+        searchFolder = folder;
+        searchFile = file;
+    })
+}
+
+function displaySearchResult(folder, file) {
+    let searchInput = $("#key-search").val().trim().toLowerCase();
+    $('.folder-detail').hide();
+    $('.file-detail').show();
+
+    let noteSearchList = file.searchNote(searchInput);
+    console.log(noteSearchList);
+    noteListZone.innerHTML = "";
+    for (let i = 0; i < noteSearchList.length; i++) {
+        let note = noteSearchList[i];
+        let noteContent = highlight(note.content, searchInput);
+        let noteTitle = highlight(note.title, searchInput);
+        let noteCreatedDate = highlight(formatDate(note.createdDate), searchInput);
+        noteListZone.innerHTML += `
+        <div class="note-container my-5">
+            <div class="note-left-col align-items-center">
+                <img class="note-img" src="${note.img}" alt="note img">
+                <p class='note-date text-center'>${noteCreatedDate}</p>
+            </div>
+            <div class="note-right-col">
+                <h3 class='note-title font-weight-bold'>${noteTitle}</h3>       
+                <div class='note-link mt-3'>
+                    <a href="${note.attachedLink}" target="_blank">Source Link</a>
+                </div>
+                <div class='note-content'>${noteContent}</div>
+            </div>
+            <div class="note-btns">
+                    <div class="fas fa-edit edit-note-btn"></div>
+                    <div class="fas fa-trash delete-note-btn" data-toggle="modal" data-target="#deleteNoteConfirm"></div>
+            </div>
+        </div>
+        `;
+    }
+    let deleteBtns = document.getElementsByClassName("delete-note-btn");
+    for (deleteBtn of deleteBtns) {
+        deleteBtn.onclick = function () {
+            let noteTitle = this.parentElement.parentElement.querySelector(".note-title").innerText;
+            $('#delete-note').click(function () {
+                file.deleteNote(file.findNote(noteTitle));
                 updateTreeView();
                 displayFile(folder, file);
                 $("#deleteNoteConfirm").modal("hide");

@@ -32,3 +32,10 @@ function analyzeRelativeLink(relatveLink) {
     tokens[1] = tokens[1].trim();
     return tokens;
 }
+
+function highlight(content, searchText) {
+    let searchExp = new RegExp(searchText, "ig");
+    let matches = content.match(searchExp);
+    if (matches) content = content.replace(matches[0], `<span class='highlight'>` + matches[0] + `</span>`)
+    return content;
+}

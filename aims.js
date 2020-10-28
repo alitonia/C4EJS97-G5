@@ -43,11 +43,9 @@ class User {
         let sortedAllNoteList = this.allNoteList;
         sortedAllNoteList.sort(compareTime);
         this.recentNoteList = [];
-        for (let i = 0; i < sortedAllNoteList.length; i++) {
-            if (i < 10) {
-                let note = sortedAllNoteList[i];
-                this.recentNoteList.push(note);
-            }
+        for (let i = 0; i < sortedAllNoteList.length && i < LIMIT; i++) {
+            let note = sortedAllNoteList[i];
+            this.recentNoteList.push(note);
         }
     }
 
@@ -139,19 +137,23 @@ class File {
     }
 
     findNote(input) {
-        for (let i = 0; i < this.noteList.length; i++) {
-            input = input.toLowerCase();
-            let note = this.noteList[i];
-            if (note["title"].toLowerCase() === input) {
-                return note;
-            }
-        }
-        return null;
+        return this.noteList.find((note) => {
+            return note.title.toLowerCase() === input.toLowerCase();
+        })
+    }
+
+    searchNote(input) {
+        return this.noteList.filter((note) => {
+            let title = note.title.toLowerCase();
+            let content = note.content.toLowerCase();
+            let date = formatDate(note["createdDate"]);
+            return title.includes(input) || content.includes(input) || date.includes(input);
+        })
     }
 }
 
 class Note {
-    constructor(title, attachedLink, content){
+    constructor(title, attachedLink, content) {
         this.title = title;
         this.attachedLink = attachedLink;
         this.content = content;
