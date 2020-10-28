@@ -20,6 +20,13 @@ $('#newFileWindow').on('hidden.bs.modal', function () {
     $('.new-file-alert-success').hide();
 })
 
+$('.web-name').click(function () {
+    folderDetailZone.style.display = "none";
+    fileDetailZone.style.display = "none";
+    relLinkZone.innerText = "";
+    openTreeView();
+})
+
 // $(document).ready(function() {
 //     // Optimalisation: Store the references outside the event handler:
 //     let repoTreeView = $('.repo-zone');
