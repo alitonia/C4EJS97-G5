@@ -162,7 +162,7 @@ function addNewFile() {
 function addNewNote() {
     if (!document.getElementById("new-note")) {
         let date = new Date();
-        let img = `https://picsum.photos/id/${Math.floor(Math.random() * 100)}/150/150`;
+        let img = `https://picsum.photos/id/${Math.floor(Math.random() * 50) + 1000}/150/150`;
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
@@ -172,10 +172,10 @@ function addNewNote() {
                 <div class="note-right-col">
                     <input class="form-control bg-light w-100" type="text" placeholder="Note Title" onkeyup="enterNewNote(event)" id="new-note-title"> 
                     <div class='note-link my-3'>
-                        <input class="form-control text-info" type="text" placeholder="Attached Link" id="new-note-link"> 
+                        <input class="form-control text-info" type="text" placeholder="Attach Link Here" id="new-note-link"> 
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" id="new-note-content" rows="6" placeholder="Content" style="resize: none"></textarea>
+                        <textarea class="form-control" id="new-note-content" rows="6" placeholder="Note Content" style="resize: none"></textarea>
                     </div>
                     <div class="alert alert-danger new-note-alert-error hidden animate__animated animate__bounceIn"
                     role="alert">
@@ -287,7 +287,7 @@ function displayFile(folder, file) {
             <div class="note-right-col">
                 <h3 class='note-title font-weight-bold'>${note.title}</h3>       
                 <div class='note-link mt-3'>
-                    <a href="${note.attachedLink}" target="_blank">Link</a>
+                    <a href="${note.attachedLink}" target="_blank">Source Link</a>
                 </div>
                 <div class='note-content'>${note.content}</div>
             </div>
@@ -325,7 +325,7 @@ function fillAllNoteTree(noteList) {
             <i class="fas fa-globe-asia"></i>
             All notes
         </div>
-        <ul class="hidden all-note-list">
+        <ul class="hidden all-note-list animate__animated animate__slideInLeft">
     `
     noteList.forEach((note) => {
         stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
@@ -342,7 +342,7 @@ function fillRecentNoteTree(noteList) {
             <i class="fas fa-globe-asia"></i>
             Recent notes
         </div>
-        <ul class="hidden recent-note-list">
+        <ul class="hidden recent-note-list animate__animated animate__slideInLeft">
     `
     noteList.forEach((note) => {
         stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
@@ -361,7 +361,7 @@ function fillRepoTree(repository) {
                     <i class="fas fa-folder"></i>
                     ${folder.title}                  
                 </div>
-                <ul class="hidden file-tree-list">
+                <ul class="hidden file-tree-list animate__animated animate__slideInLeft">
         `;
         folder.fileList.forEach((file) => {
             stringHtml += `
@@ -370,7 +370,7 @@ function fillRepoTree(repository) {
                             <i class="fas fa-sticky-note"></i> 
                             ${file.title}
                         </div>
-                        <ul class="hidden note-tree-list">
+                        <ul class="hidden note-tree-list animate__animated animate__slideInLeft">
             `;
             file.noteList.forEach((note) => {
                 stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
