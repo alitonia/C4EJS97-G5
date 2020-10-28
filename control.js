@@ -162,7 +162,7 @@ function addNewFile() {
 function addNewNote() {
     if (!document.getElementById("new-note")) {
         let date = new Date();
-        let img = `https://picsum.photos/id/${Math.floor(Math.random() * 50) + 1000}/150/150`;
+        let img = `https://picsum.photos/id/${Math.floor(Math.random() * 100) + 100}/150/150`;
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
