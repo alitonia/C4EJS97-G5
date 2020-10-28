@@ -161,11 +161,12 @@ function addNewFile() {
 
 function addNewNote() {
     if (!document.getElementById("new-note")) {
-        var date = new Date();
+        let date = new Date();
+        let img = `https://picsum.photos/id/${Math.floor(Math.random() * 100)}/150/150`;
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
-                    <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/150/150" alt="note img">
+                    <img class="note-img" src="${img}" alt="note img">
                     <p class='note-date text-center'>${formatDate(date)}</p>
                 </div>
                 <div class="note-right-col">
@@ -199,6 +200,7 @@ function addNewNote() {
             if (newNoteTitle.length !== 0) {
                 let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
                 newNote.createdDate = date;
+                newNote.img = img;
                 file.addNote(newNote);
                 currentUser.updateAllNotes();
                 currentUser.updateRecentNotes();
@@ -206,7 +208,6 @@ function addNewNote() {
                 displayFile(folder, file);
                 document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
             }
-            else alert("dit me may");
         }
         deleteBtn.onclick = function () {
             displayFile(folder, file);
@@ -280,7 +281,7 @@ function displayFile(folder, file) {
         noteListZone.innerHTML += `
         <div class="note-container my-5">
             <div class="note-left-col align-items-center">
-                <img class="note-img" src="https://picsum.photos/id/${Math.floor(Math.random() * 100)}/150/150" alt="note img">
+                <img class="note-img" src="${note.img}" alt="note img">
                 <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
             </div>
             <div class="note-right-col">
