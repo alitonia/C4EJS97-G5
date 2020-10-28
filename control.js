@@ -58,7 +58,7 @@ function addNewNote() {
                     </div>
                 </div>
                 <div class="note-btns">
-                    <div class="fas fa-save" id="save-new-note-btn"></div>
+                    <div class="fas fa-file-export" id="save-new-note-btn"></div>
                     <div class="fas fa-trash" id="delete-new-note-btn"></div>
                 </div>
             </div>
