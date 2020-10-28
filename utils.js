@@ -19,6 +19,16 @@ function formatDate(date){
 } 
 
 function isValidName(name){
-    const validName = /^[a-zA-Z\w\s+]+$/;
+    const validName = /^[a-zA-Z\w\s]+$/;
     return name.match(validName);
+}
+
+function analyzeRelativeLink(relatveLink) {
+    let tokens = relatveLink.split("> ");
+    tokens = tokens.filter((token) => {
+        return token.length !== 0;
+    })
+    tokens[0] = tokens[0].trim();
+    tokens[1] = tokens[1].trim();
+    return tokens;
 }

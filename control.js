@@ -27,8 +27,6 @@ function toggleTreeView() {
 }
 
 function openTreeView() {
-    currentUser.updateAllNotes();
-    currentUser.updateRecentNotes();
     updateTreeView();
     repoZone.style.display = "block";
     relLinkZone.style.width = "85vw";
@@ -172,7 +170,7 @@ function addNewNote() {
                 <div class="note-right-col">
                     <input class="form-control bg-light w-100" type="text" placeholder="Note Title" onkeyup="enterNewNote(event)" id="new-note-title"> 
                     <div class='note-link my-3'>
-                        <input class="form-control text-info" type="text" placeholder="Attach Link Here" id="new-note-link"> 
+                        <input class="form-control text-primary" type="text" placeholder="Attach Link Here" id="new-note-link"> 
                     </div>
                     <div class="form-group">
                         <textarea class="form-control" id="new-note-content" rows="6" placeholder="Note Content" style="resize: none"></textarea>
@@ -197,23 +195,19 @@ function addNewNote() {
             let newNoteTitle = document.getElementById("new-note-title").value.trim();
             let newNoteLink = document.getElementById("new-note-link").value;
             let newNoteContent = document.getElementById("new-note-content").value;
-            if (newNoteTitle.length !== 0) {
+            if (newNoteTitle.length !== 0 && isValidName(newNoteTitle)) {
                 let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
                 newNote.createdDate = date;
                 newNote.img = img;
                 file.addNote(newNote);
-                currentUser.updateAllNotes();
-                currentUser.updateRecentNotes();
                 updateTreeView();
                 displayFile(folder, file);
                 document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
             }
         }
         deleteBtn.onclick = function () {
-            displayFile(folder, file);
-            currentUser.updateAllNotes();
-            currentUser.updateRecentNotes();
             updateTreeView();
+            displayFile(folder, file);
             document.getElementsByClassName("note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
         }
     }
@@ -279,7 +273,7 @@ function displayFile(folder, file) {
     noteListZone.innerHTML = "";
     noteList.forEach((note) => {
         noteListZone.innerHTML += `
-        <div class="note-container my-5">
+        <div class="shadow note-container my-5">
             <div class="note-left-col align-items-center">
                 <img class="note-img" src="${note.img}" alt="note img">
                 <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
@@ -300,14 +294,12 @@ function displayFile(folder, file) {
         `;
     })
     let deleteBtns = document.getElementsByClassName("delete-note-btn");
-    for (let i = 0; i < deleteBtns.length; i++) {
-        deleteBtns[i].onclick = function () {
-            let deleteConfirmBtn = document.getElementsByClassName("delete-note")[0];
+    for (deleteBtn of deleteBtns) {
+        deleteBtn.onclick = function () {
+            let deleteConfirmBtn = document.getElementById("delete-note");
             let noteTitle = this.parentElement.parentElement.querySelector(".note-title").innerText;
             deleteConfirmBtn.onclick = function () {
                 file.deleteNote(currentUser.findNote(noteTitle));
-                currentUser.updateAllNotes();
-                currentUser.updateRecentNotes();
                 updateTreeView();
                 displayFile(folder, file);
                 $("#deleteNoteConfirm").modal("hide");
@@ -383,6 +375,8 @@ function fillRepoTree(repository) {
 }
 
 function updateTreeView() {
+    currentUser.updateAllNotes();
+    currentUser.updateRecentNotes();
     fillAllNoteTree(currentUser.allNoteList);
     fillRecentNoteTree(currentUser.recentNoteList);
     fillRepoTree(currentUser.repository);
@@ -462,14 +456,4 @@ function findFileTreeDiv(folderTitle, fileTitle) {
     return fileTreeDivs.find((fileTreeDiv) => {
         return fileTreeDiv.innerText.trim() === fileTitle;
     })
-}
-
-function analyzeRelativeLink(relatveLink) {
-    let tokens = relatveLink.split("> ");
-    tokens = tokens.filter((token) => {
-        return token.length !== 0;
-    })
-    tokens[0] = tokens[0].trim();
-    tokens[1] = tokens[1].trim();
-    return tokens;
 }
