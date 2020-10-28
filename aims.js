@@ -151,12 +151,12 @@ class File {
 }
 
 class Note {
-    constructor(title, attachedLink, content){
+    constructor(title, attachedLink, content, img){
         this.title = title;
         this.attachedLink = attachedLink;
         this.content = content;
         this.createdDate = new Date();
-        this.img = `https://picsum.photos/id/${Math.floor(Math.random() * 100) + 100}/150/150`;
+        this.img = img;
     }
 
     findFile(user) {

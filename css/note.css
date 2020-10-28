@@ -73,7 +73,6 @@
     border: 10px solid #6c757d;
     border-radius: 50%;
     position: fixed;
-    
 }
 
 #search-btn{
@@ -88,9 +87,6 @@
 
 #add-note-btn:hover, #search-btn:hover{
     cursor: pointer;
-}
-
-#add-note-btn:active, #search-btn:active{
     background-color: #495057;
     border: 10px solid #495057;
 }
