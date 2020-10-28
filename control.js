@@ -1,4 +1,5 @@
 var searchFolder, searchFile;
+var isTreeViewDisplayed;
 
 let fileListZone = document.getElementsByClassName("file-list")[0];
 let noteListZone = document.getElementsByClassName("note-list")[0];
@@ -39,8 +40,16 @@ function addNewFile() {
 
 function addNewNote() {
     if (!document.getElementById("new-note")) {
+        let allNoteToggler = document.getElementsByClassName('fa-angle-right')[0];
         let date = new Date();
         let img = `https://picsum.photos/id/${Math.floor(Math.random() * 100) + 100}/150/150`;
+        let tokens = analyzeRelativeLink($('.relative-link').text());
+        let folder = currentUser.findFolder(tokens[0]);
+        let file = folder.findFile(tokens[1]);
+        if (!allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.contains("active")) {
+            allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
+            allNoteToggler.classList.toggle("fa-angle-down");
+        }
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
@@ -65,37 +74,13 @@ function addNewNote() {
                 </div>
             </div>
         `;
-        let newNoteTitle, newNoteLink, newNoteContent, findNote;
-        let tokens = analyzeRelativeLink($('.relative-link').text());
-        let folder = currentUser.findFolder(tokens[0]);
-        let file = folder.findFile(tokens[1]);
         $("#new-note")[0].scrollIntoView({ behavior: "smooth", block: "center" });
-        $('#new-note-title').keyup(function (e) {
-            newNoteTitle = $("#new-note-title").val().trim();
-            newNoteLink = $("#new-note-link").val();
-            newNoteContent = $("#new-note-content").val();
-            findNote = file.findNote(newNoteTitle);
-            if (findNote) {
-                $(this).addClass("border-danger");
-                $('.new-note-alert-error').text(`A note ${newNoteTitle} already exists!`);
-                $('.new-note-alert-error').show();
-            }
-            else if (newNoteTitle.length === 0) {
-                $(this).addClass("border-danger");
-                $('.new-note-alert-error').text(`A note name must be provided!`);
-                $('.new-note-alert-error').show();
-            }
-            else if (!isValidName(newNoteTitle)) {
-                $(this).addClass("border-danger");
-                $('.new-note-alert-error').text(`Note name must contain only characters, numeric digits, underscore!`);
-                $('.new-note-alert-error').show();
-            }
-            else {
-                $(this).removeClass("border-danger");
-                $('.new-note-alert-error').hide();
-            }
-        })
+        $('#new-note-title').keyup(enterNoteTitle);
         $('#save-new-note-btn').click(function () {
+            let newNoteTitle = $("#new-note-title").val().trim();
+            let newNoteLink = $("#new-note-link").val();
+            let newNoteContent = $("#new-note-content").val();
+            let findNote = currentUser.findNote(newNoteTitle);
             if (newNoteTitle.length !== 0 && isValidName(newNoteTitle) && !findNote) {
                 let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent, img);
                 newNote.createdDate = date;
@@ -129,11 +114,13 @@ function displayFolder(folder) {
             </div>
         `
     })
-    fileDivs = document.getElementsByClassName("file");
+    let fileDivs = document.getElementsByClassName("file-inside");
     for (let i = 0; i < fileDivs.length; i++) {
-        fileDivs[i].ondblclick = () => {
+        let fileDiv = fileDivs[i];
+        fileDiv.ondblclick = () => {
             displayFile(folder, fileList[i]);
         }
+        fileDiv.oncontextmenu = displayContextMenu;
     }
 }
 

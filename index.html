@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="bootstrap-4\js\bootstrap.min.js"></script>
     <script src="bootstrap-4\js\bootstrap.bundle.min.js"></script>
 </head>
 
@@ -54,8 +55,7 @@
                     <button type="button" class="btn btn-primary" id="add-folder-btn"
                         onclick="addNewFolder()">Add</button>
                 </div>
-                <div class="alert alert-danger new-folder-alert-error hidden animate__animated animate__bounceIn"
-                    role="alert"></div>
+                <div class="alert alert-danger new-folder-alert-error hidden" role="alert"></div>
                 <div class="alert alert-success new-folder-alert-success hidden animate__animated animate__bounceIn"
                     role="alert"></div>
             </div>
@@ -124,6 +124,10 @@
             <div class="container-fluid mx-0 border-bottom relative-link text-monospace"></div>
             <div class="container-fluid folder-detail p-x-0" style="display: none;">
                 <div class="file-list"></div>
+                <div class="dropdown-menu dropdown-menu-sm" id="context-menu">
+                    <a class="dropdown-item" href="#">Rename</a>
+                    <a class="dropdown-item" href="#">Delete</a>
+                </div>
             </div>
             <div class="container-fluid file-detail p-x-0" style="display: none;">
                 <div class="note-list align-items-center"></div>
@@ -143,7 +147,7 @@
     <script src="aims.js"></script>
     <script src="utils.js"></script>
     <script src="control.js"></script>
-    
+
 </body>
 
 </html>

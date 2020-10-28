@@ -83,6 +83,12 @@ nav{
     position: fixed;   
 }
 
+.folder-detail, .file-detail{
+    height: 95vh;
+    bottom: 0;
+    position: relative;
+}
+
 .animate__animated.animate__slideInLeft, .animate__animated.animate__fadeInDown {
     --animate-duration: 0.5s;
 }

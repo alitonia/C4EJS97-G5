@@ -25,7 +25,15 @@ $('.web-name').click(function () {
     openTreeView();
 })
 
-$('#new-folder-name').keyup(function(e){
+$('.folder-detail').click(function () {
+    $("#context-menu").removeClass("show").hide();
+});
+
+$("#context-menu a").on("click", function () {
+    $(this).parent().removeClass("show").hide();
+});
+
+$('#new-folder-name').keyup(function (e) {
     let newFolderTitle = $('#new-folder-name').val().trim();
     let findFolder = currentUser.findFolder(newFolderTitle);
     if (findFolder) {
@@ -40,7 +48,7 @@ $('#new-folder-name').keyup(function(e){
     }
     else if (!isValidName(newFolderTitle)) {
         $('#new-folder-name').addClass("border-danger");
-        $('.new-folder-alert-error').text(`Folder name must contain only characters, numeric digits, underscore!`);
+        $('.new-folder-alert-error').text(`Folder name must contain only characters, numeric digits and underscore!`);
         $('.new-folder-alert-error').show();
     }
     else {
@@ -50,7 +58,7 @@ $('#new-folder-name').keyup(function(e){
     }
 })
 
-$('#new-file-name').keyup(function(e){
+$('#new-file-name').keyup(function (e) {
     let folderTitle = $('#folder-select').val();
     let newFileTitle = $('#new-file-name').val().trim();
     let findFolder = currentUser.findFolder(folderTitle);
@@ -67,7 +75,7 @@ $('#new-file-name').keyup(function(e){
     }
     else if (!isValidName(newFileTitle)) {
         $('#new-file-name').addClass("border-danger");
-        $('.new-file-alert-error').text(`File name must contain only characters, numeric digits, underscore!`);
+        $('.new-file-alert-error').text(`File name must contain only characters, numeric digits and underscore!`);
         $('.new-file-alert-error').show();
     }
     else {
@@ -77,12 +85,12 @@ $('#new-file-name').keyup(function(e){
     }
 })
 
-function toggleTreeView(){
+function toggleTreeView() {
     if (!$('.repo-zone').is(":visible")) openTreeView();
     else hideTreeView();
 }
 
-function openTreeView(){
+function openTreeView() {
     updateTreeView();
     $('.repo-zone').show();
     $('.relative-link').css('width', '85vw');
@@ -90,15 +98,17 @@ function openTreeView(){
         "width": "85vw",
         "float": "right"
     })
+    isTreeViewDisplayed = true;
 }
 
-function hideTreeView(){
+function hideTreeView() {
     $('.repo-zone').hide();
     $('.relative-link').css('width', '100vw');
     $('.detail-zone').css({
         "width": "100vw",
         "float": "none"
     })
+    isTreeViewDisplayed = false;
 }
 
 function fillFolderOption() {
@@ -116,4 +126,41 @@ function fillFolderOption() {
             $('#add-file-btn').hide();
         }
     })
+}
+
+function enterNoteTitle() {
+    let newNoteTitle = $("#new-note-title").val().trim();
+    let findNote = currentUser.findNote(newNoteTitle);
+    if (findNote) {
+        $(this).addClass("border-danger");
+        $('.new-note-alert-error').text(`A note ${newNoteTitle} already exists in your repository!`);
+        $('.new-note-alert-error').show();
+    }
+    else if (newNoteTitle.length === 0) {
+        $(this).addClass("border-danger");
+        $('.new-note-alert-error').text(`A note name must be provided!`);
+        $('.new-note-alert-error').show();
+    }
+    else if (!isValidName(newNoteTitle)) {
+        $(this).addClass("border-danger");
+        $('.new-note-alert-error').text(`Note name must contain only characters, numeric digits and underscore!`);
+        $('.new-note-alert-error').show();
+    }
+    else {
+        $(this).removeClass("border-danger");
+        $('.new-note-alert-error').hide();
+    }
+}
+
+function displayContextMenu(e) {
+    let repoZoneWidth = 0;
+    if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
+    let top = e.pageY - 50;
+    let left = e.pageX - repoZoneWidth;
+    $("#context-menu").css({
+        display: "block",
+        top: top,
+        left: left
+    }).addClass("show");
+    return false;
 }
