@@ -14,9 +14,9 @@ function addNewFolder() {
         $('.new-folder-alert-success').text(`A new folder ${newFolderTitle} is added successfully!`);
         $('.new-folder-alert-success').show();
         setTimeout(function () {
-            $('#newFolderWindow').modal('hide');
             updateTreeView();
-            displayFolder(newFolder);
+            displayRepository(currentUser);
+            $('#newFolderWindow').modal('hide');
         }, 1000);
     }
 }
@@ -32,9 +32,9 @@ function addNewFile() {
         $('.new-file-alert-success').text(`A new file ${newFileTitle} is added to folder ${findFolder.title} successfully!`);
         $('.new-file-alert-success').show();
         setTimeout(function () {
-            $('#newFileWindow').modal('hide');
             updateTreeView();
-            displayFile(findFolder, newFile);
+            displayFolder(findFolder);
+            $('#newFileWindow').modal('hide');
         }, 1000);
     }
 }
@@ -83,12 +83,13 @@ function addNewNote() {
             let newNoteContent = $("#new-note-content").val();
             let findNote = currentUser.findNote(newNoteTitle);
             if (newNoteTitle.length !== 0 && isValidName(newNoteTitle) && !findNote) {
-                let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent, img);
+                let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
                 newNote.createdDate = date;
+                newNote.img = img;
                 file.addNote(newNote);
                 updateTreeView();
                 displayFile(folder, file);
-                $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+                $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center"});
             }
         })
         $('#delete-new-note-btn').click(function () {
@@ -128,10 +129,11 @@ function displayRepository(user) {
             let top = e.pageY - 50;
             let left = e.pageX - repoZoneWidth;
             $(".repo-detail #context-menu").css({ display: "block", top: top, left: left }).addClass("show");
-            $('#delete-folder').click(() => {
+            $('#delete-folder-btn').click(() => {
                 user.deleteFolder(folderList[i]);
                 updateTreeView();
                 displayRepository(user);
+                $('#deleteFolderConfirm').modal('hide');
             })
             $('#rename-folder').click(() => {
                 folderDiv.innerHTML = `
@@ -186,10 +188,11 @@ function displayFolder(folder) {
             let top = e.pageY - 50;
             let left = e.pageX - repoZoneWidth;
             $(".folder-detail #context-menu").css({ display: "block", top: top, left: left }).addClass("show");
-            $('#delete-file').click(() => {
+            $('#delete-file-btn').click(() => {
                 folder.deleteFile(fileList[i]);
                 updateTreeView();
                 displayFolder(folder);
+                $('#deleteFileConfirm').modal('hide');
             })
             $('#rename-file').click(() => {
                 fileDiv.innerHTML = `
@@ -244,11 +247,10 @@ function displayFile(folder, file) {
         `;
     })
     let deleteBtns = document.getElementsByClassName("delete-note-btn");
-    for (deleteBtn of deleteBtns) {
-        deleteBtn.onclick = function () {
-            let noteTitle = this.parentElement.parentElement.querySelector(".note-title").innerText;
+    for (let i = 0 ; i < deleteBtns.length; i++){
+        deleteBtns[i].onclick = function () {
             $('#delete-note').click(function () {
-                file.deleteNote(file.findNote(noteTitle));
+                file.deleteNote(noteList[i]);
                 updateTreeView();
                 displayFile(folder, file);
                 $("#deleteNoteConfirm").modal("hide");
