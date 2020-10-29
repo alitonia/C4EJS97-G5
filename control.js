@@ -1,7 +1,7 @@
 var searchFolder, searchFile;
-var isTreeViewDisplayed;
-var onCMPosX, onCMPosY;
 
+
+let folderListZone = document.getElementsByClassName("folder-list")[0];
 let fileListZone = document.getElementsByClassName("file-list")[0];
 let noteListZone = document.getElementsByClassName("note-list")[0];
 
@@ -99,13 +99,72 @@ function addNewNote() {
     }
 }
 
-function displayFolder(folder) {
-    $('.folder-detail').show();
+function displayRepository(user){
+    $('.repo-detail').show();
     $('.file-detail').hide();
+    $('.folder-detail').hide();
+    $('.relative-link').text(`Your Repository`);
+    $('.folder-list').html('');
+    let folderList = user.repository;
+    folderList.forEach((folder) => {
+        folderListZone.innerHTML += `
+            <div class="folder">
+                <div class="folder-inside">
+                    <img class="img-thumbnail" src="img\\folder.png" alt="Folder">
+                    <p style="user-select: none">${folder.title}</p>
+                </div> 
+            </div>
+        `
+    })
+    let folderDivs = document.getElementsByClassName("folder-inside");
+    for (let i = 0; i < folderDivs.length; i++) {
+        let folderDiv = folderDivs[i];
+        folderDiv.ondblclick = () => {
+            displayFolder(folderList[i]);
+        }
+        folderDiv.oncontextmenu = (e) => {
+            let repoZoneWidth = 0;
+            if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
+            let top = e.pageY - 50;
+            let left = e.pageX - repoZoneWidth;
+            $(".repo-detail #context-menu").css({ display: "block", top: top, left: left }).addClass("show");
+            $('#delete-folder').click(() => {
+                user.deleteFolder(folderList[i]);
+                updateTreeView();
+                displayRepository(user);
+            })
+            $('#rename-folder').click(() => {
+                folderDiv.innerHTML = `
+                    <img class="img-thumbnail" src="img\\folder.png" alt="Folder">
+                    <input class="form-control bg-light" type="text" placeholder="New Name" id="new-folder-title">
+                `
+                $('#new-folder-title').keyup(function (e) {
+                    let newFolderTitle = $('#new-folder-title').val().trim();
+                    let findFolder = user.findFolder(newFolderTitle);
+                    if (findFolder || newFolderTitle.length === 0 || !isValidName(newFolderTitle)) $('#new-folder-title').addClass("border-danger");
+                    else {
+                        $('#new-folder-title').removeClass("border-danger");
+                        if (e.key === "Enter") {
+                            folderList[i].title = newFolderTitle;
+                            updateTreeView();
+                            displayRepository(user);
+                        }
+                    }
+                })
+            })
+            return false;
+        }
+    }
+}
+
+function displayFolder(folder) {
+    $('.repo-detail').hide();
+    $('.file-detail').hide();
+    $('.folder-detail').show();
     $('.relative-link').text(`> ${folder.title}`);
     $('.file-list').html('');
     let fileList = folder.fileList;
-    folder.fileList.forEach((file) => {
+    fileList.forEach((file) => {
         fileListZone.innerHTML += `
             <div class="file">
                 <div class="file-inside">
@@ -126,7 +185,7 @@ function displayFolder(folder) {
             if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
             let top = e.pageY - 50;
             let left = e.pageX - repoZoneWidth;
-            $("#context-menu").css({ display: "block", top: top, left: left }).addClass("show");
+            $(".folder-detail #context-menu").css({ display: "block", top: top, left: left }).addClass("show");
             $('#delete-file').click(() => {
                 folder.deleteFile(fileList[i]);
                 updateTreeView();
@@ -158,6 +217,7 @@ function displayFolder(folder) {
 
 function displayFile(folder, file) {
     let noteList = file.noteList;
+    $('.repo-detail').hide();
     $('.folder-detail').hide();
     $('.file-detail').show();
     $('.relative-link').text(`> ${folder.title} > ${file.title}`);

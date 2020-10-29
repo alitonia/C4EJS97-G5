@@ -1,24 +1,24 @@
-.file-inside:hover{
+.folder-inside:hover{
     background-color: #c9e4fb;
 }
 
-.file-inside{
+.folder-inside{
     padding: 10px;
 }
 
-.file>.file-inside>p{
+.folder>.folder-inside>p{
     margin: auto;
     text-align: center;
     overflow-wrap: break-word;
 }
 
-.file>.file-inside>input{
+.folder>.folder-inside>input{
     margin: auto;
     max-width: 100px;
     font-size: 15px;
 }
 
-.file-list{
+.folder-list{
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -26,14 +26,14 @@
     overflow-y: hidden;
 }
 
-.file{
+.folder{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.file img {
+.folder img {
     max-width: 100px;
     border: none;
 }

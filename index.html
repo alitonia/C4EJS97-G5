@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
     <link rel="stylesheet" href="bootstrap-4\css\bootstrap.min.css">
     <link rel="stylesheet" href="css\main.css">
+    <link rel="stylesheet" href="css\folder.css">
     <link rel="stylesheet" href="css\file.css">
-    <link rel="stylesheet" href="css\treeview.css">
     <link rel="stylesheet" href="css\note.css">
+    <link rel="stylesheet" href="css\treeview.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -122,6 +124,13 @@
 
         <div class="container-fluid px-0 detail-zone animate__animated">
             <div class="container-fluid mx-0 border-bottom relative-link text-monospace"></div>
+            <div class="container-fluid repo-detail p-x-0" style="display: none;">
+                <div class="folder-list"></div>
+                <div class="dropdown-menu dropdown-menu-sm" id="context-menu">
+                    <a class="dropdown-item" href="#" id="rename-folder">Rename</a>
+                    <a class="dropdown-item" href="#" id="delete-folder">Delete</a>
+                </div>
+            </div>
             <div class="container-fluid folder-detail p-x-0" style="display: none;">
                 <div class="file-list"></div>
                 <div class="dropdown-menu dropdown-menu-sm" id="context-menu">

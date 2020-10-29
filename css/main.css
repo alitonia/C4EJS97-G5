@@ -83,12 +83,12 @@ nav{
     position: fixed;   
 }
 
-.folder-detail, .file-detail{
+.repo-detail, .folder-detail, .file-detail{
     height: 95vh;
     bottom: 0;
 }
 
-.animate__animated.animate__slideInLeft, .animate__animated.animate__fadeInDown {
+.animate__animated.animate__slideInLeft, .animate__animated.animate__fadeInDown, .animate__animated.animate__fadeInUp{
     --animate-duration: 0.5s;
 }
 

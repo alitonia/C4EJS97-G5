@@ -1,3 +1,5 @@
+var isTreeViewDisplayed;
+
 $('#folder-tree-list-btn').click(toggleTreeView);
 
 $("#search-btn").click(function () {
@@ -19,17 +21,22 @@ $('#newFileWindow').on('hidden.bs.modal', function () {
 })
 
 $('.web-name').click(function () {
-    $('.folder-detail').hide();
-    $('.file-detail').hide();
-    $('.relative-link').text('');
-    openTreeView();
+    displayRepository(currentUser);
 })
 
-$('.folder-detail').click(function () {
-    $("#context-menu").removeClass("show").hide();
+$('.repo-detail').click(function () {
+    $(".repo-detail #context-menu").removeClass("show").hide();
 });
 
-$("#context-menu a").on("click", function () {
+$('.folder-detail').click(function () {
+    $(".folder-detail #context-menu").removeClass("show").hide();
+});
+
+$(".repo-detail #context-menu a").on("click", function () {
+    $(this).parent().removeClass("show").hide();
+});
+
+$(".folder-detail #context-menu a").on("click", function () {
     $(this).parent().removeClass("show").hide();
 });
 
