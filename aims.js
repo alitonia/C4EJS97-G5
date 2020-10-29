@@ -222,3 +222,4 @@ userAdmin.addFolder(folder1);
 userAdmin.addFolder(folder2);
 
 var currentUser = userAdmin;
+

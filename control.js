@@ -145,7 +145,7 @@ function displayFile(folder, file) {
                     <div class='note-content'>${note.content}</div>
                 </div>
                 <div class="note-btns">
-                    <div class="fas fa-edit edit-note-btn"></div>
+                    <div class="fas fa-edit edit-note-btn onclick="editNote()"></div>
                     <div class="fas fa-trash delete-note-btn" data-toggle="modal" data-target="#deleteNoteConfirm"></div>
                 </div>
             </div>
@@ -197,7 +197,7 @@ function displaySearchResult(folder, file) {
                 <div class='note-content'>${noteContent}</div>
             </div>
             <div class="note-btns">
-                    <div class="fas fa-edit edit-note-btn"></div>
+                    <div class="fas fa-edit edit-note-btn onclick="editNote()"></div>
                     <div class="fas fa-trash delete-note-btn" data-toggle="modal" data-target="#deleteNoteConfirm"></div>
             </div>
         </div>

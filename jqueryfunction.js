@@ -152,6 +152,33 @@ function enterNoteTitle() {
     }
 }
 
+function editNoteTitle(thisNoteTitle) {
+    let editedNoteTitle = $("#edit-note-title").val().trim();
+    console.log(thisNoteTitle);
+    console.log(editedNoteTitle);
+    let findNote = currentUser.findNote(editedNoteTitle);
+    if (findNote && editedNoteTitle !== thisNoteTitle) {
+        $(this).addClass("border-danger");
+        $('.new-note-alert-error').text(`A note ${newNoteTitle} already exists in your repository!`);
+        $('.new-note-alert-error').show();
+    }
+    else if (editedNoteTitle.length === 0) {
+        $(this).addClass("border-danger");
+        $('.new-note-alert-error').text(`A note name must be provided!`);
+        $('.new-note-alert-error').show();
+    }
+    else if (!isValidName(editedNoteTitle)) {
+        $(this).addClass("border-danger");
+        $('.new-note-alert-error').text(`Note name must contain only characters, numeric digits and underscore!`);
+        $('.new-note-alert-error').show();
+    }
+    else {
+        $(this).removeClass("border-danger");
+        $('.new-note-alert-error').hide();
+    }
+}
+
+
 function displayContextMenu(e) {
     let repoZoneWidth = 0;
     if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();

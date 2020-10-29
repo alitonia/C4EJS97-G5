@@ -53,7 +53,7 @@
     line-height: 30px;
 }
 
-.delete-note-btn, .edit-note-btn, #save-new-note-btn, #delete-new-note-btn{
+.delete-note-btn, .edit-note-btn, #save-new-note-btn, #delete-new-note-btn, #save-edit-note-btn, #delete-edit-note-btn{
     margin-bottom: 10px;
     float: right;
     font-size: 25px;
