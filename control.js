@@ -255,7 +255,6 @@ function displayFile(folder, file) {
                 updateTreeView();
                 displayFile(folder, file);
                 $("#deleteNoteConfirm").modal("hide");
-                $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
             })
         }
     }
@@ -296,14 +295,13 @@ function displayFile(folder, file) {
                     note.createdDate = modifyDate;
                     updateTreeView();
                     displayFile(folder, file);
-                    $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+                    $(".note-container")[i].scrollIntoView({ behavior: "smooth", block: "center" });
                 }
             })
             $('#delete-new-note-btn').click(function () {
                 file.deleteNote(noteList[i]);
                 updateTreeView();
                 displayFile(folder, file);
-                $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
             })
         }
     }
@@ -315,11 +313,10 @@ function displayFile(folder, file) {
 
 function displaySearchResult(folder, file) {
     let searchInput = $("#key-search").val().trim().toLowerCase();
+    $('.repo-detail').hide();
     $('.folder-detail').hide();
     $('.file-detail').show();
-
     let noteSearchList = file.searchNote(searchInput);
-    console.log(noteSearchList);
     noteListZone.innerHTML = "";
     for (let i = 0; i < noteSearchList.length; i++) {
         let note = noteSearchList[i];
@@ -347,15 +344,61 @@ function displaySearchResult(folder, file) {
         `;
     }
     let deleteBtns = document.getElementsByClassName("delete-note-btn");
-    for (deleteBtn of deleteBtns) {
-        deleteBtn.onclick = function () {
-            let noteTitle = this.parentElement.parentElement.querySelector(".note-title").innerText;
+    let editBtns = document.getElementsByClassName("edit-note-btn");
+    for (let i = 0; i < deleteBtns.length; i++) {
+        deleteBtns[i].onclick = function () {
             $('#delete-note').click(function () {
-                file.deleteNote(file.findNote(noteTitle));
+                file.deleteNote(noteSearchList[i]);
                 updateTreeView();
-                displayFile(folder, file);
+                displaySearchResult(folder, file);
                 $("#deleteNoteConfirm").modal("hide");
-                $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+            })
+        }
+    }
+    for (let i = 0; i < editBtns.length; i++) {
+        editBtns[i].onclick = function () {
+            let noteContainer = editBtns[i].parentElement.parentElement;
+            let note = noteList[i];
+            let modifyDate = new Date();
+            noteContainer.innerHTML = `
+                <div class="note-left-col align-items-center">
+                    <img class="note-img" src="${note.img}" alt="note img">
+                    <p class='note-date text-center'>${formatDate(modifyDate)}</p>
+                </div>
+                <div class="note-right-col">
+                    <input class="form-control bg-light w-100" type="text" placeholder="Note Title" id="new-note-title" value="${note.title}"> 
+                    <div class='note-link my-3'>
+                        <input class="form-control text-primary" type="text" placeholder="Attach Your Link Here" id="new-note-link" value="${note.attachedLink}"> 
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="new-note-content" rows="5" placeholder="Note Content" style="resize: none">${note.content}</textarea>
+                    </div>
+                    <div class="alert alert-danger new-note-alert-error hidden animate__animated animate__bounceIn" role="alert"></div></div>
+                <div class="note-btns">
+                    <div class="fas fa-file-export" id="save-new-note-btn"></div>
+                    <div class="fas fa-trash" id="delete-new-note-btn"></div>
+                </div>
+            `
+            $('#new-note-title').keyup(enterNoteTitle);
+            $('#save-new-note-btn').click(function () {
+                let newNoteTitle = $("#new-note-title").val().trim();
+                let newNoteLink = $("#new-note-link").val();
+                let newNoteContent = $("#new-note-content").val();
+                let findNote = currentUser.findNote(newNoteTitle);
+                if (newNoteTitle.length !== 0 && isValidName(newNoteTitle) && (!findNote || newNoteTitle === note.title)) {
+                    note.title = newNoteTitle;
+                    note.attachedLink = newNoteLink;
+                    note.content = newNoteContent;
+                    note.createdDate = modifyDate;
+                    updateTreeView();
+                    displaySearchResult(folder, file);
+                    $(".note-container")[i].scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            })
+            $('#delete-new-note-btn').click(function () {
+                file.deleteNote(noteList[i]);
+                updateTreeView();
+                displaySearchResult(folder, file);
             })
         }
     }
