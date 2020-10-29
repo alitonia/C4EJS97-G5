@@ -99,7 +99,7 @@ function addNewNote() {
     }
 }
 
-function displayRepository(user){
+function displayRepository(user) {
     $('.repo-detail').show();
     $('.file-detail').hide();
     $('.folder-detail').hide();
