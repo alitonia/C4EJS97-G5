@@ -43,14 +43,14 @@ function addNewNote() {
     if (!document.getElementById("new-note")) {
         let allNoteToggler = document.getElementsByClassName('fa-angle-right')[0];
         let date = new Date();
-        let img = `https://picsum.photos/id/${Math.floor(Math.random() * 100) + 100}/150/150`;
+        let img = autoGenerateImg();
         let tokens = analyzeRelativeLink($('.relative-link').text());
         let folder = currentUser.findFolder(tokens[0]);
         let file = folder.findFile(tokens[1]);
-        if (!allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.contains("active")) {
-            allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
-            allNoteToggler.classList.toggle("fa-angle-down");
-        }
+        // if (!allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.contains("active")) {
+        //     allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
+        //     allNoteToggler.classList.toggle("fa-angle-down");
+        // }
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
