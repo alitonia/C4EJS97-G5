@@ -151,16 +151,3 @@ function enterNoteTitle() {
         $('.new-note-alert-error').hide();
     }
 }
-
-function displayContextMenu(e) {
-    let repoZoneWidth = 0;
-    if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
-    let top = e.pageY - 50;
-    let left = e.pageX - repoZoneWidth;
-    $("#context-menu").css({
-        display: "block",
-        top: top,
-        left: left
-    }).addClass("show");
-    return false;
-}

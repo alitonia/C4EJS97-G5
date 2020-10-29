@@ -1,5 +1,6 @@
 var searchFolder, searchFile;
 var isTreeViewDisplayed;
+var onCMPosX, onCMPosY;
 
 let fileListZone = document.getElementsByClassName("file-list")[0];
 let noteListZone = document.getElementsByClassName("note-list")[0];
@@ -109,7 +110,7 @@ function displayFolder(folder) {
             <div class="file">
                 <div class="file-inside">
                     <img class="img-thumbnail" src="img\\file.png" alt="File">
-                    <p>${file.title}</p>
+                    <p style="user-select: none">${file.title}</p>
                 </div> 
             </div>
         `
@@ -120,7 +121,18 @@ function displayFolder(folder) {
         fileDiv.ondblclick = () => {
             displayFile(folder, fileList[i]);
         }
-        fileDiv.oncontextmenu = displayContextMenu;
+        fileDiv.oncontextmenu = function (e) {
+            let repoZoneWidth = 0;
+            if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
+            let top = e.pageY - 50;
+            let left = e.pageX - repoZoneWidth;
+            $("#context-menu").css({
+                display: "block",
+                top: top,
+                left: left
+            }).addClass("show");
+            return false;
+        }
     }
 }
 
