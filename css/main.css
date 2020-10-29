@@ -75,7 +75,7 @@ nav{
 }
 
 .relative-link{
-    width: inherit;
+    width: 100vw;
     font-weight: bold;
     font-size: 25px;
     padding-left: 20px;

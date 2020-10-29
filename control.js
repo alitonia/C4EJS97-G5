@@ -47,10 +47,10 @@ function addNewNote() {
         let tokens = analyzeRelativeLink($('.relative-link').text());
         let folder = currentUser.findFolder(tokens[0]);
         let file = folder.findFile(tokens[1]);
-        // if (!allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.contains("active")) {
-        //     allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
-        //     allNoteToggler.classList.toggle("fa-angle-down");
-        // }
+        if (!allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.contains("active")) {
+            allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
+            allNoteToggler.classList.toggle("fa-angle-down");
+        }
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
@@ -121,16 +121,36 @@ function displayFolder(folder) {
         fileDiv.ondblclick = () => {
             displayFile(folder, fileList[i]);
         }
-        fileDiv.oncontextmenu = function (e) {
+        fileDiv.oncontextmenu = (e) => {
             let repoZoneWidth = 0;
             if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
             let top = e.pageY - 50;
             let left = e.pageX - repoZoneWidth;
-            $("#context-menu").css({
-                display: "block",
-                top: top,
-                left: left
-            }).addClass("show");
+            $("#context-menu").css({ display: "block", top: top, left: left }).addClass("show");
+            $('#delete-file').click(() => {
+                folder.deleteFile(fileList[i]);
+                updateTreeView();
+                displayFolder(folder);
+            })
+            $('#rename-file').click(() => {
+                fileDiv.innerHTML = `
+                    <img class="img-thumbnail" src="img\\file.png" alt="File">
+                    <input class="form-control bg-light" type="text" placeholder="New Name" id="new-file-title">
+                `
+                $('#new-file-title').keyup(function (e) {
+                    let newFileTitle = $('#new-file-title').val().trim();
+                    let findFile = folder.findFile(newFileTitle);
+                    if (findFile || newFileTitle.length === 0 || !isValidName(newFileTitle)) $('#new-file-title').addClass("border-danger");
+                    else {
+                        $('#new-file-title').removeClass("border-danger");
+                        if (e.key === "Enter") {
+                            fileList[i].title = newFileTitle;
+                            updateTreeView();
+                            displayFolder(folder);
+                        }
+                    }
+                })
+            })
             return false;
         }
     }
