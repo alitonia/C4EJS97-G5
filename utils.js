@@ -19,8 +19,8 @@ function formatDate(date) {
 }
 
 function isValidName(name) {
-    const validName = /^[a-zA-Z\w\s]+$/;
-    return name.match(validName);
+    const VALID_NAME_REGEX = /^[a-zA-Z\w\s]+$/;
+    return name.match(VALID_NAME_REGEX);
 }
 
 function analyzeRelativeLink(relatveLink) {
