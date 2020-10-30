@@ -545,25 +545,42 @@ function updateHTML() {
     }
 }
 
-function findFolderTreeDiv(folderTitle) {
-    let folderTreeDivs = document.getElementsByClassName("folder-tree");
-    folderTreeDivs = new Array(...folderTreeDivs);
-    return folderTreeDivs.find((folderTreeDiv) => {
-        return folderTreeDiv.innerText.trim() === folderTitle;
-    })
+// function findFolderTreeDiv(folderTitle) {
+//     let folderTreeDivs = document.getElementsByClassName("folder-tree");
+//     folderTreeDivs = new Array(...folderTreeDivs);
+//     return folderTreeDivs.find((folderTreeDiv) => {
+//         return folderTreeDiv.innerText.trim() === folderTitle;
+//     })
+// }
+
+// function findFileTreeDiv(folderTitle, fileTitle) {
+//     let folderTreeDiv = findFolderTreeDiv(folderTitle);
+//     let fileTreeDivs = folderTreeDiv.parentElement.getElementsByClassName("file-tree");
+//     fileTreeDivs = new Array(...fileTreeDivs);
+//     return fileTreeDivs.find((fileTreeDiv) => {
+//         return fileTreeDiv.innerText.trim() === fileTitle;
+//     })
+// }
+
+function logOut(){
+    window.location = "index.html"
 }
 
-function findFileTreeDiv(folderTitle, fileTitle) {
-    let folderTreeDiv = findFolderTreeDiv(folderTitle);
-    let fileTreeDivs = folderTreeDiv.parentElement.getElementsByClassName("file-tree");
-    fileTreeDivs = new Array(...fileTreeDivs);
-    return fileTreeDivs.find((fileTreeDiv) => {
-        return fileTreeDiv.innerText.trim() === fileTitle;
-    })
+function initUserPage(user) {
+    displayRepository(user);
+    $('#user-name').text(`Welcome, ${user.userName}!`);
 }
 
-function initUserPage(currentUser){
-    window.localStorage.href = "index.html";
-    displayRepository(currentUser);
-    $('#user-name').text(`Welcome, ${currentUser.userName}!`);
+var currentUser;
+var currentUserJSON = localStorage.getItem('currentUser');
+
+if (currentUserJSON) {
+    currentUserJSON = JSON.parse(currentUserJSON);
+    currentUser = new User(currentUserJSON.userName, currentUserJSON.password);
+    currentUser.createdDate = new Date(currentUserJSON.createdDate);
+    currentUser.allNoteList = currentUserJSON.allNoteList;
+    currentUser.recentNoteList = currentUserJSON.recentNoteList;
+    currentUser.repository = currentUserJSON.repository;
+    initUserPage(currentUser);
 }
+

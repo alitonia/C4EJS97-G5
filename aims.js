@@ -74,6 +74,10 @@ class User {
         }
         return null;
     }
+
+    parse(objectJSON){
+
+    }
 }
 
 class Folder {
@@ -221,5 +225,4 @@ class Note {
 // userAdmin.addFolder(folder1);
 // userAdmin.addFolder(folder2);
 
-// var currentUser = userAdmin;
-// initUserPage(currentUser);
+// initUserPage(userAdmin);
