@@ -544,28 +544,31 @@ function updateHTML() {
     }
 }
 
-// function findFolderTreeDiv(folderTitle) {
-//     let folderTreeDivs = document.getElementsByClassName("folder-tree");
-//     folderTreeDivs = new Array(...folderTreeDivs);
-//     return folderTreeDivs.find((folderTreeDiv) => {
-//         return folderTreeDiv.innerText.trim() === folderTitle;
-//     })
-// }
+function findFolderTreeDiv(folderTitle) {
+    let folderTreeDivs = document.getElementsByClassName("folder-tree");
+    folderTreeDivs = new Array(...folderTreeDivs);
+    return folderTreeDivs.find((folderTreeDiv) => {
+        return folderTreeDiv.innerText.trim() === folderTitle;
+    })
+}
 
-// function findFileTreeDiv(folderTitle, fileTitle) {
-//     let folderTreeDiv = findFolderTreeDiv(folderTitle);
-//     let fileTreeDivs = folderTreeDiv.parentElement.getElementsByClassName("file-tree");
-//     fileTreeDivs = new Array(...fileTreeDivs);
-//     return fileTreeDivs.find((fileTreeDiv) => {
-//         return fileTreeDiv.innerText.trim() === fileTitle;
-//     })
-// }
+function findFileTreeDiv(folderTitle, fileTitle) {
+    let folderTreeDiv = findFolderTreeDiv(folderTitle);
+    let fileTreeDivs = folderTreeDiv.parentElement.getElementsByClassName("file-tree");
+    fileTreeDivs = new Array(...fileTreeDivs);
+    return fileTreeDivs.find((fileTreeDiv) => {
+        return fileTreeDiv.innerText.trim() === fileTitle;
+    })
+}
 
 function logOut(){
+    usersJSON = usersJSON.filter((user) => {
+        return user.userName !== currentUser.userName;
+    })
+    usersJSON.push(JSON.parse(JSON.stringify(currentUser)));
+    localStorage.setItem('users', JSON.stringify(usersJSON));
     localStorage.removeItem('currentUser');
-    localStorage.removeItem(`${currentUser.userName}`);
-    localStorage.setItem(`${currentUser.userName}`, JSON.stringify(currentUser));
-    window.location = "index.html"
+    window.location = "index.html";
 }
 
 function initUserPage(user) {
@@ -574,6 +577,7 @@ function initUserPage(user) {
 }
 
 var currentUser;
+var usersJSON = JSON.parse(localStorage.getItem('users'));
 var currentUserJSON = localStorage.getItem('currentUser');
 
 if (currentUserJSON) {
@@ -585,4 +589,3 @@ if (currentUserJSON) {
     currentUser.repository = currentUserJSON.repository;
     initUserPage(currentUser);
 }
-

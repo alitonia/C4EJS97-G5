@@ -3,6 +3,12 @@ var loginForm = document.getElementById("login");
 var signupForm = document.getElementById("signup");
 var slide = document.getElementById("btn");
 
+if (localStorage.getItem('users') === null || localStorage.getItem('users') === '[]') {
+    let admin = new User('admin', '123456');
+    let users = [admin];
+    localStorage.setItem('users', JSON.stringify(users));
+}
+
 function signupSlider() {
     loginForm.style.left = "-600px";
     signupForm.style.left = '75px';
@@ -32,24 +38,31 @@ function signUp() {
         $('.signup-alert').css('color', 'rgb(223, 106, 106)');
         $('.signup-alert').text(`Password must contains at least 6 characters`);
     }
-    else if (localStorage.getItem(signupUsername)) {
-        $('#signupUsername').addClass("error-alert-border");
-        $('.signup-alert').css('color', 'rgb(223, 106, 106)');
-        $('.signup-alert').text(`User name "${signupUsername}" already exists!`);
-    }
     else if (!isValidUsername(signupUsername)) {
         $('#signupUsername').addClass("error-alert-border");
         $('.signup-alert').css('color', 'rgb(223, 106, 106)');
         $('.signup-alert').text(`User name must contain only characters, numeric digits and/or underscore!`);
     }
     else {
-        let user = new User(signupUsername, signupPassword);
-        localStorage.setItem(signupUsername, JSON.stringify(user));
-        $('#loginUsername').val(`${signupUsername}`);
-        $('#loginPassword').focus();
-        setTimeout(() => loginSlider(), 1000)
-        $('.signup-alert').css('color', 'green');
-        $('.signup-alert').text("Sign up successfully!");
+        let usersJSON = JSON.parse(localStorage.getItem('users'));
+        let existedUser = usersJSON.find((user) => {
+            return user.userName === signupUsername;
+        })
+        if (existedUser) {
+            $('#signupUsername').addClass("error-alert-border");
+            $('.signup-alert').css('color', 'rgb(223, 106, 106)');
+            $('.signup-alert').text(`User name "${signupUsername}" already exists!`);
+        }
+        else{
+            let user = new User(signupUsername, signupPassword);
+            usersJSON.push(JSON.parse(JSON.stringify(user)))
+            localStorage.setItem('users', JSON.stringify(usersJSON));
+            $('#loginUsername').val(`${signupUsername}`);
+            $('#loginPassword').focus();
+            setTimeout(() => loginSlider(), 1000)
+            $('.signup-alert').css('color', 'green');
+            $('.signup-alert').text("Sign up successfully!");
+        }    
     };
 };
 
@@ -57,20 +70,22 @@ function logIn() {
     let loginUsername = document.getElementById('loginUsername').value;
     let loginPassword = document.getElementById('loginPassword').value;
 
-    if (loginUsername.length === 0 || loginPassword.length === 0){
+    if (loginUsername.length === 0 || loginPassword.length === 0) {
         $('.login-alert').text(`User name or password is missing!`);
         $('.login-alert').css('color', 'rgb(223, 106, 106)');
     }
     else {
-        let userJSON = localStorage.getItem(loginUsername);
+        let usersJSON = JSON.parse(localStorage.getItem('users'));
+        let userJSON = usersJSON.find((user) => {
+            return user.userName === loginUsername;
+        })
         if (!userJSON) {
             $('#loginUsername').addClass("error-alert-border");
             $('.login-alert').css('color', 'rgb(223, 106, 106)');
             $('.login-alert').text(`User name "${loginUsername}" not existed!`);
         } else {
-            let user = JSON.parse(userJSON);
-            if (loginUsername === user.userName && loginPassword === user.password) {
-                localStorage.setItem('currentUser', userJSON);
+            if (loginUsername === userJSON.userName && loginPassword === userJSON.password) {
+                localStorage.setItem('currentUser', JSON.stringify(userJSON));
                 window.location = "main.html";
             } else {
                 $('#loginPassword').addClass("error-alert-border");
