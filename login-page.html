@@ -19,7 +19,7 @@
     <form id ="login" class='input-group'>
       <input type="text" id='loginUsername' class='input-field' placeholder="User name" required>
       <input type="password" id='loginPassword' class='input-field' placeholder="Password" required>
-
+      <div class= "error-alert"></div>
       <button type="button" class=summit-btn onclick="logIn()">Log In</button>
     </form>
     
@@ -27,12 +27,15 @@
       <input type="text" id='signupUsername' class='input-field' placeholder="User name" required>
       <input type="password" id='signupPassword' class='input-field' placeholder="Password" required>
 
+      <div class= "error-alert"></div>
+
       <button type="button" class=summit-btn onclick='signUp()'>Sign Up</button>
     </form>
 
   </div>
 </div>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="login-page.js"></script>
 <script src="aims.js"></script>
 <body>
