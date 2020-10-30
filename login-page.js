@@ -6,13 +6,15 @@ var slide = document.getElementById("btn");
 function signupSlider() {
     loginForm.style.left = "-600px";
     signupForm.style.left = '75px';
-    slide.style.left = "165px"
+    slide.style.left = "165px";
+    $('.error-alert').text("");
 }
 
 function loginSlider() {
     loginForm.style.left = "75px";
     signupForm.style.left = '675px';
-    slide.style.left = "0px"
+    slide.style.left = "0px";
+    $('.error-alert').text("");
 }
 
 
