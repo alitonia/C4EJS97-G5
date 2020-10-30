@@ -74,10 +74,6 @@ class User {
         }
         return null;
     }
-
-    parse(objectJSON){
-
-    }
 }
 
 class Folder {

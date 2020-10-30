@@ -42,10 +42,9 @@ function addNewNote() {
     if (!document.getElementById("new-note")) {
         let allNoteToggler = document.getElementsByClassName('fa-angle-right')[0];
         let date = new Date();
-        let img = autoGenerateImg();
-        let tokens = analyzeRelativeLink($('.relative-link').text());
-        let folder = currentUser.findFolder(tokens[0]);
-        let file = folder.findFile(tokens[1]);
+        let img = autoGenerateImg();       
+        let folder = currentUser.findFolder(filterRelLink($('.relative-link .folder-link').text()))
+        let file = folder.findFile(filterRelLink($('.relative-link .file-link').text()));
         if (!allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.contains("active")) {
             allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.toggle("active");
             allNoteToggler.classList.toggle("fa-angle-down");

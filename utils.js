@@ -23,21 +23,15 @@ function isValidName(name) {
     return name.match(VALID_NAME_REGEX);
 }
 
-function analyzeRelativeLink(relatveLink) {
-    let tokens = relatveLink.split(`> `);
-    tokens = tokens.filter((token) => {
-        return token.length !== 0;
-    })
-    tokens[0] = tokens[0].trim();
-    tokens[1] = tokens[1].trim();
-    return tokens;
-}
-
 function highlight(content, searchText) {
     let searchExp = new RegExp(searchText, `ig`);
     let matches = content.match(searchExp);
     if (matches) content = content.replace(matches[0], `<span class='highlight'>` + matches[0] + `</span>`)
     return content;
+}
+
+function filterRelLink(link){
+    return link.trim().substr(2);
 }
 
 function autoGenerateImg() {
