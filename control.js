@@ -562,6 +562,9 @@ function updateHTML() {
 // }
 
 function logOut(){
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem(`${currentUser.userName}`);
+    localStorage.setItem(`${currentUser.userName}`, JSON.stringify(currentUser));
     window.location = "index.html"
 }
 
