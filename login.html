@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="bootstrap-4\css\bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="bootstrap-4\js\bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="form-box">
+            <div class='button-box'>
+                <div id='btn'></div>
+                <button type='button' class='toggle-btn' onclick="loginSlider()">Log In</button>
+                <button type='button' class='toggle-btn' onclick="signupSlider()">Sign Up</button>
+            </div>
+
+            <form id="login" class='input-group'>
+                <input type="text" id='loginUsername' class='input-field' placeholder="User name" autocomplete="off" required>
+                <input type="password" id='loginPassword' class='input-field' placeholder="Password" autocomplete="off" required>
+                <button type="button" class=summit-btn onclick="logIn()">Log In</button>
+            </form>
+
+            <form id="signup" class='input-group'>
+                <input type="text" id='signupUsername' class='input-field' placeholder="User name" autocomplete="off" required>
+                <input type="password" id='signupPassword' class='input-field' placeholder="Password" autocomplete="off" required>
+                <button type="button" class=summit-btn onclick='signUp()'>Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+    <script src="control.js"></script>
+</body>
+
+</html>

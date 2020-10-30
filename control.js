@@ -1,6 +1,5 @@
 var searchFolder, searchFile;
 
-
 let folderListZone = document.getElementsByClassName("folder-list")[0];
 let fileListZone = document.getElementsByClassName("file-list")[0];
 let noteListZone = document.getElementsByClassName("note-list")[0];
@@ -104,8 +103,8 @@ function displayRepository(user) {
     $('.repo-detail').show();
     $('.file-detail').hide();
     $('.folder-detail').hide();
-    $('.relative-link').text(`Your Repository`);
     $('.folder-list').html('');
+    $('.relative-link').html(`<div class="repo-link">&gt; Repository</div>`)
     let folderList = user.repository;
     folderList.forEach((folder) => {
         folderListZone.innerHTML += `
@@ -163,8 +162,12 @@ function displayFolder(folder) {
     $('.repo-detail').hide();
     $('.file-detail').hide();
     $('.folder-detail').show();
-    $('.relative-link').text(`> ${folder.title}`);
     $('.file-list').html('');
+    $('.relative-link').html(`
+        <div class="repo-link">&gt; Repository</div>
+        <div class="folder-link">&gt; ${folder.title}</div>
+    `)
+    $('.repo-link').click(() => displayRepository(currentUser));
     let fileList = folder.fileList;
     fileList.forEach((file) => {
         fileListZone.innerHTML += `
@@ -223,7 +226,13 @@ function displayFile(folder, file) {
     $('.repo-detail').hide();
     $('.folder-detail').hide();
     $('.file-detail').show();
-    $('.relative-link').text(`> ${folder.title} > ${file.title}`);
+    $('.relative-link').html(`
+        <div class="repo-link">&gt; Repository</div>
+        <div class="folder-link">&gt; ${folder.title}</div> &nbsp;
+        <div class="file-link">&gt; ${file.title}</div>
+    `);
+    $('.repo-link').click(() => displayRepository(currentUser));
+    $('.folder-link').click(() => displayFolder(folder));
     noteListZone.innerHTML = "";
     noteList.forEach((note) => {
         noteListZone.innerHTML += `
@@ -551,4 +560,10 @@ function findFileTreeDiv(folderTitle, fileTitle) {
     return fileTreeDivs.find((fileTreeDiv) => {
         return fileTreeDiv.innerText.trim() === fileTitle;
     })
+}
+
+function initUserPage(currentUser){
+    window.localStorage.href = "index.html";
+    displayRepository(currentUser);
+    $('#user-name').text(`Welcome, ${currentUser.userName}!`);
 }

@@ -76,11 +76,14 @@ nav{
 
 .relative-link{
     width: 100vw;
+    display: flex;
+    flex-direction: row;
     font-weight: bold;
     font-size: 25px;
     padding-left: 20px;
     background-color: #d6d2c4;
     position: fixed;   
+    user-select: none;
 }
 
 .repo-detail, .folder-detail, .file-detail{
@@ -118,4 +121,15 @@ nav{
     font-size: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.repo-link, .folder-link, .file-link{
+    user-select: none;;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.repo-link:hover, .folder-link:hover, .file-link:hover{
+    cursor: pointer;
+    background-color: #babec1;
 }
