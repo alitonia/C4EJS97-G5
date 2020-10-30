@@ -56,6 +56,8 @@ function logIn() {
 };
 
 
+
+//----------------------------------------------------------------------
 function isValid(name) {
     const VALID_NAME_REGEX = /^[a-zA-Z\w\s]+$/;
     return name.match(VALID_NAME_REGEX);
