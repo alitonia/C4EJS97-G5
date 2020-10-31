@@ -483,6 +483,7 @@ function updateTreeView() {
     fillAllNoteTree(currentUser.allNoteList);
     fillRecentNoteTree(currentUser.recentNoteList);
     fillRepoTree(currentUser.repository);
+    updateCurrentUserJSON();
     updateHTML();
 }
 
@@ -576,16 +577,21 @@ function initUserPage(user) {
     $('#user-name').text(`Welcome, ${user.userName}!`);
 }
 
-var currentUser;
+var currentUser = new User();
 var usersJSON = JSON.parse(localStorage.getItem('users'));
 var currentUserJSON = localStorage.getItem('currentUser');
 
 if (currentUserJSON) {
     currentUserJSON = JSON.parse(currentUserJSON);
-    currentUser = new User(currentUserJSON.userName, currentUserJSON.password);
+    currentUser.userName = currentUserJSON.userName;
+    currentUser.password = currentUserJSON.password
     currentUser.createdDate = new Date(currentUserJSON.createdDate);
     currentUser.allNoteList = currentUserJSON.allNoteList;
     currentUser.recentNoteList = currentUserJSON.recentNoteList;
     currentUser.repository = currentUserJSON.repository;
     initUserPage(currentUser);
+}
+
+function updateCurrentUserJSON(){
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
 }
