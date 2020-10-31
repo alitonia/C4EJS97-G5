@@ -42,7 +42,7 @@
         </div>
 
         <div class="navbar-collapse collapse" id="user-features">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <ul class="navbar-nav mr-auto mt-2">
                 <li class="nav-item">
                     <h3 class="float-right pr-3 text-white" id="user-name"></h3>
                 </li>
@@ -173,6 +173,12 @@
                 <li class="recent-notes"></li>
                 <div class="repo-list"></div>
             </ul>
+            <div class="dropdown-menu dropdown-menu-sm" id="treeview-context-menu">
+                <a class="dropdown-item" href="#" id="new-folder" data-toggle="modal"
+                    data-target="#newFolderWindow">New Folder</a>
+                    <a class="dropdown-item" href="#" id="new-file" data-toggle="modal"
+                    data-target="#newFileWindow">New File</a>
+            </div>
         </div>
 
         <div class="container-fluid px-0 detail-zone animate__animated">

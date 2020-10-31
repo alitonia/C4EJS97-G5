@@ -158,3 +158,19 @@ function enterNoteTitle() {
         $('.new-note-alert-error').hide();
     }
 }
+
+$('.repo-zone').contextmenu(function (e) {
+    let repoZoneWidth = 0;
+    if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
+    let top = e.pageY - 40;
+    let left = e.pageX;
+    $(".repo-zone #treeview-context-menu").css({ display: "block", top: top, left: left }).addClass("show");
+    return false;
+}).click(function(){
+    $(".repo-zone #treeview-context-menu").removeClass("show").hide();
+});
+
+$(".repo-zone #treeview-context-menu a").on("click", function () {
+    fillFolderOption();
+    $(this).parent().removeClass("show").hide();
+});
