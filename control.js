@@ -577,18 +577,13 @@ function initUserPage(user) {
     $('#user-name').text(`Welcome, ${user.userName}!`);
 }
 
-var currentUser = new User();
+var currentUser;
 var usersJSON = JSON.parse(localStorage.getItem('users'));
 var currentUserJSON = localStorage.getItem('currentUser');
 
 if (currentUserJSON) {
     currentUserJSON = JSON.parse(currentUserJSON);
-    currentUser.userName = currentUserJSON.userName;
-    currentUser.password = currentUserJSON.password
-    currentUser.createdDate = new Date(currentUserJSON.createdDate);
-    currentUser.allNoteList = currentUserJSON.allNoteList;
-    currentUser.recentNoteList = currentUserJSON.recentNoteList;
-    currentUser.repository = currentUserJSON.repository;
+    currentUser = User.prototype.parse(currentUserJSON);
     initUserPage(currentUser);
 }
 

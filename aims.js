@@ -74,6 +74,21 @@ class User {
         }
         return null;
     }
+
+    parse(jsonUser){
+        let user = new User(jsonUser.userName, jsonUser.password);
+        user.createdDate = new Date(jsonUser.createdDate);
+        jsonUser.allNoteList.forEach((note) => {
+            user.allNoteList.push(Note.prototype.parse(note));
+        })
+        jsonUser.recentNoteList.forEach((note) => {
+            user.recentNoteList.push(Note.prototype.parse(note));
+        })
+        jsonUser.repository.forEach((folder) => {
+            user.addFolder(Folder.prototype.parse(folder))
+        })
+        return user;
+    }
 }
 
 class Folder {
@@ -117,6 +132,15 @@ class Folder {
         }
         return null;
     }
+
+    parse(jsonFolder){
+        let folder = new Folder(jsonFolder.title);
+        folder.createdDate = new Date(folder.createdDate);
+        jsonFolder.fileList.forEach((file) => {
+            folder.addFile(File.prototype.parse(file));
+        })
+        return folder;
+    }
 }
 
 class File {
@@ -149,6 +173,15 @@ class File {
             let date = formatDate(note["createdDate"]);
             return title.includes(input) || content.includes(input) || date.includes(input);
         })
+    }
+
+    parse(jsonFile){
+        let file = new File(jsonFile.title);
+        file.createdDate = new Date(file.createdDate);
+        jsonFile.noteList.forEach((note) => {
+            file.addNote(Note.prototype.parse(note));
+        })
+        return file;
     }
 }
 
@@ -190,15 +223,10 @@ class Note {
         }
         return null;
     }
+
+    parse(jsonNote){
+        let note = new Note(jsonNote.title, jsonNote.attachedLink, jsonNote.content);
+        note.createdDate = new Date(jsonNote.createdDate);
+        return note;
+    }
 }
-
-let user = new User('beep', '123456');
-let folder = new Folder('ahihi');
-let folder2 = new Folder('nah');
-let file = new File('lame');
-let file2 = new File('bee');
-
-folder.addFile(file);
-folder2.addFile(file2);
-user.addFolder(folder);
-user.addFolder(folder2);
