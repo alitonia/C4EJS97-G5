@@ -38,19 +38,18 @@ nav{
 }
 
 .web-name{
-    top: 3.25%;
+    top: 3.2%;
     left: 50%;
     transform: translate(-50%, -50%);
     user-select: none;
+    font-family: 'Nanum Pen Script', cursive;
+    font-size: 3.5rem;
+    letter-spacing: 5px;
     position: fixed;
 }
 
 .web-name:hover{
     cursor: pointer;
-}
-
-.web-name:active{
-    background-color: #94b4a4;
 }
 
 .repo-zone {
