@@ -223,7 +223,7 @@ class Note {
         this.attachedLink = attachedLink;
         this.content = content;
         this.createdDate = new Date();
-        this.modifiedDate = new Date();
+        this.modifiedDate = this.createdDate;
         this.img = autoGenerateImg();
     }
 

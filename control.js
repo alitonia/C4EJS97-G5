@@ -244,7 +244,7 @@ function displayFile(folder, file) {
             <div class="shadow note-container my-5">
                 <div class="note-left-col align-items-center">
                     <img class="note-img" src="${note.img}" alt="note img">
-                    <p class='note-date text-center'>${formatDate(note.createdDate)}</p>
+                    <p class='note-date text-center'>${formatDate(note.modifiedDate)}</p>
                 </div>
                 <div class="note-right-col">
                     <h3 class='note-title font-weight-bold'>${note.title}</h3>       
@@ -306,7 +306,7 @@ function displayFile(folder, file) {
                     note.title = newNoteTitle;
                     note.attachedLink = newNoteLink;
                     note.content = newNoteContent;
-                    note.createdDate = modifyDate;
+                    note.modifiedDate = modifyDate;
                     updateTreeView();
                     displayFile(folder, file);
                     $(".note-container")[i].scrollIntoView({ behavior: "smooth", block: "center" });
@@ -403,7 +403,7 @@ function displaySearchResult(folder, file) {
                     note.title = newNoteTitle;
                     note.attachedLink = newNoteLink;
                     note.content = newNoteContent;
-                    note.createdDate = modifyDate;
+                    note.modifyDate = modifyDate;
                     updateTreeView();
                     displaySearchResult(folder, file);
                     $(".note-container")[i].scrollIntoView({ behavior: "smooth", block: "center" });
