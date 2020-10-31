@@ -509,8 +509,10 @@ function updateHTML() {
                 $('.file-detail').hide();
                 displayFolder(folder);
             }
-            this.parentElement.querySelector(".hidden").classList.toggle("active");
-            this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
+            if (!this.parentElement.querySelector(".hidden").classList.contains('active')){
+                this.parentElement.querySelector(".hidden").classList.toggle("active");
+                this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
+            }           
         }
     }
 
