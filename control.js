@@ -40,6 +40,7 @@ function addNewFile() {
 
 function addNewNote() {
     if (!document.getElementById("new-note")) {
+        if (!isTreeViewDisplayed) openTreeView();
         let allNoteToggler = document.getElementsByClassName('fa-angle-right')[0];
         let date = new Date();
         let img = autoGenerateImg();
