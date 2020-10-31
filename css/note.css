@@ -54,7 +54,7 @@
 }
 
 .delete-note-btn, .edit-note-btn, #save-new-note-btn, #delete-new-note-btn{
-    margin-bottom: 10px;
+    margin-bottom: 280px;
     float: right;
     font-size: 25px;
     width: 30px;
