@@ -336,12 +336,12 @@ function displaySearchResult(folder, file) {
         let note = noteSearchList[i];
         let noteContent = highlight(note.content, searchInput);
         let noteTitle = highlight(note.title, searchInput);
-        let noteCreatedDate = highlight(formatDate(note.createdDate), searchInput);
+        let noteModifiedDate = highlight(formatDate(note.modifiedDate), searchInput);
         noteListZone.innerHTML += `
         <div class="note-container my-5">
             <div class="note-left-col align-items-center">
                 <img class="note-img" src="${note.img}" alt="note img">
-                <p class='note-date text-center'>${noteCreatedDate}</p>
+                <p class='note-date text-center'>${noteModifiedDate}</p>
             </div>
             <div class="note-right-col">
                 <h3 class='note-title font-weight-bold'>${noteTitle}</h3>       
