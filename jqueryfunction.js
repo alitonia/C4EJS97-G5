@@ -36,6 +36,10 @@ $(".folder-detail #context-menu a").on("click", function () {
     $(this).parent().removeClass("show").hide();
 });
 
+$('.repo-detail').click(() => {
+    $(".repo-detail #folder-context-menu").removeClass("show").hide();
+})
+
 $('#new-folder-name').keyup(function (e) {
     let newFolderTitle = $('#new-folder-name').val().trim();
     let findFolder = currentUser.findFolder(newFolderTitle);
@@ -154,7 +158,3 @@ function enterNoteTitle() {
         $('.new-note-alert-error').hide();
     }
 }
-
-$('.repo-detail').click(() => {
-    $(".repo-detail #folder-context-menu").removeClass("show").hide();
-})

@@ -7,9 +7,12 @@
 }
 
 .folder>.folder-inside>p{
+    width: 100px;
     margin: auto;
     text-align: center;
-    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .folder>.folder-inside>input{

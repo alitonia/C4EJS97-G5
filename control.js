@@ -138,7 +138,7 @@ function displayRepository(user) {
                     <img class="img-thumbnail" src="img\\folder.png" alt="Folder">
                     <input class="form-control bg-light" type="text" placeholder="New Name" id="new-folder-title">
                 `
-                $('#new-folder-title').keyup(function (e) {
+                $('#new-folder-title').focus().keyup(function (e) {
                     let newFolderTitle = $('#new-folder-title').val().trim();
                     let findFolder = user.findFolder(newFolderTitle);
                     if (findFolder || newFolderTitle.length === 0 || !isValidName(newFolderTitle)) $('#new-folder-title').addClass("border-danger");
@@ -151,6 +151,9 @@ function displayRepository(user) {
                         }
                     }
                 })
+                folderDiv.onclick = function(){
+                    displayRepository(user)
+                }
             })
             return false;
         }
