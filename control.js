@@ -42,7 +42,7 @@ function addNewNote() {
     if (!document.getElementById("new-note")) {
         let allNoteToggler = document.getElementsByClassName('fa-angle-right')[0];
         let date = new Date();
-        let img = autoGenerateImg();       
+        let img = autoGenerateImg();
         let folder = currentUser.findFolder(filterRelLink($('.relative-link .folder-link').text()))
         let file = folder.findFile(filterRelLink($('.relative-link .file-link').text()));
         if (!allNoteToggler.parentElement.parentElement.querySelector(".hidden").classList.contains("active")) {
@@ -126,7 +126,7 @@ function displayRepository(user) {
             if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
             let top = e.pageY - 50;
             let left = e.pageX - repoZoneWidth;
-            $(".repo-detail #context-menu").css({ display: "block", top: top, left: left }).addClass("show");
+            $(".repo-detail #folder-context-menu").css({ display: "block", top: top, left: left }).addClass("show");
             $('#delete-folder-btn').click(() => {
                 user.deleteFolder(folderList[i]);
                 updateTreeView();
@@ -509,10 +509,10 @@ function updateHTML() {
                 $('.file-detail').hide();
                 displayFolder(folder);
             }
-            if (!this.parentElement.querySelector(".hidden").classList.contains('active')){
+            if (!this.parentElement.querySelector(".hidden").classList.contains('active')) {
                 this.parentElement.querySelector(".hidden").classList.toggle("active");
                 this.querySelector(".fa-angle-right").classList.toggle("fa-angle-down");
-            }           
+            }
         }
     }
 
@@ -564,7 +564,7 @@ function findFileTreeDiv(folderTitle, fileTitle) {
     })
 }
 
-function logOut(){
+function logOut() {
     usersJSON = usersJSON.filter((user) => {
         return user.userName !== currentUser.userName;
     })
@@ -589,6 +589,6 @@ if (currentUserJSON) {
     initUserPage(currentUser);
 }
 
-function updateCurrentUserJSON(){
+function updateCurrentUserJSON() {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
 }

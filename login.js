@@ -104,24 +104,33 @@ function isValidUsername(name) {
 
 $('#signupUsername').keyup(function (e) {
     let signupUsername = document.getElementById('signupUsername').value;
-
+    let signupPassword = document.getElementById('signupPassword').value;
     if (!isValidUsername(signupUsername)) {
         $('#signupUsername').addClass("error-alert-border");
         $('.signup-alert').css('color', 'rgb(223, 106, 106)');
         $('.signup-alert').text(`User name must contain only characters, numeric digits and/or underscore!`);
     }
     else {
+        if (signupPassword.length > 0) $('#signupPasswordname').removeClass("error-alert-border");
         $('#signupUsername').removeClass("error-alert-border");
         $('.signup-alert').text("");
+        if (e.key === "Enter") signUp();
     }
 })
 
 $('#signupPassword').keyup(function (e) {
+    let signupUsername = document.getElementById('signupUsername').value;
     let signupPassword = document.getElementById('signupPassword').value;
     if (signupPassword.length >= 6) {
+        if (signupUsername.length > 0) $('#signupUsername').removeClass("error-alert-border");
         $('#signupPassword').removeClass("error-alert-border");
         $('.signup-alert').text("");
+        if (e.key === "Enter") signUp();
     }
+})
+
+$('#loginUsername, #loginPassword').keyup(function(e){
+    if (e.key === "Enter") logIn();
 })
 
 $('.toggle-btn').click(function () {

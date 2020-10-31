@@ -24,10 +24,6 @@ $('.web-name').click(function () {
     displayRepository(currentUser);
 })
 
-$('.repo-detail').click(function () {
-    $(".repo-detail #context-menu").removeClass("show").hide();
-});
-
 $('.folder-detail').click(function () {
     $(".folder-detail #context-menu").removeClass("show").hide();
 });
@@ -158,3 +154,7 @@ function enterNoteTitle() {
         $('.new-note-alert-error').hide();
     }
 }
+
+$('.repo-detail').click(() => {
+    $(".repo-detail #folder-context-menu").removeClass("show").hide();
+})
