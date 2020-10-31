@@ -94,7 +94,6 @@ function addNewNote() {
         $('#delete-new-note-btn').click(function () {
             updateTreeView();
             displayFile(folder, file);
-            $(".note-container")[0].scrollIntoView({ behavior: "smooth", block: "center" });
         })
     }
 }
