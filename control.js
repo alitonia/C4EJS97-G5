@@ -418,6 +418,15 @@ function displaySearchResult(folder, file) {
     }
 }
 
+function sortFile(){
+    let folderTitle = filterRelLink($('.relative-link .folder-link').text());
+    let fileTitle = filterRelLink($('.relative-link .file-link').text());
+    let folder = currentUser.findFolder(folderTitle);
+    let file = currentUser.findFile(fileTitle);
+    file.sortByTitle();
+    displayFile(folder, file);
+}
+
 function fillAllFileTree(fileList) {
     let stringHtml = "";
     stringHtml += `

@@ -24,7 +24,7 @@ class User {
     }
 
     sortByCreatedDate() {
-        this.repository.sort(compareTime);
+        this.repository.sort(compareCreatedTime);
     }
 
     // Everytime an action of modification happens, we run these 3 methods
@@ -51,7 +51,7 @@ class User {
     updateRecentNotes() {
         const LIMIT = 10;
         let sortedAllNoteList = this.allNoteList;
-        sortedAllNoteList.sort(compareTime);
+        sortedAllNoteList.sort(compareModifiedTime);
         this.recentNoteList = [];
         for (let i = 0; i < sortedAllNoteList.length && i < LIMIT; i++) {
             let note = sortedAllNoteList[i];
@@ -134,7 +134,7 @@ class Folder {
     }
 
     sortByCreatedDate() {
-        this.fileList.sort(compareTime);
+        this.fileList.sort(compareCreatedTime);
     }
 
     moveFile(file, newFolder) {
@@ -179,6 +179,18 @@ class File {
         this.noteList = this.noteList.filter((n) => {
             return n.title !== note.title;
         })
+    }
+
+    sortByTitle() {
+        this.noteList.sort(compareAlphabetically)
+    }
+
+    sortByCreatedDate() {
+        this.noteList.sort(compareCreatedTime);
+    }
+
+    sortByModifiedDate() {
+        this.noteList.sort(compareModifiedTime);
     }
 
     findFolder(user){

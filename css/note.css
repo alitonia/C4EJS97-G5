@@ -85,7 +85,18 @@
     top: 190px;
 }
 
-#add-note-btn:hover, #search-btn:hover{
+#sort-file-btn{
+    right: 52px;
+    top: 510px;
+    font-size: 30px;
+    color: white;
+    background-color: #6c757d;
+    border: 10px solid #6c757d;
+    border-radius: 20%;
+    position: fixed;
+}
+
+#add-note-btn:hover, #search-btn:hover, #sort-file-btn:hover{
     cursor: pointer;
     background-color: #495057;
     border: 10px solid #495057;

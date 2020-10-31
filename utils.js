@@ -10,8 +10,12 @@ function compareAlphabetically(a, b) {
     return comparison;
 };
 
-function compareTime(a, b) {
+function compareCreatedTime(a, b) {
     return a.createdDate - b.createdDate;
+}
+
+function compareModifiedTime(a, b){
+    return a.modifiedDate - b.modifiedDate;
 }
 
 function formatDate(date) {
