@@ -204,7 +204,7 @@ function displayFolder(folder) {
                     <img class="img-thumbnail" src="img\\file.png" alt="File">
                     <input class="form-control bg-light" type="text" placeholder="New Name" id="new-file-title">
                 `
-                $('#new-file-title').keyup(function (e) {
+                $('#new-file-title').focus().keyup(function (e) {
                     let newFileTitle = $('#new-file-title').val().trim();
                     let findFile = folder.findFile(newFileTitle);
                     if (findFile || newFileTitle.length === 0 || !isValidName(newFileTitle)) $('#new-file-title').addClass("border-danger");
@@ -217,6 +217,9 @@ function displayFolder(folder) {
                         }
                     }
                 })
+                fileDiv.onclick = function(){
+                    displayFolder(folder);
+                }
             })
             return false;
         }
