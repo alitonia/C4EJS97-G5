@@ -28,7 +28,7 @@
             <button type="button" class="btn fas fa-plus" id="new-folder-btn" title="New Folder" data-toggle="modal"
                 data-target="#newFolderWindow" onclick="openTreeView();"></button>
             <button type="button" class="btn fas fa-file" id="new-file-btn" title="New File" data-toggle="modal"
-                data-target="#newFileWindow" onclick="openTreeView(); fillFolderOption();"></button>
+                data-target="#newFileWindow"></button>
         </div>
 
         <div class="web-name">
@@ -169,7 +169,8 @@
         <div class="container-fluid repo-zone bg-light border py-2 animate__animated animate__slideInLeft"
             style="display: none;">
             <ul>
-                <li class="all-notes mt-1"></li>
+                <li class="all-files mt-1"></li>
+                <li class="all-notes"></li>
                 <li class="recent-notes"></li>
                 <div class="repo-list"></div>
             </ul>

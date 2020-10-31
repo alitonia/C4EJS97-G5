@@ -45,7 +45,7 @@ $('#new-folder-name').keyup(function (e) {
     let findFolder = currentUser.findFolder(newFolderTitle);
     if (findFolder) {
         $('#new-folder-name').addClass("border-danger");
-        $('.new-folder-alert-error').text(`A folder ${newFolderTitle} already exists!`);
+        $('.new-folder-alert-error').text(`A folder "${newFolderTitle}" already exists in your repository!`);
         $('.new-folder-alert-error').show();
     }
     else if (newFolderTitle.length === 0) {
@@ -66,13 +66,11 @@ $('#new-folder-name').keyup(function (e) {
 })
 
 $('#new-file-name').keyup(function (e) {
-    let folderTitle = $('#folder-select').val();
     let newFileTitle = $('#new-file-name').val().trim();
-    let findFolder = currentUser.findFolder(folderTitle);
-    let findFile = findFolder.findFile(newFileTitle);
+    let findFile = currentUser.findFile(newFileTitle);
     if (findFile) {
         $('#new-file-name').addClass("border-danger");
-        $('.new-file-alert-error').text(`A file ${newFileTitle} already exists!`);
+        $('.new-file-alert-error').text(`A file "${newFileTitle}" already exists in your repository!`);
         $('.new-file-alert-error').show();
     }
     else if (newFileTitle.length === 0) {
@@ -123,7 +121,15 @@ function fillFolderOption() {
     currentUser.repository.forEach((folder) => {
         stringHtml += `<option value="${folder.title}">${folder.title}</option>`
     })
-    $('#folder-select').html(stringHtml).change(function () {
+    $('#folder-select').html(stringHtml);
+    if ($('.relative-link .folder-link').length > 0) {
+        let folderLink = filterRelLink($('.relative-link .folder-link').text());
+        console.log(folderLink);
+        $('#folder-select').val(folderLink);
+        $('#new-file-name').show();
+        $('#add-file-btn').show();
+    }
+    $('#folder-select').change(function () {
         if ($('#folder-select').val() !== "") {
             $('#new-file-name').show();
             $('#add-file-btn').show();
@@ -140,7 +146,7 @@ function enterNoteTitle() {
     let findNote = currentUser.findNote(newNoteTitle);
     if (findNote) {
         $(this).addClass("border-danger");
-        $('.new-note-alert-error').text(`A note ${newNoteTitle} already exists in your repository!`);
+        $('.new-note-alert-error').text(`A note "${newNoteTitle}" already exists in your repository!`);
         $('.new-note-alert-error').show();
     }
     else if (newNoteTitle.length === 0) {
@@ -160,13 +166,11 @@ function enterNoteTitle() {
 }
 
 $('.repo-zone').contextmenu(function (e) {
-    let repoZoneWidth = 0;
-    if (isTreeViewDisplayed) repoZoneWidth = $('.repo-zone').width();
     let top = e.pageY - 40;
     let left = e.pageX;
     $(".repo-zone #treeview-context-menu").css({ display: "block", top: top, left: left }).addClass("show");
     return false;
-}).click(function(){
+}).click(function () {
     $(".repo-zone #treeview-context-menu").removeClass("show").hide();
 });
 
@@ -174,3 +178,13 @@ $(".repo-zone #treeview-context-menu a").on("click", function () {
     fillFolderOption();
     $(this).parent().removeClass("show").hide();
 });
+
+$('#new-file-btn').click(function () {
+    openTreeView();
+    fillFolderOption();
+    let allFileToggler = document.getElementsByClassName('fa-angle-right')[0];
+    if (!allFileToggler.parentElement.parentElement.querySelector('.hidden').classList.contains("active")) {
+        allFileToggler.parentElement.parentElement.querySelector('.hidden').classList.toggle("active");
+        allFileToggler.classList.toggle("fa-angle-down");
+    }
+})

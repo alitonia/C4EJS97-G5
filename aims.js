@@ -4,6 +4,7 @@ class User {
         this.password = password;
         this.createdDate = new Date();
         this.allNoteList = [];
+        this.allFileList = [];
         this.recentNoteList = [];
         this.repository = [];
     }
@@ -26,7 +27,7 @@ class User {
         this.repository.sort(compareTime);
     }
 
-    // Everytime an action of modification happens, we run these 2 methods
+    // Everytime an action of modification happens, we run these 3 methods
     updateAllNotes() {
         let newNoteList = [];
         this.repository.forEach((folder) => {
@@ -37,6 +38,15 @@ class User {
             })
         })
         this.allNoteList = newNoteList;
+    }
+    updateAllFiles() {
+        let newFileList = [];
+        this.repository.forEach((folder) => {
+            folder.fileList.forEach((file) =>{
+                newFileList.push(file);
+            })
+        })
+        this.allFileList = newFileList;
     }
     updateRecentNotes() {
         const LIMIT = 10;
@@ -51,10 +61,22 @@ class User {
 
     findFolder(input) {
         for (let i = 0; i < this.repository.length; i++) {
-            input = input.toLowerCase();
             let folder = this.repository[i];
-            if (folder["title"].toLowerCase() === input) {
+            if (folder["title"].toLowerCase() === input.toLowerCase()) {
                 return folder;
+            }
+        }
+        return null;
+    }
+
+    findFile(input){
+        for (let i = 0 ; i < this.repository.length ; i++){
+            let folder = this.repository[i];
+            for (let j = 0 ; j < folder.fileList.length ;j++){
+                let file = folder.fileList[j];
+                if (file["title"].toLowerCase() === input.toLowerCase()){
+                    return file;
+                }
             }
         }
         return null;
@@ -67,8 +89,7 @@ class User {
                 let file = folder.fileList[j];
                 for (let k = 0; k < file.noteList.length; k++) {
                     let note = file.noteList[k];
-                    if (note.title === input)
-                        return note;
+                    if (note.title.toLowerCase() === input.toLowerCase()) return note;
                 }
             }
         }
@@ -160,6 +181,17 @@ class File {
         })
     }
 
+    findFolder(user){
+        for (let i = 0 ; i < user.repository.length ; i++){
+            let folder = user.repository[i];
+            for (let j = 0 ; j < folder.fileList.length ; j++){
+                let file = folder.fileList[j];
+                if (file.title === this.title) return folder;
+            }
+        }
+        return null;
+    }
+
     findNote(input) {
         return this.noteList.find((note) => {
             return note.title.toLowerCase() === input.toLowerCase();
@@ -191,6 +223,7 @@ class Note {
         this.attachedLink = attachedLink;
         this.content = content;
         this.createdDate = new Date();
+        this.modifiedDate = new Date();
         this.img = autoGenerateImg();
     }
 
