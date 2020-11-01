@@ -4,6 +4,7 @@
     font-family: sans-serif;
     font-size: 20px;
     color: white;
+    user-select: none;
 }
 
 *::-webkit-scrollbar {
@@ -83,7 +84,7 @@
 }
 
 #try-it-now-btn{
-    width: 40%;
+    width: 60%;
     padding: 20px 45px;
     cursor: pointer;
     background: #94b4a4;
