@@ -94,4 +94,11 @@
     margin-top: 40px;
     position: relative;
     box-shadow: 0 0 20px 9px#67e68d1f;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#try-it-now-btn:hover{
+    color: #94b4a4;
+    background-color: white;
 }

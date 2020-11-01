@@ -83,7 +83,7 @@ function addNewNote() {
             let findNote = currentUser.findNote(newNoteTitle);
             if (newNoteTitle.length !== 0 && isValidName(newNoteTitle) && !findNote) {
                 let newNote = new Note(newNoteTitle, newNoteLink, newNoteContent);
-                newNote.createdDate = date;
+                newNote.modifiedDate = date;
                 newNote.img = img;
                 file.addNote(newNote);
                 updateTreeView();
@@ -281,7 +281,7 @@ function displayFile(folder, file) {
             noteContainer.innerHTML = `
                 <div class="note-left-col align-items-center">
                     <img class="note-img" src="${note.img}" alt="note img">
-                    <p class='note-date text-center'>${formatDate(modifyDate)}</p>
+                    <p class='note-date text-center'>${formatDate(modifiedDate)}</p>
                 </div>
                 <div class="note-right-col">
                     <input class="form-control bg-light w-100" type="text" placeholder="Note Title" id="new-note-title" value="${note.title}"> 
@@ -417,15 +417,6 @@ function displaySearchResult(folder, file) {
             })
         }
     }
-}
-
-function sortFile() {
-    let folderTitle = filterRelLink($('.relative-link .folder-link').text());
-    let fileTitle = filterRelLink($('.relative-link .file-link').text());
-    let folder = currentUser.findFolder(folderTitle);
-    let file = currentUser.findFile(fileTitle);
-    file.sortByTitle();
-    displayFile(folder, file);
 }
 
 function fillAllFileTree(fileList) {

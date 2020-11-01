@@ -128,6 +128,8 @@ function sortFile() {
     let folder = currentUser.findFolder(folderTitle);
     let file = currentUser.findFile(fileTitle);
     file.sortByTitle();
+    console.log("sort");
+    console.log(file);
     displayFile(folder, file);
     isNoteListSorted = true;
 }
@@ -138,6 +140,8 @@ function unSortFile(){
     let folder = currentUser.findFolder(folderTitle);
     let file = currentUser.findFile(fileTitle);
     file.sortByCreatedDate();
+    console.log("unsort");
+    console.log(file);
     displayFile(folder, file);
     isNoteListSorted = false;
 }
