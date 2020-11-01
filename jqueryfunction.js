@@ -1,4 +1,5 @@
-var isTreeViewDisplayed;
+var isTreeViewDisplayed = false;
+var isNoteListSorted = false;
 
 $('#folder-tree-list-btn').click(toggleTreeView);
 
@@ -91,7 +92,7 @@ $('#new-file-name').keyup(function (e) {
 })
 
 function toggleTreeView() {
-    if (!$('.repo-zone').is(":visible")) openTreeView();
+    if (!isTreeViewDisplayed) openTreeView();
     else hideTreeView();
 }
 
@@ -114,6 +115,31 @@ function hideTreeView() {
         "float": "none"
     })
     isTreeViewDisplayed = false;
+}
+
+function toggleSortNote(){
+    if (!isNoteListSorted) sortFile();
+    else unSortFile();
+}
+
+function sortFile() {
+    let folderTitle = filterRelLink($('.relative-link .folder-link').text());
+    let fileTitle = filterRelLink($('.relative-link .file-link').text());
+    let folder = currentUser.findFolder(folderTitle);
+    let file = currentUser.findFile(fileTitle);
+    file.sortByTitle();
+    displayFile(folder, file);
+    isNoteListSorted = true;
+}
+
+function unSortFile(){
+    let folderTitle = filterRelLink($('.relative-link .folder-link').text());
+    let fileTitle = filterRelLink($('.relative-link .file-link').text());
+    let folder = currentUser.findFolder(folderTitle);
+    let file = currentUser.findFile(fileTitle);
+    file.sortByCreatedDate();
+    displayFile(folder, file);
+    isNoteListSorted = false;
 }
 
 function fillFolderOption() {
