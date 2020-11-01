@@ -19,6 +19,7 @@
     height: 80%;
     width: 80%;
     margin: auto;
+    transform: translate(5%, 0%);
 }
 
 .webname{
