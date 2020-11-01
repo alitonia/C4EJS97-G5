@@ -124,15 +124,20 @@ function fillFolderOption() {
     $('#folder-select').html(stringHtml);
     if ($('.relative-link .folder-link').length > 0) {
         let folderLink = filterRelLink($('.relative-link .folder-link').text());
-        console.log(folderLink);
         $('#folder-select').val(folderLink);
         $('#new-file-name').show();
         $('#add-file-btn').show();
+        setTimeout(function(){
+            $('#new-file-name').focus();
+        }, 500);
     }
     $('#folder-select').change(function () {
         if ($('#folder-select').val() !== "") {
             $('#new-file-name').show();
             $('#add-file-btn').show();
+            setTimeout(function(){
+                $('#new-file-name').focus();
+            }, 500);
         }
         else {
             $('#new-file-name').hide();
@@ -187,4 +192,42 @@ $('#new-file-btn').click(function () {
         allFileToggler.parentElement.parentElement.querySelector('.hidden').classList.toggle("active");
         allFileToggler.classList.toggle("fa-angle-down");
     }
+})
+
+$('#new-folder-btn').click(function () {
+    openTreeView();
+    setTimeout(function () {
+        $('#new-folder-name').focus();
+    }, 500);
+})
+
+$(document).ready(function () {
+    var ctrlDown = false,
+        ctrlKey = 17,
+        cmdKey = 91,
+        spaceKey = 32;
+
+    $(document).keydown(function (e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+    }).keyup(function (e) {
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+    });
+
+    $(document).keydown(function (e) {
+        if (ctrlDown && (e.keyCode == spaceKey)) return false;
+    });
+
+    $(document).keydown(function (e) {
+        if (ctrlDown && (e.keyCode == spaceKey)){
+            if ($('.folder-link').length === 0 && $('.file-link').length === 0){
+                $('#new-folder-btn').click();
+            }
+            if ($('.folder-link').length > 0 && $('.file-link').length === 0){
+                $('#new-file-btn').click();
+            }
+            if ($('.file-link').length > 0){
+                $('#add-note-btn').click();
+            }
+        }
+    });
 })

@@ -39,9 +39,9 @@ function addNewFile() {
 }
 
 function addNewNote() {
-    if (!document.getElementById("new-note")) {
+    if ($("#new-note").length === 0) {
         if (!isTreeViewDisplayed) openTreeView();
-        let allNoteToggler = document.getElementsByClassName('fa-angle-right')[0];
+        let allNoteToggler = document.getElementsByClassName('fa-globe-europe')[0].parentElement.getElementsByClassName('fa-angle-right')[0];
         let date = new Date();
         let img = autoGenerateImg();
         let folder = currentUser.findFolder(filterRelLink($('.relative-link .folder-link').text()))
@@ -74,7 +74,7 @@ function addNewNote() {
                 </div>
             </div>
         `;
-        $("#new-note")[0].scrollIntoView({ behavior: "smooth", block: "center" });
+        $("#new-note")[0].scrollIntoView({ behavior: "smooth", block: "center" })
         $('#new-note-title').keyup(enterNoteTitle);
         $('#save-new-note-btn').click(function () {
             let newNoteTitle = $("#new-note-title").val().trim();
@@ -96,6 +96,7 @@ function addNewNote() {
             displayFile(folder, file);
         })
     }
+    else $('#new-note-title').focus();
 }
 
 function displayRepository(user) {
@@ -418,7 +419,7 @@ function displaySearchResult(folder, file) {
     }
 }
 
-function sortFile(){
+function sortFile() {
     let folderTitle = filterRelLink($('.relative-link .folder-link').text());
     let fileTitle = filterRelLink($('.relative-link .file-link').text());
     let folder = currentUser.findFolder(folderTitle);
@@ -452,6 +453,23 @@ function fillAllFileTree(fileList) {
         stringHtml += `</ul></li>`;
     })
     $('.all-files').html(stringHtml);
+}
+
+function fillAllNoteTree(noteList) {
+    let stringHtml = "";
+    stringHtml += `
+        <div class="folder-tree">
+            <i class="fas fa-angle-right"></i>
+            <i class="fas fa-globe-europe"></i>
+            All notes
+        </div>
+        <ul class="hidden all-note-list animate__animated animate__slideInLeft">
+    `
+    noteList.forEach((note) => {
+        stringHtml += `<li><div class="note-tree">${note.title}</div></li>`
+    })
+    stringHtml += `</ul>`;
+    $('.all-notes').html(stringHtml);
 }
 
 function fillRecentNoteTree(noteList) {
@@ -507,6 +525,7 @@ function updateTreeView() {
     currentUser.updateAllNotes();
     currentUser.updateRecentNotes();
     fillAllFileTree(currentUser.allFileList);
+    fillAllNoteTree(currentUser.allNoteList);
     fillRecentNoteTree(currentUser.recentNoteList);
     fillRepoTree(currentUser.repository);
     updateCurrentUserJSON();

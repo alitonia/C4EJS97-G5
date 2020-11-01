@@ -90,7 +90,7 @@ nav{
     bottom: 0;
 }
 
-.animate__animated.animate__slideInLeft, .animate__animated.animate__fadeInDown, .animate__animated.animate__fadeInUp{
+.animate__animated.animate__slideInLeft, .animate__animated.animate__fadeInDown, .animate__animated.animate__fadeInUp, .animate__animated.animate__fadeIn{
     --animate-duration: 0.5s;
 }
 
