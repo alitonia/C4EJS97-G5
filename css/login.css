@@ -15,6 +15,7 @@
     font-size: 5.5rem;
     letter-spacing: 5px;
     color: white;
+    
 }
 
 .container{
@@ -31,7 +32,7 @@
     height: 570px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -45%);
+    transform: translate(-50%, -50%);
     background: white;
     padding: 7.5px;
     border-radius: 10%;
