@@ -277,7 +277,7 @@ function displayFile(folder, file) {
         editBtns[i].onclick = function () {
             let noteContainer = editBtns[i].parentElement.parentElement;
             let note = noteList[i];
-            let modifyDate = new Date();
+            let modifiedDate = new Date();
             noteContainer.innerHTML = `
                 <div class="note-left-col align-items-center">
                     <img class="note-img" src="${note.img}" alt="note img">
@@ -307,7 +307,7 @@ function displayFile(folder, file) {
                     note.title = newNoteTitle;
                     note.attachedLink = newNoteLink;
                     note.content = newNoteContent;
-                    note.modifiedDate = modifyDate;
+                    note.modifiedDate = modifiedDate;
                     updateTreeView();
                     displayFile(folder, file);
                     $(".note-container")[i].scrollIntoView({ behavior: "smooth", block: "center" });
@@ -374,11 +374,11 @@ function displaySearchResult(folder, file) {
         editBtns[i].onclick = function () {
             let noteContainer = editBtns[i].parentElement.parentElement;
             let note = noteSearchList[i];
-            let modifyDate = new Date();
+            let modifiedDate = new Date();
             noteContainer.innerHTML = `
                 <div class="note-left-col align-items-center">
                     <img class="note-img" src="${note.img}" alt="note img">
-                    <p class='note-date text-center'>${formatDate(modifyDate)}</p>
+                    <p class='note-date text-center'>${formatDate(modifiedDate)}</p>
                 </div>
                 <div class="note-right-col">
                     <input class="form-control bg-light w-100" type="text" placeholder="Note Title" id="new-note-title" value="${note.title}"> 
@@ -404,7 +404,7 @@ function displaySearchResult(folder, file) {
                     note.title = newNoteTitle;
                     note.attachedLink = newNoteLink;
                     note.content = newNoteContent;
-                    note.modifyDate = modifyDate;
+                    note.modifiedDate = modifiedDate;
                     updateTreeView();
                     displaySearchResult(folder, file);
                     $(".note-container")[i].scrollIntoView({ behavior: "smooth", block: "center" });
