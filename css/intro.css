@@ -98,7 +98,7 @@
     font-size: 22px;
 }
 
-#try-it-now-btn:hover{
+#try-it-now-btn:active{
     color: #94b4a4;
     background-color: white;
 }
