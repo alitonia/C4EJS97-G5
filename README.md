@@ -1,5 +1,9 @@
-# MyNotebook Project
+# My Notebook
 
-# Authors: Hoang Long, Phuong Ha. 
+### How to run:
 
-# To run project, just open index.html
+* Run `yarn install`
+
+* Run `yarn build`
+ 
+* Open index.html
