@@ -53,7 +53,7 @@ function addNewNote() {
         noteListZone.innerHTML += `
             <div class="note-container my-5" id="new-note">
                 <div class="note-left-col align-items-center">
-                    <img class="note-img" src="${img}" alt="note img">
+                    <${img} class="note-img" src="../img" alt="note img">
                     <p class='note-date text-center'>${formatDate(date)}</p>
                 </div>
                 <div class="note-right-col">
